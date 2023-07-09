@@ -1,0 +1,4 @@
+*.o
+pipex
+outfile
+infile
