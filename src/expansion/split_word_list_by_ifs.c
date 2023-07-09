@@ -46,7 +46,7 @@ t_words *split_word_by_ifs(t_words *words)
 	idx = 0;
 	second_word = ft_calloc(sizeof(t_words), 1);
 	ifs_word = ft_calloc(sizeof(t_words), 1);
-	ifs_word->token_type = IFS;
+	ifs_word->token_type = TMP_IFS;
 	third_word = words->next;
 	first_str = strdup_n(words->word, strlen_to_ifs(words->word));
 	while (is_ifs(words->word[idx]) == false && words->word[idx] != '\0')

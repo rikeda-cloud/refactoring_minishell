@@ -44,18 +44,22 @@ typedef struct s_global_data
 
 typedef enum e_token_type
 {
-	END = 0,
 	WORD,
-	PIPE,
+	PIPE_CHAR,
 	READ,
 	WRITE,
 	APPEND,
 	HEREDOC,
-	COMMAND,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	IFS,
+	TMP_SINGLE_QUOTE,
+	TMP_DOUBLE_QUOTE,
+	TMP_IFS,
 }	t_token_type;
+
+typedef enum e_node_type
+{
+	COMMAND,
+	PIPE,
+}	t_node_type;
 
 typedef struct s_words
 {
@@ -66,13 +70,14 @@ typedef struct s_words
 
 typedef struct s_tree_node
 {
-	t_token_type		node_type;
+	t_node_type		node_type;
 	t_words				*word_list;
 	struct s_tree_node	*prev;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;
 
+extern	char	**	environ;
 extern	t_global_data data;
 
 #endif

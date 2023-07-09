@@ -10,18 +10,10 @@ char	*type_to_char(int token_type)
 		return ("WRITE");
 	else if (token_type == READ)
 		return ("READ");
-	else if (token_type == END)
-		return ("END");
 	else if (token_type == APPEND)
 		return ("APPEND");
 	else if (token_type == HEREDOC)
 		return ("HEREDOC");
-	/* else if (token_type == SEMICOLON) */
-	/* 	return ("SEMICOLON"); */
-	/* else if (token_type == AND) */
-	/* 	return ("OR"); */
-	/* else if (token_type == OR) */
-	/* 	return ("OR"); */
 	else
 		return ("Error");
 }

@@ -8,7 +8,7 @@ bool	update_env(t_env **map, char *env_name, char *new_env_value)
 	if (target_env == NULL)
 		return (false);
 	free(target_env->value);
-	target_env->value = strdup(new_env_value);
+	target_env->value = ft_strdup(new_env_value);
 	if (target_env->value == NULL)
 		return (false);
 	return (true);

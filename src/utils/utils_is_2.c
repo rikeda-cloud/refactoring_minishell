@@ -25,9 +25,9 @@ static bool	is_syntax_error_word_list(t_words *word_list, t_words *prev_word)
 	t_words	*prev_node;
 
 	prev_node = word_list;
-	if (word_list->token_type != END)
+	if (word_list != NULL)
 		word_list = word_list->next;
-	while (word_list->word != NULL && word_list->token_type != END)
+	while (word_list!= NULL)
 	{
 		if (is_redirect(prev_node->token_type) && is_redirect(word_list->token_type))
 			return (print_syntax_error(word_list->word));
@@ -65,16 +65,16 @@ bool	is_syntax_error_words(t_words *words)
 
 	prev_word = words;
 	words = words->next;
-	if (prev_word->token_type == PIPE)
+	if (prev_word->token_type == PIPE_CHAR)
 		return (print_syntax_error(prev_word->word));
-	while (words != NULL && words->token_type != END)
+	while (words != NULL)
 	{
-		if (prev_word->token_type == PIPE && words->token_type == PIPE)
+		if (prev_word->token_type == PIPE_CHAR && words->token_type == PIPE_CHAR)
 			return (print_syntax_error(prev_word->word));
 		prev_word = words;
 		words = words->next;
 	}
-	if (prev_word->token_type == PIPE)
+	if (prev_word->token_type == PIPE_CHAR)
 		return (print_syntax_error(prev_word->word));
 	return (false);
 }

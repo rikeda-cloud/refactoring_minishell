@@ -2,10 +2,9 @@ NAME		=	lexer.a
 CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 UTILS		=	../utils
-SRCS		=	main.c \
-				change_str_to_words.c \
+SRCS		=	change_str_to_words.c \
 				lexical_analysis.c \
 				add_token_type.c \
 				$(UTILS)/utils_strdup.c \

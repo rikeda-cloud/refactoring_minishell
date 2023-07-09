@@ -11,9 +11,9 @@ static void	set_q_char(int *q_char, int	c)
 t_token_type type_single_or_double(int c)
 {
 	if (c == '\'')
-		return (SINGLE_QUOTE);
+		return (TMP_SINGLE_QUOTE);
 	else
-		return (DOUBLE_QUOTE);
+		return (TMP_DOUBLE_QUOTE);
 }
 
 t_words *append_word(t_words *words, char *str, size_t size, int flag)

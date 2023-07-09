@@ -12,8 +12,6 @@ char	*type_to_char(int token_type)
 		return ("WRITE");
 	else if (token_type == READ)
 		return ("READ");
-	else if (token_type == END)
-		return ("END");
 	else if (token_type == APPEND)
 		return ("APPEND");
 	else if (token_type == HEREDOC)

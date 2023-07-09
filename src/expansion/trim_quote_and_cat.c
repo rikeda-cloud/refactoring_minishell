@@ -2,9 +2,9 @@
 
 bool	is_quote_node(t_words *node)
 {
-	if (node->token_type == SINGLE_QUOTE)
+	if (node->token_type == TMP_SINGLE_QUOTE)
 		return (true);
-	if (node->token_type == DOUBLE_QUOTE)
+	if (node->token_type == TMP_DOUBLE_QUOTE)
 		return (true);
 	return (false);
 }
@@ -21,7 +21,7 @@ t_words *cat_words(t_words *words)
 	new_words->token_type = WORD;
 	while (words != NULL)
 	{
-		if (words->token_type == IFS)
+		if (words->token_type == TMP_IFS)
 			break ;
 		else if (is_quote_node(words) == false)
 			new_str = ft_strjoin(new_str, words->word);
@@ -35,7 +35,7 @@ t_words *cat_words(t_words *words)
 
 t_words		*get_next_start_word(t_words *words)
 {
-	while (words != NULL && words->token_type != IFS)
+	while (words != NULL && words->token_type != TMP_IFS)
 		words = words->next;
 	if (words == NULL)
 		return (NULL);

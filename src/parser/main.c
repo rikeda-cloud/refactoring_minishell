@@ -10,18 +10,10 @@ char	*type_to_char(int token_type)
 		return ("WRITE");
 	else if (token_type == READ)
 		return ("READ");
-	else if (token_type == END)
-		return ("END");
 	else if (token_type == APPEND)
 		return ("APPEND");
 	else if (token_type == HEREDOC)
 		return ("HEREDOC");
-	/* else if (token_type == SEMICOLON) */
-	/* 	return ("SEMICOLON"); */
-	/* else if (token_type == ANDJ) */
-	/* 	return ("AND"); */
-	/* else if (token_type == OR) */
-	/* 	return ("OR"); */
 	else if (token_type == COMMAND)
 		return ("COMMAND");
 	else
@@ -33,10 +25,10 @@ size_t	print_words(t_words *words)
 	size_t	size;
 	
 	size = 0;
-	while (words != NULL && words->token_type != END)
+	while (words != NULL)
 	{
 		printf("[%s]", words->word);
-		if (words->next->token_type != END)
+		if (words->next != NULL)
 			printf(" -> ");
 		words = words->next;
 		size++;

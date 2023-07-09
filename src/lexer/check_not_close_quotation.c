@@ -25,7 +25,7 @@ static bool	is_not_close_quotation(char *word)
 
 bool	check_not_close_quotation(t_words *words)
 {
-	while (words->word != NULL)
+	while (words != NULL)
 	{
 		if (is_not_close_quotation(words->word))
 			return (true);
@@ -33,10 +33,3 @@ bool	check_not_close_quotation(t_words *words)
 	}
 	return (false);
 }
-
-// bool	check_syntax(t_words *words)
-// {
-// 	if (check_not_close_quotation(words))
-// 		return (false);
-// 	return (true);
-// }
