@@ -4,7 +4,6 @@
 # define BUFFER_SIZE	100
 # define HASH_MAP_SIZE	27
 
-//  do not have to deal with ";&()"
 # define SPECIAL_CHAR	" \t\n<>|"
 # define SPACE_CHAR		" \t\n"
 # define IFS_CHAR		" \t\n"
