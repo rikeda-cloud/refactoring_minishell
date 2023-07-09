@@ -12,6 +12,8 @@ t_words		*change_str_to_words(char *str);
 void		add_word_type(t_words *words);
 bool		check_not_close_quotation(t_words *words);
 
+int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+
 /* ----------------- parser --------------------------- */
 
 t_tree_node	*create_tree(t_words *words);
