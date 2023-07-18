@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-char	*strdup_n(char *src, size_t n)
+char	*strdup_n(const char *src, size_t n)
 {
 	size_t	idx;
 	char	*dest;
@@ -16,7 +16,7 @@ char	*strdup_n(char *src, size_t n)
 	return (dest);
 }
 
-char	*strdup_word(char *str)
+char	*strdup_word(const char *str)
 {
 	char	*word;
 	size_t	word_size;

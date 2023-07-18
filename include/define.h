@@ -1,18 +1,20 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
-# define BUFFER_SIZE	100
-# define HASH_MAP_SIZE	27
+# define PROMPT "minishell >> "
 
-# define SPECIAL_CHAR	" \t\n<>|"
-# define SPACE_CHAR		" \t\n"
-# define IFS_CHAR		" \t\n"
-# define PROMPT			"minishell >> "
-# define SYNTAX_ERR_MES	"minishell: syntax error near unexpected token `%s'\n"
+# define SPECIAL_CHAR " \t\n<>|"
+# define SPACE_CHAR " \t\n"
+# define IFS_CHAR " \t\n"
 
-# define NOT_Q_MODE		0
-# define SINGLE_Q_MODE	1
-# define DOUBLE_Q_MODE	2 
+# define FMT_ERR_SYNTAX	"minishell: syntax error near unexpected token `%s'\n"
+# define FMT_ERR_EXIT	"bash: exit: %s: numeric argument required\n"
+# define FMT_ERR_MANY_ARG_CD "minishell: cd: too many arguments\n"
+# define FMT_ERR_MANY_ARG_EXIT "minishell: exit: too many arguments\n"
+# define FMT_ERR_NO_HOME	"minishell: cd: HOME not set\n"
+# define FMT_ERR_NO_FILE	"minishell: cd: %s: No such file or directory\n"
+#define FMT_ERR_NOT_CLOSE_QUOTATION "Error not close quotation\n"
+#define FMT_ERR_CAN_NOT_CREATE_MAP "Error hash map can not create\n"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -40,11 +42,13 @@ typedef struct s_global_data
 {
 	int		error_number;
 	t_env	**env_map;
+	char	*crr_dir;
+	char	*cmd_line;
 }	t_global_data;
 
 typedef enum e_token_type
 {
-	WORD,
+	WORD = 0,
 	PIPE_CHAR,
 	READ,
 	WRITE,
@@ -57,9 +61,23 @@ typedef enum e_token_type
 
 typedef enum e_node_type
 {
-	COMMAND,
+	COMMAND = 0,
 	PIPE,
 }	t_node_type;
+
+
+enum e_quote_mode
+{
+	NOT_Q_MODE = 0,
+	SINGLE_Q_MODE,
+	DOUBLE_Q_MODE,
+};
+
+enum e_size
+{
+	HASH_MAP_SIZE = 27,
+	BUFFER_SIZE = 100,
+};
 
 typedef struct s_words
 {
@@ -70,14 +88,14 @@ typedef struct s_words
 
 typedef struct s_tree_node
 {
-	t_node_type		node_type;
+	t_node_type			node_type;
 	t_words				*word_list;
 	struct s_tree_node	*prev;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;
 
-extern	char	**	environ;
+extern	char **environ;
 extern	t_global_data data;
 
 #endif

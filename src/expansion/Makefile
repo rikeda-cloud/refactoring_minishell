@@ -2,7 +2,7 @@ NAME		=	expansion.a
 CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 UTILS_DIR	=	../utils
 LIBFT_DIR	=	../libft
 ENV_DIR		=	../environ_control
@@ -23,6 +23,7 @@ SRCS		=	$(ENV_DIR)/insert_env_to_map.c \
 				trim_quote_and_cat.c \
 				variable_expansion.c \
 				replace.c \
+				$(UTILS_DIR)/get_leftmost_node.c \
 				$(UTILS_DIR)/utils_is.c
 OBJS		= 	$(SRCS:%.c=%.o)
 

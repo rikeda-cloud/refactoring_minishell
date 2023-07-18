@@ -22,7 +22,7 @@ t_words *append_word(t_words *words, char *str, size_t size, int flag)
 
 	if (words == NULL)
 	{
-		words_top_ptr = ft_calloc(sizeof(t_words), 1);
+		words_top_ptr = (t_words *)ft_calloc(sizeof(t_words), 1);
 		words_top_ptr->word = strdup_n(str, size);
 		if (flag)
 			words_top_ptr->token_type = type_single_or_double(*str);
@@ -32,7 +32,7 @@ t_words *append_word(t_words *words, char *str, size_t size, int flag)
 		words_top_ptr = words;
 		while (words->next != NULL)
 			words = words->next;
-		words->next = ft_calloc(sizeof(t_words), 1);
+		words->next = (t_words *)ft_calloc(sizeof(t_words), 1);
 		words->next->word = strdup_n(str, size);
 		if (flag)
 			words->next->token_type = type_single_or_double(*str);

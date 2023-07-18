@@ -9,5 +9,6 @@
 #include "utils.h"
 #include "environ_control.h"
 #include "expansion.h"
+#include "builtin.h"
 
 #endif

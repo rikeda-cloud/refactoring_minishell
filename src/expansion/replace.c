@@ -7,7 +7,7 @@ char	*calloc_new_str(char *str, char *target, char *new_word)
 	new_str_size = strlen(str);
 	new_str_size -= strlen(target);
 	new_str_size += strlen(new_word);
-	return (calloc(sizeof(char), (new_str_size + 1)));
+	return ((char *)calloc(sizeof(char), (new_str_size + 1)));
 }
 
 void	fill_new_str(char *str, char *new_str, char *target, char *new_word)
@@ -42,7 +42,7 @@ char	*replace(char *str, char *target, char *new_word)
 {
 	char	*new_str_ptr;
 
-	new_str_ptr = calloc_new_str(str, target, new_word);
+	new_str_ptr = (char *)calloc_new_str(str, target, new_word);
 	if (new_str_ptr == NULL)
 		return (NULL);
 	fill_new_str(str, new_str_ptr, target, new_word);

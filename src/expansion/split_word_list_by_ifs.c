@@ -44,8 +44,8 @@ t_words *split_word_by_ifs(t_words *words)
 	size_t	idx;
 
 	idx = 0;
-	second_word = ft_calloc(sizeof(t_words), 1);
-	ifs_word = ft_calloc(sizeof(t_words), 1);
+	second_word = (t_words *)ft_calloc(sizeof(t_words), 1);
+	ifs_word = (t_words *)ft_calloc(sizeof(t_words), 1);
 	ifs_word->token_type = TMP_IFS;
 	third_word = words->next;
 	first_str = strdup_n(words->word, strlen_to_ifs(words->word));

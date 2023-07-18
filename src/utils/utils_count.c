@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static size_t	check_append_or_heredoc_pattern(char *str)
+static size_t	check_append_or_heredoc_pattern(const char *str)
 {
 	if (str[0] == '>' && str[1] == '>')
 		return (2);
@@ -10,7 +10,7 @@ static size_t	check_append_or_heredoc_pattern(char *str)
 		return (1);
 }
 
-size_t	count_word_size(char *str)
+size_t	count_word_size(const char *str)
 {
 	size_t	size;
 	bool	quote_flag;

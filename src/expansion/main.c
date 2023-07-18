@@ -61,11 +61,11 @@ int	main (int argc, char **argv)
 		printf("argc = 1\n");
 		return (1);
 	}
-	words = lexical_analysis(argv[1]);
-	if (is_syntax_error_words(words))
+	words = lexer(argv[1]);
+	if (is_syntax_err_words(words))
 		return (0);
 	root = create_tree(words);
-	if (is_syntax_error_tree(root))
+	if (is_syntax_err_tree(root))
 		return (0);
 	if (root != NULL)
 		print_tree(root);

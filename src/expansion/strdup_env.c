@@ -1,13 +1,5 @@
 #include "../../include/minishell.h"
 
-void	reverse_flag(bool	*flag)
-{
-	if (*flag == true)
-		*flag = false;
-	else if (*flag == false)
-		*flag = true;
-}
-
 bool	is_dallor_in_str(char *str)
 {
 	bool	single_quote_flag;

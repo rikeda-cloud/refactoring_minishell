@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static void	identify_word_type(t_words *words)
+static void	identify_word_type(t_words *const words)
 {
 	if (ft_strncmp(words->word, "|", 2) == 0)
 		words->token_type = PIPE_CHAR;
@@ -15,17 +15,17 @@ static void	identify_word_type(t_words *words)
 	else
 		words->token_type = WORD;
 }
-	
-void	add_word_type(t_words *words)
+
+void	add_words_type(t_words *word_list)
 {
-	while (words != NULL)
+	while (word_list != NULL)
 	{
-		identify_word_type(words);
-		words = words->next;
+		identify_word_type(word_list);
+		word_list = word_list->next;
 	}
 }
 
-void	add_node_type(t_tree_node *node)
+void	add_node_type(t_tree_node *const node)
 {
 	if (node->word_list->token_type == PIPE_CHAR)
 		node->node_type = PIPE;

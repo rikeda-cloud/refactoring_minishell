@@ -1,24 +1,17 @@
 #include "../../include/minishell.h"
 
-t_tree_node		*get_start_node(t_tree_node *node)
-{
-	while (node->left != NULL)
-		node = node->left;
-	return (node);
-}
-
 t_words *expansion_node(t_tree_node *node)
 {
 	t_words *word_list;
 
 	if (is_redirect(node->word_list->token_type))
 	{
-		word_list = ft_calloc(sizeof(t_words), 1);
+		word_list = (t_words *)ft_calloc(sizeof(t_words), 1);
 		word_list->word = ft_strdup(node->word_list->word);
 		word_list->token_type = node->word_list->token_type;
 		if (node->word_list->token_type == HEREDOC)
 		{
-			word_list->next = ft_calloc(sizeof(t_words), 1);
+			word_list->next = (t_words *)ft_calloc(sizeof(t_words), 1);
 			word_list->next->word = ft_strdup(node->word_list->next->word);
 			word_list->next->token_type = node->word_list->next->token_type;
 		}
@@ -61,15 +54,15 @@ t_words	*expansion(t_tree_node *node)
 	return (new_word_list_top_ptr);
 }
 
-void	expansion_tree(t_tree_node *node)
+bool	expansion_tree(t_tree_node *node)
 {
-	node = get_start_node(node);
+	node = get_leftmost_node(node);
 	if (node->prev == NULL)
 		node->word_list = expansion(node);
 	else if (node->prev->prev == NULL)
 	{
 		node->word_list = expansion(node);
-		node->prev->left->word_list = expansion(node->prev->left);
+		node->prev->right->word_list = expansion(node->prev->right);
 	}
 	else
 	{
@@ -82,4 +75,5 @@ void	expansion_tree(t_tree_node *node)
 		}
 		node->word_list = expansion(node);
 	}
+	return (false);
 }

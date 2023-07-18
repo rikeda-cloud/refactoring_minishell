@@ -1,42 +1,32 @@
 #include "../../include/minishell.h"
 
-bool	is_space(int c)
+bool	is_space(const int c)
 {
 	size_t	idx;
 
 	idx = 0;
 	while (SPACE_CHAR[idx] != '\0')
 	{
-		if (SPACE_CHAR[idx] == c)
+		if (SPACE_CHAR[idx++] == c)
 			return (true);
-		idx++;
 	}
 	return (false);
 }
 
-bool	is_space_word(char *str)
-{
-	if (str[0] != '\0' && is_space(str[0]) && str[1] == '\0')
-		return (true);
-	else
-		return (false);
-}
-
-bool	is_special_char(int c)
+bool	is_special_char(const int c)
 {
 	size_t	idx;
 
 	idx = 0;
 	while (SPECIAL_CHAR[idx] != '\0')
 	{
-		if (SPECIAL_CHAR[idx] == c)
+		if (SPECIAL_CHAR[idx++] == c)
 			return (true);
-		idx++;
 	}
 	return (false);
 }
 
-bool	is_quotation(int c)
+bool	is_quotation(const int c)
 {
 	if (c == '\'')
 		return (true);
@@ -46,15 +36,15 @@ bool	is_quotation(int c)
 		return (false);
 }
 
-bool	is_only_quotation(char *word)
+bool	is_redirect(const t_token_type type)
 {
-	int	quotation;
-
-	if (is_quotation(*word))
-		quotation = *word;
-	else
-		return (false);
-	if (word[0] != '\0' && word[1] == quotation && word[2] == '\0')
+	if (type == WRITE)
+		return (true);
+	else if (type == READ)
+		return (true);
+	else if (type == APPEND)
+		return (true);
+	else if (type == HEREDOC)
 		return (true);
 	else
 		return (false);

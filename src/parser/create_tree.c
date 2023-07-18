@@ -1,73 +1,84 @@
 #include "../../include/minishell.h"
 
-static t_words	*get_target_word(t_words *words, t_token_type type)
+static t_words	*get_target_word(t_words *word_list, t_token_type type)
 {
 	t_words	*tmp_word_ptr;
 
-	while (words != NULL)
+	tmp_word_ptr = NULL;
+	while (word_list != NULL)
 	{
-		if (words->token_type == type)
-			tmp_word_ptr = words;
-		words = words->next;
+		if (word_list->token_type == type)
+			tmp_word_ptr = word_list;
+		word_list = word_list->next;
 	}
 	return (tmp_word_ptr);
 }
 
-static t_words	*get_target_prev_word(t_words *words, t_token_type type)
+static t_words	*get_target_prev_word(t_words *word_list, t_token_type type)
 {
 	t_words	*tmp_word_ptr;
 	t_words	*tmp_prev_word_ptr;
 
-	tmp_prev_word_ptr = words;
-	while (words != NULL)
+	tmp_word_ptr = NULL;
+	tmp_prev_word_ptr = word_list;
+	while (word_list != NULL)
 	{
-		if (words->token_type == type)
+		if (word_list->token_type == type)
 			tmp_word_ptr = tmp_prev_word_ptr;
-		tmp_prev_word_ptr = words;
-		words = words->next;
+		tmp_prev_word_ptr = word_list;
+		word_list = word_list->next;
 	}
 	return (tmp_word_ptr);
 }
 
-static void	split_by_type(t_tree_node *node, t_token_type type)
+static void	split_by_pipe(t_tree_node *node, t_token_type type, bool *err_flag)
 {
-	t_tree_node	*left;
-	t_tree_node	*right;
-	t_words		*tmp_word_ptr;
+	t_words	*tmp_word_ptr;
 
-	left = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
-	right = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
-	tmp_word_ptr = get_target_word(node->word_list, type);
-	left->word_list = node->word_list;
-	node->word_list = tmp_word_ptr;
-	right->word_list = tmp_word_ptr->next;
+	node->left = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
+	node->right = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
+	if (node->left == NULL || node->right == NULL)
+	{
+		printf("Error malloc\n");
+		*err_flag = true;
+		return ;
+	}
+	node->left->word_list = node->word_list;
+	node->word_list = get_target_word(node->word_list, type);
+	node->right->word_list = node->word_list->next;
 	node->word_list->next = NULL;
-	tmp_word_ptr = get_target_prev_word(left->word_list, type);
+	tmp_word_ptr = get_target_prev_word(node->left->word_list, type);
 	tmp_word_ptr->next = NULL;
-	node->left = left;
-	node->right = right;
-	left->prev = node;
-	right->prev = node;
+	node->left->prev = node;
+	node->right->prev = node;
 }
 
-void	recursive_split_by_pipe(t_tree_node *node)
+static void	recursive_split_by_pipe(t_tree_node *node, bool *err_flag)
 {
+	if (*err_flag)
+		return ;
 	if (node != NULL && check_in_type(node->word_list, PIPE_CHAR))
 	{
-		split_by_type(node, PIPE_CHAR);
-		recursive_split_by_pipe(node->left);
-		recursive_split_by_pipe(node->right);
+		split_by_pipe(node, PIPE_CHAR, err_flag);
+		recursive_split_by_pipe(node->left, err_flag);
+		recursive_split_by_pipe(node->right, err_flag);
 	}
 	if (node != NULL)
 		add_node_type(node);
 }
 
-t_tree_node	*create_tree(t_words *words)
+t_tree_node	*create_tree(t_words *word_list)
 {
 	t_tree_node	*root;
+	bool		err_flag;
 
 	root = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
-	root->word_list = words;
-	recursive_split_by_pipe(root);
+	if (root == NULL)
+		return (NULL);
+	root->word_list = word_list;
+	err_flag = false;
+	recursive_split_by_pipe(root, &err_flag);
+	if (err_flag)
+		root = free_all_tree_node(root);
 	return (root);
 }

@@ -17,7 +17,7 @@ t_words *cat_words(t_words *words)
 	if (words == NULL)
 		return (NULL);
 	new_str = NULL;
-	new_words = ft_calloc(sizeof(t_words), 1);
+	new_words = (t_words *)ft_calloc(sizeof(t_words), 1);
 	new_words->token_type = WORD;
 	while (words != NULL)
 	{
@@ -29,7 +29,7 @@ t_words *cat_words(t_words *words)
 	}
 	new_words->word = new_str;
 	if (new_words->word == NULL)
-		new_words->word = ft_calloc(sizeof(char), 1);
+		new_words->word = (char *)ft_calloc(sizeof(char), 1);
 	return (new_words);
 }
 

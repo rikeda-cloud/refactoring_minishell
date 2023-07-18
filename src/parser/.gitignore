@@ -1,6 +1,2 @@
 *.o
 lexer
-add_token_type.c
-bundle_than_sign.c
-change_str_to_words.c
-lexical_analysis.c
