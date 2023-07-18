@@ -62,7 +62,6 @@ int	main (void)
 	}
 	data.crr_dir = getcwd(NULL, 0);
 	data.error_number = 0;
-	data.cmd_line = NULL;
 	exec_shell_loop();
 	/* free_all(); */
 	return (data.error_number);

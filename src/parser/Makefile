@@ -14,8 +14,6 @@ SRCS		=	change_str_to_word_list.c \
 				$(UTILS)/utils_strdup.c \
 				$(UTILS)/utils_count.c \
 				$(UTILS)/utils_is.c \
-				$(UTILS)/utils_del.c \
-				$(UTILS)/utils_check.c \
 				$(UTILS)/print_fmt_err_syntax.c \
 				check_not_close_quotation.c
 OBJS		= 	$(SRCS:%.c=%.o)

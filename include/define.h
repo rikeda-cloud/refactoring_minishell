@@ -7,6 +7,8 @@
 # define SPACE_CHAR " \t\n"
 # define IFS_CHAR " \t\n"
 
+# define NO_DEAL_SPACIAL_PARAM "*@#-$!0"
+
 # define FMT_ERR_SYNTAX	"minishell: syntax error near unexpected token `%s'\n"
 # define FMT_ERR_EXIT	"bash: exit: %s: numeric argument required\n"
 # define FMT_ERR_MANY_ARG_CD "minishell: cd: too many arguments\n"
@@ -43,7 +45,6 @@ typedef struct s_global_data
 	int		error_number;
 	t_env	**env_map;
 	char	*crr_dir;
-	char	*cmd_line;
 }	t_global_data;
 
 typedef enum e_token_type

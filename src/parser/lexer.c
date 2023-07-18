@@ -11,9 +11,6 @@ t_words	*lexer(const char *str)
 	if (check_not_close_quotation(word_list))
 		word_list = free_all_word_list(word_list);
 	else if (check_syntax_err_words(word_list))
-	{
-		/* data.cmd_line = ft_strjoin(str, heredoc_str); */
 		word_list = free_all_word_list(word_list);
-	}
 	return (word_list);
 }

@@ -1,25 +1,5 @@
 #include "../../include/minishell.h"
 
-
-bool	is_token_type_quotation(t_token_type type)
-{
-	if (type == TMP_SINGLE_QUOTE)
-		return (true);
-	if (type == TMP_DOUBLE_QUOTE)
-		return (true);
-	return (false);
-}
-
-void	change_quote_mode(int *mode, t_token_type type)
-{
-	if (*mode == SINGLE_Q_MODE || *mode == DOUBLE_Q_MODE)
-		*mode = NOT_Q_MODE;
-	else if (type == TMP_SINGLE_QUOTE)
-		*mode = SINGLE_Q_MODE;
-	else
-		*mode = DOUBLE_Q_MODE;
-}
-
 char	*replace_dallor_str_to_env(char *word, char *target)
 {
 	t_env *env;
