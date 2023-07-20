@@ -17,14 +17,18 @@ SRCS		=	$(ENV_DIR)/insert_env_to_map.c \
 				$(UTILS_DIR)/hash.c \
 				$(UTILS_DIR)/utils_strdup.c \
 				$(UTILS_DIR)/utils_count.c \
-				$(UTILS_DIR)/get_leftmost_node.c \
+				$(UTILS_DIR)/utils_get.c \
 				$(UTILS_DIR)/utils_is.c \
+				$(UTILS_DIR)/utils_free_tree.c \
+				$(UTILS_DIR)/utils_free_word_list.c \
+				$(UTILS_DIR)/utils_new.c \
+				$(UTILS_DIR)/reverse_flag.c \
+				ifs_func.c \
 				change_quote_mode.c \
-				search_env_position.c \
+				get_env_position.c \
 				expansion.c \
 				split_word_list_by_ifs.c \
 				split_word_list_by_quote.c \
-				strdup_env.c \
 				trim_quote_and_cat.c \
 				variable_expansion.c \
 				replace.c

@@ -15,34 +15,18 @@ static const char	*skip_space_char(const char *str)
 	return (str);
 }
 
-static t_words	*new_word(const char *str)
-{
-	t_words	*word_list;
-
-	word_list = (t_words *)ft_calloc(sizeof(t_words), 1);
-	if (word_list == NULL)
-		return (NULL);
-	word_list->word = strdup_word(str);
-	if (word_list->word == NULL)
-	{
-		free(word_list);
-		return (NULL);
-	}
-	return (word_list);
-}
-
 static t_words	*append_word_to_word_list(t_words *word_list, const char *str)
 {
 	t_words	*word_list_top_ptr;
 
 	word_list_top_ptr = word_list;
 	if (word_list == NULL)
-		word_list_top_ptr = new_word(str);
+		word_list_top_ptr = new_word_node(str);
 	else
 	{
 		while (word_list->next != NULL)
 			word_list = word_list->next;
-		word_list->next = new_word(str);
+		word_list->next = new_word_node(str);
 		if (word_list->next == NULL)
 		{
 			free_all_word_list(word_list_top_ptr);

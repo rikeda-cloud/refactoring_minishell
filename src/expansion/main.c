@@ -18,6 +18,10 @@ char	*type_to_char(int token_type)
 		return ("HEREDOC");
 	else if (token_type == COMMAND)
 		return ("COMMAND");
+	else if (token_type == DELIMITER)
+		return ("DELIMITER");
+	else if (token_type == DELIMITER_QUOTE)
+		return ("DELIMITER_QUOTE");
 	else
 		return ("Error");
 }
@@ -55,6 +59,7 @@ int	main (int argc, char **argv)
 	data.env_map = change_env_to_hash_map();
 	t_words *words;
 	t_tree_node *root;
+	bool	faild_flag;
 
 	if (argc == 1)
 	{
@@ -69,7 +74,9 @@ int	main (int argc, char **argv)
 	/* 	return (0); */
 	if (root != NULL)
 		print_tree(root);
-	expansion_tree(root);
-	print_tree(root);
+	faild_flag = false;
+	expansion_tree(root, &faild_flag);
+	if (faild_flag == false)
+		print_tree(root);
 	return (0);
 }

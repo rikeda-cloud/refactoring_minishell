@@ -5,7 +5,7 @@
 
 # define SPECIAL_CHAR " \t\n<>|"
 # define SPACE_CHAR " \t\n"
-# define IFS_CHAR " \t\n"
+# define IFS_CHARS " \t\n"
 
 # define NO_DEAL_SPACIAL_PARAM "*@#-$!0"
 
@@ -55,6 +55,8 @@ typedef enum e_token_type
 	WRITE,
 	APPEND,
 	HEREDOC,
+	DELIMITER,
+	DELIMITER_QUOTE,
 	TMP_SINGLE_QUOTE,
 	TMP_DOUBLE_QUOTE,
 	TMP_IFS,

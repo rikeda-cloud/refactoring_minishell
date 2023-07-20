@@ -10,7 +10,7 @@ static char	*new_new_str(char *str, char *target, const char *new_word)
 	new_str = (char *)calloc(sizeof(char), (new_str_size + 1));
 	if (new_str == NULL)
 		return (NULL);
-	env_position = search_env_position(str);
+	env_position = get_env_position(str);
 	ft_strlcat(new_str, str, (env_position - str + 1));
 	ft_strcat(new_str, new_word);
 	env_position += (strlen(target) + 1);

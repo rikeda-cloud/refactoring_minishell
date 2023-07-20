@@ -22,7 +22,7 @@ static const char	*skip_to_next_quote_or_dallor_prev_char(const char *str)
 	return (str);
 }
 
-const char	*search_env_position(const char *str)
+const char	*get_env_position(const char *str)
 {
 	bool	single_quote_flag;
 	bool	double_quote_flag;
@@ -47,4 +47,3 @@ const char	*search_env_position(const char *str)
 	}
 	return (str);
 }
-

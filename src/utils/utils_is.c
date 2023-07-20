@@ -13,6 +13,16 @@ bool	is_space(const int c)
 	return (false);
 }
 
+bool	is_only_space(const char *str)
+{
+	while (*str != '\0')
+	{
+		if (is_space(*str++) == false)
+			return (false);
+	}
+	return (true);
+}
+
 bool	is_special_char(const int c)
 {
 	size_t	idx;
@@ -34,6 +44,15 @@ bool	is_quotation(const int c)
 		return (true);
 	else
 		return (false);
+}
+
+bool	is_quote_node(t_words *node)
+{
+	if (node->token_type == TMP_SINGLE_QUOTE)
+		return (true);
+	if (node->token_type == TMP_DOUBLE_QUOTE)
+		return (true);
+	return (false);
 }
 
 bool	is_redirect(const t_token_type type)
@@ -68,4 +87,15 @@ bool	is_type_in_word_list(t_words *word_list, t_token_type word_type)
 		word_list = word_list->next;
 	}
 	return (false);
+}
+
+bool	is_only_null_char_node(t_words *word_list)
+{
+	while (word_list != NULL)
+	{
+		if (word_list->token_type != TMP_IFS && word_list->word[0] != '\0')
+			return (false);
+		word_list = word_list->next;
+	}
+	return (true);
 }

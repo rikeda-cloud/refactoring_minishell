@@ -13,13 +13,15 @@ char	*replace_dallor_str_to_env(char *word, char *target)
 		return (replace(word, target, env->value));
 }
 
-void	variable_expansion(t_words *words)
+void	variable_expansion(t_words *words, bool *err_flag)
 {
 	int		quote_mode;
 	char	*target;
 
 	quote_mode = NOT_Q_MODE;
-	while (words != NULL)
+	if (words == NULL)
+		*err_flag = true;
+	while (*err_flag == false && words != NULL)
 	{
 		target = strdup_env(words->word);
 		if (is_token_type_quotation(words->token_type))
@@ -30,6 +32,10 @@ void	variable_expansion(t_words *words)
 		else if (quote_mode == SINGLE_Q_MODE || target == NULL)
 			words = words->next;
 		else
+		{
 			words->word = replace_dallor_str_to_env(words->word, target);
+			if (words->word == NULL)
+				*err_flag = true;
+		}
 	}
 }

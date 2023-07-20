@@ -12,6 +12,8 @@ SRCS		=	change_str_to_word_list.c \
 				check_syntax_err_tree.c \
 				check_syntax_err_words.c \
 				$(UTILS)/utils_strdup.c \
+				$(UTILS)/utils_free_tree.c \
+				$(UTILS)/utils_free_word_list.c \
 				$(UTILS)/utils_count.c \
 				$(UTILS)/utils_is.c \
 				$(UTILS)/print_fmt_err_syntax.c \
