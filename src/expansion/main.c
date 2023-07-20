@@ -70,13 +70,13 @@ int	main (int argc, char **argv)
 	/* if (check_syntax_err_words(words)) */
 	/* 	return (0); */
 	root = create_tree(words);
-	/* if (check_syntax_err_tree(root)) */
-	/* 	return (0); */
 	if (root != NULL)
 		print_tree(root);
 	faild_flag = false;
 	expansion_tree(root, &faild_flag);
 	if (faild_flag == false)
 		print_tree(root);
+	if (check_syntax_err_tree(root))
+		return (0);
 	return (0);
 }

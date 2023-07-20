@@ -12,14 +12,8 @@ t_words	*trim_quote_and_cat(t_words *words, bool *err_flag);
 void	expansion_tree(t_tree_node *node, bool *faild_flag);
 t_words	*expansion_normal_pattern(t_tree_node *node, bool *err_flag);
 t_words	*expansion_assignment_pattern(t_tree_node *node, bool *err_flag);
+t_words	*expansion_node(t_tree_node *node, bool *err_flag, bool flag);
 t_words *expansion_heredoc_node(t_tree_node *node, bool *err_flag);
-t_words	*append_word_list(t_words *dst, t_words *src, bool *err_flag);
-
-/* ifs func */
-bool	is_ifs(int c);
-bool	is_in_ifs_char(const char *str);
-size_t	strlen_ifs(const char *str);
-size_t	strlen_to_ifs(const char *str);
 
 /* other */
 const char	*get_env_position(const char *str);

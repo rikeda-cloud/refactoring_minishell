@@ -51,6 +51,12 @@ t_words		*get_next_start_word(t_words *words);
 /* hash */
 int		hash(int c);
 
+/* ifs func */
+bool	is_ifs(int c);
+bool	is_in_ifs_char(const char *str);
+size_t	strlen_ifs(const char *str);
+size_t	strlen_to_ifs(const char *str);
+
 /* other */
 bool	print_fmt_err_syntax(char *unexpected_token);
 void	*reverse_flag(bool *flag);

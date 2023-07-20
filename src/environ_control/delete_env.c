@@ -4,9 +4,13 @@ static t_env	*del_env_node(t_env *env)
 {
 	t_env	*next_node;
 
+	if (env == NULL)
+		return (NULL);
 	next_node = env->next;
-	free(env->name);
-	free(env->value);
+	if (env->name != NULL)
+		free(env->name);
+	if (env->value != NULL)
+		free(env->value);
 	free(env);
 	return (next_node);
 }

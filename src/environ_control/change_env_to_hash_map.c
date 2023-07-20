@@ -9,6 +9,9 @@ t_env	**change_env_to_hash_map(void)
 	if (map == NULL)
 		return (NULL);
 	while (*environ != NULL)
-		insert_env_to_env_map(map, *environ++);
+	{
+		if (insert_env_to_env_map(map, *environ++) == NULL)
+			return (free_hash_map(map));
+	}
 	return (map);
 }
