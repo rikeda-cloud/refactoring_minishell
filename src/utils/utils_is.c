@@ -99,3 +99,43 @@ bool	is_only_null_char_node(t_words *word_list)
 	}
 	return (true);
 }
+
+static bool	is_assignment_cmd(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	else if (ft_strcmp(str, "export") == 0)
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_assignment_pattern(t_tree_node *node)
+{
+	t_words	*word_list;
+
+	word_list = node->word_list;
+	while (word_list != NULL)
+	{
+		if (is_redirect(word_list->token_type))
+			word_list = word_list->next->next;
+		else if (is_assignment_cmd(word_list->word))
+			return (true);
+		else
+			return (false);
+		word_list = word_list->next;
+	}
+	return (false);
+}
+
+bool	is_in_equal(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	while (*str != '\0')
+	{
+		if (*str++ == '=')
+			return (true);
+	}
+	return (false);
+}

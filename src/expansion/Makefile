@@ -27,6 +27,7 @@ SRCS		=	$(ENV_DIR)/insert_env_to_map.c \
 				change_quote_mode.c \
 				get_env_position.c \
 				expansion.c \
+				expansion_tree.c \
 				split_word_list_by_ifs.c \
 				split_word_list_by_quote.c \
 				trim_quote_and_cat.c \
