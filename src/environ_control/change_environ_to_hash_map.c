@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-t_env	**change_env_to_hash_map(void)
+t_env	**change_environ_to_hash_map(void)
 {
 	extern char	**environ;
 	t_env		**map;
@@ -10,7 +10,7 @@ t_env	**change_env_to_hash_map(void)
 		return (NULL);
 	while (*environ != NULL)
 	{
-		if (insert_env_to_env_map(map, *environ++) == NULL)
+		if (insert_env_to_env_map(map, ft_strdup(*environ++)) == NULL)
 			return (free_hash_map(map));
 	}
 	return (map);

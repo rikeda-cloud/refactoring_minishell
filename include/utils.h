@@ -33,6 +33,7 @@ size_t	count_word_size(const char *str);
 size_t	count_new_word_size(char *word);
 size_t	count_to_front_of_c(char *str, int c);
 size_t	count_env_size(const char *str);
+size_t	count_map_size(t_env **map);
 
 /* free */
 void	*free_str(char *str);
@@ -47,15 +48,16 @@ t_tree_node	*get_leftmost_node(t_tree_node *node);
 t_token_type get_quote_type(int c);
 t_token_type	get_delimiter_type(const char *str);
 t_words		*get_next_start_word(t_words *words);
+const char	*get_env_position(const char *str);
 
 /* hash */
 int		hash(int c);
 
 /* ifs func */
-bool	is_ifs(int c);
-bool	is_in_ifs_char(const char *str);
-size_t	strlen_ifs(const char *str);
-size_t	strlen_to_ifs(const char *str);
+bool	is_ifs(int c, t_data *data);
+bool	is_in_ifs_char(const char *str, t_data *data);
+size_t	strlen_ifs(const char *str, t_data *data);
+size_t	strlen_to_ifs(const char *str, t_data *data);
 
 /* other */
 bool	print_fmt_err_syntax(char *unexpected_token);

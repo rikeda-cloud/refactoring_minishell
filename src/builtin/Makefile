@@ -1,17 +1,19 @@
-NAME		=	expansion.a
+NAME		=	builtin.a
 CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
 ENV_DIR		=	../environ_control
-SRCS		=	change_quote_mode.c \
-				expansion.c \
-				expansion_node.c \
-				split_word_list_by_ifs.c \
-				split_word_list_by_quote.c \
-				trim_quote_and_cat.c \
-				variable_expansion.c \
-				replace.c
+SRCS		=	calc_exit_status.c \
+				cd.c \
+				echo.c \
+				exit.c \
+				export.c \
+				pwd.c \
+				unset.c \
+				fmt.c \
+				print_env.c \
+				is_option_n.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
 LIBFT_DIR	=	../libft
@@ -22,15 +24,11 @@ UTILS_DIR	=	../utils
 UTILS_A 	= 	utils.a
 UTILS		= 	$(UTILS_DIR)/$(UTILS_A)
 
-PARSER_DIR	=	../parser
-PARSER_A	=	parser.a
-PARSER		= 	$(PARSER_DIR)/$(PARSER_A)
-
 ENV_CTRL_DIR	=	../environ_control
 ENV_CTRL_A		=	environ_control.a
 ENV_CTRL		= 	$(ENV_CTRL_DIR)/$(ENV_CTRL_A)
 
-$(NAME): $(OBJS) $(PARSER) $(UTILS) $(LIBFT)
+$(NAME): $(OBJS) $(PARSER) $(UTILS) $(ENV_CTRL)
 	$(AR) $@ $^
 
 %.o: %.c
@@ -39,8 +37,8 @@ $(NAME): $(OBJS) $(PARSER) $(UTILS) $(LIBFT)
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(PARSER):
-	$(MAKE) -C $(PARSER_DIR)
+$(ENV_CTRL):
+	$(MAKE) -C $(ENV_CTRL_DIR)
 
 $(UTILS):
 	$(MAKE) -C $(UTILS_DIR)
@@ -48,7 +46,7 @@ $(UTILS):
 all: $(NAME)
 
 clean:	
-		$(RM) $(OBJS) $(PARSER_DIR)/*.[oa] $(LIBFT_DIR)/*.[oa] $(UTILS_DIR)/*.[oa]
+		$(RM) $(OBJS) $(ENV_CTRL_DIR)/*.[oa] $(LIBFT_DIR)/*.[oa] $(UTILS_DIR)/*.[oa]
 
 fclean:	clean
 		$(RM) $(NAME)

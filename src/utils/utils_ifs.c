@@ -1,11 +1,11 @@
 #include "../../include/minishell.h"
 
-bool	is_ifs(int c)
+bool	is_ifs(int c, t_data *data)
 {
 	const char	*ifs_chars;
 	t_env		*env_ifs;
 
-	env_ifs = select_env(data.env_map, "IFS");
+	env_ifs = select_env(data->env_map, "IFS");
 	if (env_ifs == NULL)
 		ifs_chars = IFS_CHARS;
 	else
@@ -18,34 +18,34 @@ bool	is_ifs(int c)
 	return (false);
 }
 
-bool	is_in_ifs_char(const char *str)
+bool	is_in_ifs_char(const char *str, t_data *data)
 {
 	if (str == NULL)
 		return (false);
 	while (*str != '\0')
 	{
-		if (is_ifs(*str++))
+		if (is_ifs(*str++, data))
 			return (true);
 	}
 	return (false);
 }
 
-size_t	strlen_ifs(const char *str)
+size_t	strlen_ifs(const char *str, t_data *data)
 {
 	size_t	size;
 
 	size = 0;
-	while (str[size] != '\0' && is_ifs(str[size]))
+	while (str[size] != '\0' && is_ifs(str[size], data))
 		size++;
 	return (size);
 }
 
-size_t	strlen_to_ifs(const char *str)
+size_t	strlen_to_ifs(const char *str, t_data *data)
 {
 	size_t	size;
 
 	size = 0;
-	while (str[size] != '\0' && is_ifs(str[size]) == false)
+	while (str[size] != '\0' && is_ifs(str[size], data) == false)
 		size++;
 	return (size);
 }

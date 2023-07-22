@@ -11,6 +11,8 @@ static t_env	*del_env_node(t_env *env)
 		free(env->name);
 	if (env->value != NULL)
 		free(env->value);
+	if (env->original != NULL)
+		free(env->original);
 	free(env);
 	return (next_node);
 }
@@ -42,7 +44,7 @@ bool	delete_env(t_env **map, char *env_name)
 {
 	int	hash_value;
 
-	if (select_env(map, env_name) == NULL)
+	if (map == NULL || select_env(map, env_name) == NULL)
 		return (false);
 	hash_value = hash(*env_name);
 	if (ft_strcmp(map[hash_value]->name, env_name) == 0)

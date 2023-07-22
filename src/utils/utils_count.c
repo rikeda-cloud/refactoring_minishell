@@ -63,3 +63,28 @@ size_t	count_env_size(const char *str)
 	}
 	return (counter);
 }
+
+static size_t	count_hash_list_size(t_env *hash_list)
+{
+	size_t	size;
+
+	size = 0;
+	while (hash_list != NULL)
+	{
+		size++;
+		hash_list = hash_list->next;
+	}
+	return (size);
+}
+
+size_t	count_map_size(t_env **map)
+{
+	size_t	idx;
+	size_t	size;
+
+	idx = 0;
+	size = 0;
+	while (idx < HASH_MAP_SIZE)
+		size += count_hash_list_size(map[idx++]);
+	return (size);
+}

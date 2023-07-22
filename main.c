@@ -1,7 +1,4 @@
-#include "include/expansion.h"
 #include "include/minishell.h"
-
-t_global_data data;
 
 void	minishell_handler(int signal)
 {
@@ -14,20 +11,20 @@ void	minishell_handler(int signal)
 	}
 }
 
-bool	exec_cmd(char *line)
+bool	exec_command_line(t_data *data, char *line)
 {
 	t_words	*word_list;
 	t_tree_node	*root;
 	bool		faild_flag;
 
-	word_list = lexer(line);
-	if (word_list == NULL)
+	word_list = lexer(line, data);
+	if (word_list == NULL || data->err_number != 0)
 		return (false);
-	root = parser(word_list);
-	if (root == NULL)
+	root = parser(word_list, data);
+	if (root == NULL || data->err_number != 0)
 		return (false);
 	faild_flag = false;
-	expansion_tree(root, &faild_flag);
+	expansion_tree(root, &faild_flag, data);
 	if (faild_flag)
 		return (false);
 	/* if (do_command(root)) */
@@ -36,19 +33,22 @@ bool	exec_cmd(char *line)
 	return (true);
 }
 
-void	exec_shell_loop(void)
+void	exec_shell_loop(t_data *data)
 {
 	char	*line;
 
-	while (1)
+	while (true)
 	{
 		line = readline(PROMPT);
 		if (line == NULL)
+		{
+			write(1, "\nexit\n", 6);
 			break ;
+		}
 		else if (line[0] != '\0')
 		{
-			exec_cmd(line);
 			add_history(line);
+			exec_command_line(data, line);
 		}
 		free(line);
 	}
@@ -56,17 +56,19 @@ void	exec_shell_loop(void)
 
 int	main (void)
 {
+	t_data	data;
 	signal(SIGINT, minishell_handler);
 	signal(SIGQUIT, SIG_IGN);
-	data.env_map = change_env_to_hash_map();
+	data.env_map = change_environ_to_hash_map();
 	if (data.env_map == NULL)
 	{
 		printf(FMT_ERR_CAN_NOT_CREATE_MAP);
 		return (1);
 	}
 	data.crr_dir = getcwd(NULL, 0);
-	data.error_number = 0;
-	exec_shell_loop();
-	/* free_all(); */
-	return (data.error_number);
+	data.err_number = 0;
+	exec_shell_loop(&data);
+	free_hash_map(data.env_map);
+	free_str(data.crr_dir);
+	return (data.err_number);
 }

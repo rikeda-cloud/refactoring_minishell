@@ -1,19 +1,19 @@
 #include "../../include/minishell.h"
 
-char	*replace_dallor_str_to_env(char *word, char *target)
+char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
 {
 	t_env *env;
 
-	env = select_env(data.env_map, target);
+	env = select_env(data->env_map, target);
 	if (*target == '?')
-		return (replace(word, target, ft_itoa(data.error_number)));
+		return (replace(word, target, ft_itoa(data->err_number)));
 	else if (env == NULL)
 		return (replace(word, target, ""));
 	else
 		return (replace(word, target, env->value));
 }
 
-void	variable_expansion(t_words *words, bool *err_flag)
+void	variable_expansion(t_words *words, bool *err_flag, t_data *data)
 {
 	int		quote_mode;
 	char	*target;
@@ -33,7 +33,7 @@ void	variable_expansion(t_words *words, bool *err_flag)
 			words = words->next;
 		else
 		{
-			words->word = replace_dallor_str_to_env(words->word, target);
+			words->word = replace_dallor_str_to_env(words->word, target, data);
 			if (words->word == NULL)
 				*err_flag = true;
 		}

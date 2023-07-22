@@ -78,7 +78,7 @@ static long int	atoi_minus(const char *nptr)
 	return (tmp);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int		plus_minus_mode;
 
