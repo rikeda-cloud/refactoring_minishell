@@ -1,4 +1,4 @@
-TARGET			=	minishell
+NAME			=	minishell
 CC				=	cc
 RM				=	rm -f
 CFLAGS			=	-Wall -Wextra -Werror -g
@@ -32,7 +32,7 @@ LIBFT_DIR		=	$(SRC_DIR)/libft
 LIBFT_A			=	libft.a
 LIBFT			= 	$(LIBFT_DIR)/$(LIBFT_A)
 
-$(TARGET): $(OBJS) $(BUILTIN) $(EXPANTION) $(PARSER) $(ENV_CTRL) $(UTILS) $(LIBFT)
+$(NAME): $(OBJS) $(BUILTIN) $(EXPANTION) $(PARSER) $(ENV_CTRL) $(UTILS) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@ $(READLINE)
 
 %.o: %.c
@@ -56,13 +56,13 @@ $(UTILS):
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-all: $(TARGET)
+all: $(NAME)
 
 clean:	
 		$(RM) $(OBJS) $(BUILTIN_DIR)/*.[oa] $(ENV_CTRL_DIR)/*.[oa] $(EXPANTION)/*.[oa] $(LIBFT_DIR)/*.[oa] $(PARSER_DIR)/*.[oa] $(UTILS_DIR)/*.[oa]
 
 fclean:	clean
-		$(RM) $(TARGET)
+		$(RM) $(NAME)
 
 re:		fclean all
 
