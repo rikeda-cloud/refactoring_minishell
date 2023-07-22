@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 t_global_data data;
-/* gcc main_cd.c cd.c ../libft/libft.a ../environ_control/select_env.c ../utils/utils_hash.c ../libft/ft_strcmp.c */
+/* gcc main_cd.c cd.c ../libft/libft.a ../environ_control/select_env.c ../utils/hash.c ../libft/ft_strcmp.c */
 int	main (void)
 {
 	// cd

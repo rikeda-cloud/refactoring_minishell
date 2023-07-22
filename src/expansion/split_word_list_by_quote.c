@@ -1,68 +1,79 @@
 #include "../../include/minishell.h"
 
-static void	set_q_char(int *q_char, int	c)
+static bool	set_quote_char(int *quote_char, int	c)
 {
-	if (*q_char == '\0')
-		*q_char = c;
+	if (*quote_char == '\0')
+		*quote_char = c;
 	else
-		*q_char = '\0';
+		*quote_char = '\0';
+	return (true);
 }
 
-t_token_type type_single_or_double(int c)
+static bool	is_need_split(int q_char, int c)
 {
-	if (c == '\'')
-		return (TMP_SINGLE_QUOTE);
+	if (is_quotation(c) && q_char == '\0')
+		return (true);
+	if (is_quotation(c) && q_char == c)
+		return (true);
 	else
-		return (TMP_DOUBLE_QUOTE);
+		return (false);
 }
 
-t_words *append_word(t_words *words, char *str, size_t size, int flag)
+bool	append_word(t_words **words, char *str, size_t size, bool flag)
 {
-	t_words *words_top_ptr;
+	t_words	*tmp_words;
 
-	if (words == NULL)
+	if (size == 0)
+		return (false);
+	else if (*words == NULL)
 	{
-		words_top_ptr = (t_words *)ft_calloc(sizeof(t_words), 1);
-		words_top_ptr->word = strdup_n(str, size);
-		if (flag)
-			words_top_ptr->token_type = type_single_or_double(*str);
+		*words = new_word_node_n(str, size, flag);
+		if (*words == NULL)
+			return (true);
 	}
 	else
 	{
-		words_top_ptr = words;
-		while (words->next != NULL)
-			words = words->next;
-		words->next = (t_words *)ft_calloc(sizeof(t_words), 1);
-		words->next->word = strdup_n(str, size);
-		if (flag)
-			words->next->token_type = type_single_or_double(*str);
+		tmp_words = *words;
+		while (tmp_words->next != NULL)
+			tmp_words = tmp_words->next;
+		tmp_words->next = new_word_node_n(str, size, flag);
+		if (tmp_words->next == NULL)
+		{
+			free_word_node(*words);
+			return (true);
+		}
 	}
-	return (words_top_ptr);
+	return (false);
+}
+
+static void	init_vars(int *q_char, char **save, char **str, t_words **new_word)
+{
+	*q_char = '\0';
+	*save = *str;
+	*new_word = NULL;
 }
 
 t_words	*split_str_by_quote(char *str)
 {
-	char	*save_ptr;
 	int		q_char;
+	char	*save;
 	t_words *new_word;
 
-	q_char = '\0';
-	save_ptr = str;
-	new_word = NULL;
+	init_vars(&q_char, &save, &str, &new_word);
 	while (*str != '\0')
 	{
-		if (is_quotation(*str) && (q_char == '\0' || q_char == *str))
+		if (is_need_split(q_char, *str) && set_quote_char(&q_char, *str))
 		{
-			set_q_char(&q_char, *str);
-			if (str - save_ptr != 0)
-				new_word = append_word(new_word, save_ptr, str - save_ptr, 0);
-			new_word = append_word(new_word, str, 1, 1);
-			save_ptr = str;
-			save_ptr++;
+			if (append_word(&new_word, save, str - save, false))
+				return (NULL);
+			if (append_word(&new_word, str, 1, true))
+				return (NULL);
+			save = str;
+			save++;
 		}
 		str++;
 	}
-	if (str - save_ptr != 0)
-		new_word = append_word(new_word, save_ptr, str- save_ptr, 0);
+	if (append_word(&new_word, save, str - save, false))
+		return (NULL);
 	return (new_word);
 }

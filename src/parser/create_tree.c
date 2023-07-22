@@ -57,7 +57,7 @@ static void	recursive_split_by_pipe(t_tree_node *node, bool *err_flag)
 {
 	if (*err_flag)
 		return ;
-	if (node != NULL && check_in_type(node->word_list, PIPE_CHAR))
+	if (node != NULL && is_type_in_word_list(node->word_list, PIPE_CHAR))
 	{
 		split_by_pipe(node, PIPE_CHAR, err_flag);
 		recursive_split_by_pipe(node->left, err_flag);

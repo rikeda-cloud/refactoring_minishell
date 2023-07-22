@@ -1,19 +1,5 @@
 #include "../../include/minishell.h"
 
-void	*free_all_word_list(t_words *word_list)
-{
-	t_words	*tmp;
-
-	while (word_list != NULL)
-	{
-		tmp = word_list;
-		word_list = word_list->next;
-		free(tmp->word);
-		free(tmp);
-	}
-	return (NULL);
-}
-
 static void	recursive_free_tree_node(t_tree_node *node)
 {
 	t_tree_node	*left;

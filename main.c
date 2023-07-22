@@ -1,3 +1,4 @@
+#include "include/expansion.h"
 #include "include/minishell.h"
 
 t_global_data data;
@@ -17,6 +18,7 @@ bool	exec_cmd(char *line)
 {
 	t_words	*word_list;
 	t_tree_node	*root;
+	bool		faild_flag;
 
 	word_list = lexer(line);
 	if (word_list == NULL)
@@ -24,7 +26,9 @@ bool	exec_cmd(char *line)
 	root = parser(word_list);
 	if (root == NULL)
 		return (false);
-	if (expansion_tree(root))
+	faild_flag = false;
+	expansion_tree(root, &faild_flag);
+	if (faild_flag)
 		return (false);
 	/* if (do_command(root)) */
 	/* 	return (false); */
@@ -62,7 +66,6 @@ int	main (void)
 	}
 	data.crr_dir = getcwd(NULL, 0);
 	data.error_number = 0;
-	data.cmd_line = NULL;
 	exec_shell_loop();
 	/* free_all(); */
 	return (data.error_number);

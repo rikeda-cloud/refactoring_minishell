@@ -1,78 +1,83 @@
 #include "../../include/minishell.h"
 
-bool	is_ifs(int c)
+t_words	*new_ifs_and_second_node(char *second_word)
+{
+	t_words	*ifs_and_second;
+
+	if (second_word == NULL)
+		return (NULL);
+	ifs_and_second = new_ifs_node();
+	if (ifs_and_second == NULL)
+		return (free_str(second_word));
+	if (is_only_space(second_word))
+	{
+		free(second_word);
+		return (ifs_and_second);
+	}
+	ifs_and_second->next = (t_words *)ft_calloc(sizeof(t_words), 1);
+	if (ifs_and_second->next == NULL)
+	{
+		free(ifs_and_second);
+		return (free_str(second_word));
+	}
+	ifs_and_second->next->word = second_word;
+	return (ifs_and_second);
+}
+
+t_words	*append_new_node(t_words *list, t_words *new_node)
+{
+	t_words	*head;
+
+	head = list;
+	while (list->next != NULL)
+		list = list->next;
+	list->next = new_node;
+	return (head);
+}
+
+t_words *split_word_by_ifs(t_words *word_list)
 {
 	size_t	idx;
+	char	*new_str;
+	t_words *ifs_and_second;
 
-	idx = 0;
-	while (IFS_CHAR[idx] != '\0')
+	idx = strlen_ifs(word_list->word);
+	new_str = strdup_n(&word_list->word[idx], strlen_to_ifs(&word_list->word[idx]));
+	if (new_str == NULL)
+		return (NULL);
+	idx += strlen_to_ifs(&word_list->word[idx]);
+	idx += strlen_ifs(&word_list->word[idx]);
+	ifs_and_second = new_ifs_and_second_node(ft_strdup(&word_list->word[idx]));
+	if (ifs_and_second == NULL)
 	{
-		if (IFS_CHAR[idx++] == c)
-			return (true);
+		free(new_str);
+		return (NULL);
 	}
-	return (false);
+	ifs_and_second = append_new_node(ifs_and_second, word_list->next);
+	free(word_list->word);
+	word_list->word = new_str;
+	word_list->next = ifs_and_second;
+	return (word_list);
 }
 
-bool	is_in_ifs_char(char *str)
-{
-	if (str == NULL)
-		return (false);
-	while (*str != '\0')
-	{
-		if (is_ifs(*str++))
-			return (true);
-	}
-	return (false);
-}
-
-size_t	strlen_to_ifs(char *str)
-{
-	size_t	size;
-
-	size = 0;
-	while (str[size] != '\0' && is_ifs(str[size]) == false)
-		size++;
-	return (size);
-}
-
-t_words *split_word_by_ifs(t_words *words)
-{
-	t_words *third_word;
-	t_words *second_word;
-	t_words *ifs_word;
-	char	*first_str;
-	size_t	idx;
-
-	idx = 0;
-	second_word = (t_words *)ft_calloc(sizeof(t_words), 1);
-	ifs_word = (t_words *)ft_calloc(sizeof(t_words), 1);
-	ifs_word->token_type = TMP_IFS;
-	third_word = words->next;
-	first_str = strdup_n(words->word, strlen_to_ifs(words->word));
-	while (is_ifs(words->word[idx]) == false && words->word[idx] != '\0')
-		idx++;
-	while (is_ifs(words->word[idx]) && words->word[idx] != '\0')
-		idx++;
-	second_word->word = ft_strdup(&words->word[idx]);
-	free(words->word);
-	words->word = first_str;
-	words->next = ifs_word;
-	words->next->next = second_word;
-	second_word->next = third_word;
-	return (words);
-}
-
-void	split_word_list_by_ifs(t_words *words)
+void	split_word_list_by_ifs(t_words *word_list, bool *err_flag)
 {
 	int	quote_mode;
 
 	quote_mode = NOT_Q_MODE;
-	while (words != NULL && words->word != NULL)
+	while (word_list != NULL)
 	{
-		if (is_token_type_quotation(words->token_type))
-			change_quote_mode(&quote_mode, words->token_type);
-		else if (quote_mode == NOT_Q_MODE && is_in_ifs_char(words->word))
-			words = split_word_by_ifs(words);
-		words = words->next;
+		if (is_token_type_quotation(word_list->token_type))
+			change_quote_mode(&quote_mode, word_list->token_type);
+		else if (quote_mode == NOT_Q_MODE && is_in_ifs_char(word_list->word))
+		{
+			word_list = split_word_by_ifs(word_list);
+			if (word_list == NULL)
+			{
+				*err_flag = true;
+				break ;
+			}
+		}
+		word_list = word_list->next;
 	}
 }

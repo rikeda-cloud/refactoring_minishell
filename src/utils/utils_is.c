@@ -13,6 +13,16 @@ bool	is_space(const int c)
 	return (false);
 }
 
+bool	is_only_space(const char *str)
+{
+	while (*str != '\0')
+	{
+		if (is_space(*str++) == false)
+			return (false);
+	}
+	return (true);
+}
+
 bool	is_special_char(const int c)
 {
 	size_t	idx;
@@ -36,6 +46,15 @@ bool	is_quotation(const int c)
 		return (false);
 }
 
+bool	is_quote_node(t_words *node)
+{
+	if (node->token_type == TMP_SINGLE_QUOTE)
+		return (true);
+	if (node->token_type == TMP_DOUBLE_QUOTE)
+		return (true);
+	return (false);
+}
+
 bool	is_redirect(const t_token_type type)
 {
 	if (type == WRITE)
@@ -48,4 +67,75 @@ bool	is_redirect(const t_token_type type)
 		return (true);
 	else
 		return (false);
+}
+
+bool	is_token_type_quotation(t_token_type type)
+{
+	if (type == TMP_SINGLE_QUOTE)
+		return (true);
+	if (type == TMP_DOUBLE_QUOTE)
+		return (true);
+	return (false);
+}
+
+bool	is_type_in_word_list(t_words *word_list, t_token_type word_type)
+{
+	while (word_list != NULL)
+	{
+		if (word_list->token_type == word_type)
+			return (true);
+		word_list = word_list->next;
+	}
+	return (false);
+}
+
+bool	is_only_null_char_node(t_words *word_list)
+{
+	while (word_list != NULL)
+	{
+		if (word_list->token_type != TMP_IFS && word_list->word[0] != '\0')
+			return (false);
+		word_list = word_list->next;
+	}
+	return (true);
+}
+
+static bool	is_assignment_cmd(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	else if (ft_strcmp(str, "export") == 0)
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_assignment_pattern(t_tree_node *node)
+{
+	t_words	*word_list;
+
+	word_list = node->word_list;
+	while (word_list != NULL)
+	{
+		if (is_redirect(word_list->token_type))
+			word_list = word_list->next->next;
+		else if (is_assignment_cmd(word_list->word))
+			return (true);
+		else
+			return (false);
+		word_list = word_list->next;
+	}
+	return (false);
+}
+
+bool	is_in_equal(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	while (*str != '\0')
+	{
+		if (*str++ == '=')
+			return (true);
+	}
+	return (false);
 }

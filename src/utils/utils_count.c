@@ -21,40 +21,19 @@ size_t	count_word_size(const char *str)
 	while (str[size] != '\0')
 	{
 		if (is_quotation(str[size]) && quote_flag && str[size] == quote_char)
-			quote_flag = false;
-		else if (is_quotation(str[size]) && quote_flag == false)
+			reverse_flag(&quote_flag);
+		else if (is_quotation(str[size]) && !quote_flag)
 		{
 			quote_char = str[size];
-			quote_flag = true;
+			reverse_flag(&quote_flag);
 		}
-		else if (quote_flag == false && is_special_char(str[size]) && size != 0)
+		else if (!quote_flag && is_special_char(str[size]) && size != 0)
 			return (size);
-		else if (quote_flag == false && is_special_char(str[size]) && size == 0)
+		else if (!quote_flag && is_special_char(str[size]) && size == 0)
 			return (check_append_or_heredoc_pattern(&str[size]));
 		size++;
 	}
 	return (size);
-}
-
-size_t	count_new_word_size(char *word)
-{
-	int		quote_char;
-	size_t	counter;
-
-	counter = 0;
-	if (*word != '\0' && is_quotation(*word) == false)
-		return (0);
-	quote_char = *word;
-	while (*word != '\0')
-	{
-		counter++;
-		word++;
-	}
-	word--;
-	if (*word == quote_char && counter >= 3)
-		return (counter - 2);
-	else
-		return (0);
 }
 
 size_t	count_to_front_of_c(char *str, int c)
@@ -67,3 +46,20 @@ size_t	count_to_front_of_c(char *str, int c)
 	return (size);
 }
 
+size_t	count_env_size(const char *str)
+{
+	size_t	counter;
+
+	counter = 0;
+	str++;
+	if (*str == '?')
+		return (1);
+	while (str[counter] != '\0')
+	{
+		if (ft_isalnum(str[counter]) || *str == '_')
+			counter++;
+		else
+			break;
+	}
+	return (counter);
+}
