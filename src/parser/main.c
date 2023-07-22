@@ -59,30 +59,10 @@ void	print_tree(t_tree_node *node)
 	}
 }
 
-/* int	main (int argc, char **argv) */
-/* { */
-/* 	t_words	*words; */
-
-/* 	if (argc == 1) */
-/* 	{ */
-/* 		printf("argc = 1\n"); */
-/* 		return (1); */
-/* 	} */
-/* 	printf("enter str -> %s\n", argv[1]); */
-/* 	words = lexer(argv[1]); */
-/* 	if (words != NULL) */
-/* 	{ */
-/* 		printf_words(words); */
-/* 		free_all_word_list(words); */
-/* 	} */
-/* 	return (0); */
-/* } */
-
-
 int	main (int argc, char **argv)
 {
-	t_words		*words;
-	t_tree_node	*root;
+	t_words	*words;
+	t_data	data;
 
 	if (argc == 1)
 	{
@@ -90,16 +70,38 @@ int	main (int argc, char **argv)
 		return (1);
 	}
 	printf("enter str -> %s\n", argv[1]);
-	words = lexer(argv[1]);
+	words = lexer(argv[1], &data);
 	if (words != NULL)
 	{
-		root = create_tree(words);
-		if (root != NULL)
-		{
-			if (!check_syntax_err_tree(root))
-				print_tree(root);
-			free_all_tree_node(root);
-		}
+		printf_words(words);
+		free_all_word_list(words);
 	}
 	return (0);
 }
+
+
+/* int	main (int argc, char **argv) */
+/* { */
+/* 	t_words		*words; */
+/* 	t_tree_node	*root; */
+/* 	t_data		data; */
+
+/* 	if (argc == 1) */
+/* 	{ */
+/* 		printf("argc = 1\n"); */
+/* 		return (1); */
+/* 	} */
+/* 	printf("enter str -> %s\n", argv[1]); */
+/* 	words = lexer(argv[1], &data); */
+/* 	if (words != NULL) */
+/* 	{ */
+/* 		root = create_tree(words); */
+/* 		if (root != NULL) */
+/* 		{ */
+/* 			if (!check_syntax_err_tree(root)) */
+/* 				print_tree(root); */
+/* 			free_all_tree_node(root); */
+/* 		} */
+/* 	} */
+/* 	return (0); */
+/* } */

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static void	identify_word_type(t_words *const words)
+void	identify_word_type(t_words *const words)
 {
 	if (ft_strncmp(words->word, "|", 2) == 0)
 		words->token_type = PIPE_CHAR;

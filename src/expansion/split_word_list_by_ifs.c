@@ -35,18 +35,18 @@ t_words	*append_new_node(t_words *list, t_words *new_node)
 	return (head);
 }
 
-t_words *split_word_by_ifs(t_words *word_list)
+t_words *split_word_by_ifs(t_words *word_list, t_data *data)
 {
 	size_t	idx;
 	char	*new_str;
 	t_words *ifs_and_second;
 
-	idx = strlen_ifs(word_list->word);
-	new_str = strdup_n(&word_list->word[idx], strlen_to_ifs(&word_list->word[idx]));
+	idx = strlen_ifs(word_list->word, data);
+	new_str = strdup_n(&word_list->word[idx], strlen_to_ifs(&word_list->word[idx], data));
 	if (new_str == NULL)
 		return (NULL);
-	idx += strlen_to_ifs(&word_list->word[idx]);
-	idx += strlen_ifs(&word_list->word[idx]);
+	idx += strlen_to_ifs(&word_list->word[idx], data);
+	idx += strlen_ifs(&word_list->word[idx], data);
 	ifs_and_second = new_ifs_and_second_node(ft_strdup(&word_list->word[idx]));
 	if (ifs_and_second == NULL)
 	{
@@ -60,7 +60,7 @@ t_words *split_word_by_ifs(t_words *word_list)
 	return (word_list);
 }
 
-void	split_word_list_by_ifs(t_words *word_list, bool *err_flag)
+void	split_word_list_by_ifs(t_words *word_list, bool *err_flag, t_data *data)
 {
 	int	quote_mode;
 
@@ -69,9 +69,9 @@ void	split_word_list_by_ifs(t_words *word_list, bool *err_flag)
 	{
 		if (is_token_type_quotation(word_list->token_type))
 			change_quote_mode(&quote_mode, word_list->token_type);
-		else if (quote_mode == NOT_Q_MODE && is_in_ifs_char(word_list->word))
+		else if (quote_mode == NOT_Q_MODE && is_in_ifs_char(word_list->word, data))
 		{
-			word_list = split_word_by_ifs(word_list);
+			word_list = split_word_by_ifs(word_list, data);
 			if (word_list == NULL)
 			{
 				*err_flag = true;

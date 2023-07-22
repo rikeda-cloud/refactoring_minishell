@@ -1,30 +1,30 @@
 #include "../../include/minishell.h"
-#include <unistd.h>
 
-int	exit_have_arguments_pattern(t_words *word_list)
+int	exit_have_arguments_pattern(t_words *word_list, t_data *data)
 {
-	int		exit_status;
+	int		can_exit_flag;
 	char	*word;
 
 	if (word_list->next == NULL)
-		exit_status = calc_exit_status(word_list->word);
+		can_exit_flag = calc_exit_status(word_list->word, data);
 	else
 	{
 		word = word_list->word;
 		if (word[0] == '-' && word[1] == '-' && word[2] == '\0')
-			exit_status = calc_exit_status(word_list->next->word);
+			can_exit_flag = calc_exit_status(word_list->next->word, data);
 		else
 		{
-			printf(FMT_ERR_MANY_ARG_EXIT, word_list->word);
-			exit_status = 2;
+			printf(FMT_ERR_MANY_ARG_EXIT);
+			data->err_number = 2;
+			can_exit_flag = false;
 		}
 	}
-	return (exit_status);
+	return (can_exit_flag);
 }
 
-void	my_exit(t_words *word_list, int fd)
+void	my_exit(t_words *word_list, int fd, t_data *data)
 {
-	int	exit_status;
+	bool	can_exit_flag;
 
 	if (fd != STDOUT_FILENO)
 	{
@@ -32,9 +32,13 @@ void	my_exit(t_words *word_list, int fd)
 		close(fd);
 	}
 	write(STDOUT_FILENO, "exit\n", 5);
+	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
+		word_list = word_list->next;
 	if (word_list == NULL)
-		exit_status = calc_exit_status(NULL);
+		exit(0);
+	can_exit_flag = calc_exit_status(word_list->word, data);
+	if (can_exit_flag || word_list->next == NULL)
+		exit(data->err_number);
 	else
-		exit_status = exit_have_arguments_pattern(word_list);
-	exit(exit_status);
+		data->err_number = 1;
 }

@@ -1,8 +1,10 @@
 #include "../../include/minishell.h"
 
-void	my_pwd(t_words *word_list, int fd)
+void	my_pwd(t_words *word_list, int fd, t_data *data)
 {
 	char	*path_name;
+
+	(void)word_list;
 	if (fd != STDOUT_FILENO)
 	{
 		dup2(fd, STDOUT_FILENO);
@@ -14,7 +16,8 @@ void	my_pwd(t_words *word_list, int fd)
 	else
 	{
 		printf("%s\n", path_name);
-		free(data.crr_dir);
-		data.crr_dir = path_name;
+		free_str(data->crr_dir);
+		data->crr_dir = path_name;
+		data->err_number = 0;
 	}
 }

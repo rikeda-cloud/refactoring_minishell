@@ -15,10 +15,11 @@ void	put_words_fd(t_words *word_list, int fd)
 	}
 }
 
-void	my_echo(t_words *word_list, int fd)
+void	my_echo(t_words *word_list, int fd, t_data *data)
 {
 	bool	option_flag;
 
+	(void)data;
 	if (fd != STDOUT_FILENO)
 	{
 		dup2(fd, STDOUT_FILENO);

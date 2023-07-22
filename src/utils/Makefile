@@ -1,27 +1,28 @@
-NAME		=	parser.a
+NAME		=	utils.a
 CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
-SRCS		=	change_str_to_word_list.c \
-				lexer.c \
-				parser.c \
-				create_tree.c \
-				add_type.c \
-				check_syntax_err_tree.c \
-				check_syntax_err_words.c \
-				check_not_close_quotation.c
+SRCS		=	get_env_position.c \
+				hash.c \
+				print_fmt_err_syntax.c \
+				reverse_flag.c \
+				utils_count.c \
+				utils_free_hash_map.c \
+				utils_free_tree.c \
+				utils_free_word_list.c \
+				utils_get.c \
+				utils_ifs.c \
+				utils_is.c \
+				utils_new.c \
+				utils_strdup.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
 LIBFT_DIR	=	../libft
 LIBFT_A		=	libft.a
 LIBFT		= 	$(LIBFT_DIR)/$(LIBFT_A)
 
-UTILS_DIR	=	../utils
-UTILS_A		=	utils.a
-UTILS		= 	$(UTILS_DIR)/$(UTILS_A)
-
-$(NAME): $(OBJS) $(LIBFT) $(UTILS)
+$(NAME): $(OBJS) $(LIBFT) 
 	$(AR) $@ $^
 
 %.o: %.c
@@ -29,9 +30,6 @@ $(NAME): $(OBJS) $(LIBFT) $(UTILS)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
-
-$(UTILS):
-	$(MAKE) -C $(UTILS_DIR)
 
 all: $(NAME)
 

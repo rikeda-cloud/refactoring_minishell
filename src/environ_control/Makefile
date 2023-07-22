@@ -1,16 +1,15 @@
-NAME		=	parser.a
+NAME		=	environ_control.a
 CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
-SRCS		=	change_str_to_word_list.c \
-				lexer.c \
-				parser.c \
-				create_tree.c \
-				add_type.c \
-				check_syntax_err_tree.c \
-				check_syntax_err_words.c \
-				check_not_close_quotation.c
+SRCS		=	change_environ_to_hash_map.c \
+				change_hash_map_to_environ.c \
+				delete_env.c \
+				insert_env_to_map.c \
+				insert_new_env.c \
+				select_env.c \
+				update_env.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
 LIBFT_DIR	=	../libft
@@ -21,7 +20,7 @@ UTILS_DIR	=	../utils
 UTILS_A		=	utils.a
 UTILS		= 	$(UTILS_DIR)/$(UTILS_A)
 
-$(NAME): $(OBJS) $(LIBFT) $(UTILS)
+$(NAME): $(OBJS) $(LIBFT) $(UTILS) 
 	$(AR) $@ $^
 
 %.o: %.c

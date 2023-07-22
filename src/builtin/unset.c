@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	my_unset(t_words *word_list, int fd)
+void	my_unset(t_words *word_list, int fd, t_data *data)
 {
 	if (fd != STDOUT_FILENO)
 	{
@@ -8,5 +8,5 @@ void	my_unset(t_words *word_list, int fd)
 		close(fd);
 	}
 	while (word_list != NULL)
-		delete_env(data.env_map, word_list->word);
+		delete_env(data->env_map, word_list->word);
 }

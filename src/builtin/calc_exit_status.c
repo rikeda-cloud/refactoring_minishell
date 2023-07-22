@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-bool	is_over_long_max(char *str)
+bool	is_over_long_max(const char *str)
 {
 	long int	tmp;
 	long int	long_max_div_10;
@@ -25,7 +25,7 @@ bool	is_over_long_max(char *str)
 	return (false);
 }
 
-bool	is_under_long_min(char *str)
+bool	is_under_long_min(const char *str)
 {
 	long int	tmp;
 	long int	long_min_div_10;
@@ -49,7 +49,7 @@ bool	is_under_long_min(char *str)
 	return (false);
 }
 
-bool	is_not_number_str(char *str)
+bool	is_not_number_str(const char *str)
 {
 	while (*str == ' ')
 		str++;
@@ -81,25 +81,25 @@ int	get_eight_bit(long int number)
 	return (eight_bit);
 }
 
-int	calc_exit_status(char *str)
+bool	calc_exit_status(const char *str, t_data *data)
 {
-	int	exit_status;
-
-	if (str == NULL)
-		exit_status = 0;
-	else if (is_not_number_str(str))
+	if (is_not_number_str(str))
 	{
 		 printf(FMT_ERR_EXIT, str);
-		 exit_status = 2;
+		 data->err_number = 2;
+		 return (true);
 	}
 	else if (is_over_long_max(str) || is_under_long_min(str))
 	{
 		 printf(FMT_ERR_EXIT, str);
-		 exit_status = 2;
+		 data->err_number = 2;
+		 return (true);
 	}
 	else
-		exit_status = get_eight_bit(ft_atoi(str));
-	return (exit_status);
+	{
+		data->err_number = get_eight_bit(ft_atoi(str));
+		return (false);
+	}
 }
 
 /* int	main (int argc,char	**argv) */

@@ -6,8 +6,7 @@
 # define SPECIAL_CHAR " \t\n<>|"
 # define SPACE_CHAR " \t\n"
 # define IFS_CHARS " \t\n"
-
-# define NO_DEAL_SPACIAL_PARAM "*@#-$!0"
+# define NEED_TO_BE_ESCAPED "$\"\\"
 
 # define FMT_ERR_SYNTAX	"minishell: syntax error near unexpected token `%s'\n"
 # define FMT_ERR_EXIT	"bash: exit: %s: numeric argument required\n"
@@ -17,6 +16,7 @@
 # define FMT_ERR_NO_FILE	"minishell: cd: %s: No such file or directory\n"
 #define FMT_ERR_NOT_CLOSE_QUOTATION "Error not close quotation\n"
 #define FMT_ERR_CAN_NOT_CREATE_MAP "Error hash map can not create\n"
+#define FMT_ERR_EXPORT_VALID "minishell: export: `%s': not a valid identifier\n"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -35,17 +35,18 @@
 
 typedef struct	s_env
 {
+	char			*original;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_global_data
+typedef struct s_data
 {
-	int		error_number;
+	int		err_number;
 	t_env	**env_map;
 	char	*crr_dir;
-}	t_global_data;
+}	t_data;
 
 typedef enum e_token_type
 {
@@ -99,6 +100,5 @@ typedef struct s_tree_node
 }	t_tree_node;
 
 extern	char **environ;
-extern	t_global_data data;
 
 #endif

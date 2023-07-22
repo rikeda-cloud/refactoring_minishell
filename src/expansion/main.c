@@ -1,7 +1,5 @@
 #include "../../include/minishell.h"
 
-t_global_data data;
-
 char	*type_to_char(int token_type)
 {
 	if (token_type == WORD)
@@ -56,7 +54,9 @@ void	print_tree(t_tree_node *node)
 
 int	main (int argc, char **argv)
 {
-	data.env_map = change_env_to_hash_map();
+	t_data	data;
+
+	data.env_map = change_environ_to_hash_map();
 	t_words *words;
 	t_tree_node *root;
 	bool	faild_flag;
@@ -66,17 +66,17 @@ int	main (int argc, char **argv)
 		printf("argc = 1\n");
 		return (1);
 	}
-	words = lexer(argv[1]);
-	/* if (check_syntax_err_words(words)) */
-	/* 	return (0); */
+	words = lexer(argv[1], &data);
+	if (check_syntax_err_words(words))
+		return (0);
 	root = create_tree(words);
-	/* if (check_syntax_err_tree(root)) */
-	/* 	return (0); */
 	if (root != NULL)
 		print_tree(root);
 	faild_flag = false;
-	expansion_tree(root, &faild_flag);
+	expansion_tree(root, &faild_flag, &data);
 	if (faild_flag == false)
 		print_tree(root);
+	if (check_syntax_err_tree(root))
+		return (0);
 	return (0);
 }

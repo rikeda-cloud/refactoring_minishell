@@ -117,8 +117,8 @@ bool	is_assignment_pattern(t_tree_node *node)
 	word_list = node->word_list;
 	while (word_list != NULL)
 	{
-		if (is_redirect(word_list->token_type))
-			word_list = word_list->next->next;
+		if (is_redirect(word_list->token_type) && word_list->next != NULL)
+			word_list = word_list->next;
 		else if (is_assignment_cmd(word_list->word))
 			return (true);
 		else
