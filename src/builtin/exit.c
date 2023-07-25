@@ -1,25 +1,12 @@
 #include "../../include/minishell.h"
 
-int	exit_have_arguments_pattern(t_words *word_list, t_data *data)
+void	free_all_and_exit(int err_code, t_data *data)
 {
-	int		can_exit_flag;
-	char	*word;
+	int exit_code;
 
-	if (word_list->next == NULL)
-		can_exit_flag = calc_exit_status(word_list->word, data);
-	else
-	{
-		word = word_list->word;
-		if (word[0] == '-' && word[1] == '-' && word[2] == '\0')
-			can_exit_flag = calc_exit_status(word_list->next->word, data);
-		else
-		{
-			printf(FMT_ERR_MANY_ARG_EXIT);
-			data->err_number = 2;
-			can_exit_flag = false;
-		}
-	}
-	return (can_exit_flag);
+	exit_code = err_code;
+	free_all_data(data);
+	exit(exit_code);
 }
 
 void	my_exit(t_words *word_list, int fd, t_data *data)
@@ -35,10 +22,10 @@ void	my_exit(t_words *word_list, int fd, t_data *data)
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)
-		exit(0);
+		free_all_and_exit(0, data);
 	can_exit_flag = calc_exit_status(word_list->word, data);
 	if (can_exit_flag || word_list->next == NULL)
-		exit(data->err_number);
+		free_all_and_exit(data->err_code, data);
 	else
-		data->err_number = 1;
+		err_many_arg("exit", &data->err_code);
 }

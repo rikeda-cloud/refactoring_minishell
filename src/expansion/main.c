@@ -52,31 +52,52 @@ void	print_tree(t_tree_node *node)
 	}
 }
 
+void	init_data(t_data *data)
+{
+	data->err_flag = false;
+	data->err_code = 0;
+	data->env_map = change_environ_to_hash_map();
+	data->crr_dir = NULL;
+	data->line = NULL;
+	data->root = NULL;
+}
+
 int	main (int argc, char **argv)
 {
 	t_data	data;
-
-	data.env_map = change_environ_to_hash_map();
 	t_words *words;
 	t_tree_node *root;
-	bool	faild_flag;
 
 	if (argc == 1)
 	{
 		printf("argc = 1\n");
 		return (1);
 	}
+	init_data(&data);
 	words = lexer(argv[1], &data);
-	if (check_syntax_err_words(words))
+	if (words == NULL || check_syntax_err_words(words, &data))
+	{
+		free_all_word_list(words);
+		free_all_data(&data);
 		return (0);
-	root = create_tree(words);
-	if (root != NULL)
-		print_tree(root);
-	faild_flag = false;
-	expansion_tree(root, &faild_flag, &data);
-	if (faild_flag == false)
-		print_tree(root);
-	if (check_syntax_err_tree(root))
+	}
+	root = create_tree(words, &data);
+	data.root = root;
+	if (root == NULL)
+	{
+		free_all_data(&data);
 		return (0);
+	}
+	print_tree(root);
+	expansion_tree(root, &data);
+	if (data.err_flag)
+	{
+		free_all_data(&data);
+		return (0);
+	}
+	del_null_word_node_in_tree(root);
+	print_tree(root);
+	check_syntax_err_tree(root, &data);
+	free_all_data(&data);
 	return (0);
 }

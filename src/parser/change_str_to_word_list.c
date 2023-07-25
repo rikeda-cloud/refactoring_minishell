@@ -1,13 +1,5 @@
 #include "../../include/minishell.h"
 
-static const char	*search_word_next_ptr(const char *str)
-{
-	size_t	size;
-
-	size = count_word_size(str);
-	return (&str[size]);
-}
-
 static const char	*skip_space_char(const char *str)
 {
 	while (is_space(*str))
@@ -15,7 +7,7 @@ static const char	*skip_space_char(const char *str)
 	return (str);
 }
 
-static t_words	*append_word_to_word_list(t_words *word_list, const char *str)
+static t_words	*append_str_to_word_list(t_words *word_list, const char *str)
 {
 	t_words	*word_list_top_ptr;
 
@@ -36,7 +28,7 @@ static t_words	*append_word_to_word_list(t_words *word_list, const char *str)
 	return (word_list_top_ptr);
 }
 
-t_words *change_str_to_word_list(const char *str)
+t_words *change_str_to_word_list(const char *str, t_data *data)
 {
 	t_words	*word_list;
 
@@ -46,10 +38,10 @@ t_words *change_str_to_word_list(const char *str)
 		str = skip_space_char(str);
 		if (*str == '\0')
 			break;
-		word_list = append_word_to_word_list(word_list, str);
+		word_list = append_str_to_word_list(word_list, str);
 		if (word_list == NULL)
-			return (NULL);
-		str = search_word_next_ptr(str);
+			return (reverse_flag(&data->err_flag));
+		str = &str[count_word_size(str)];
 	}
 	return (word_list);
 }

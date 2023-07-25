@@ -8,7 +8,7 @@ int	main (void)
 	t_words *top;
 	t_data  data;
 
-	data.err_number = 0;
+	data.err_code = 0;
 	words = calloc(sizeof(t_words), 1);
 	top = words;
 	words->word = strdup("exit");
@@ -20,5 +20,5 @@ int	main (void)
 	/* words->word = strdup("456"); */
 	my_exit(top->next, STDOUT_FILENO, &data);
 	write(STDOUT_FILENO, "NOT EXIT\n", 9);
-	return (data.err_number);
+	return (data.err_code);
 }

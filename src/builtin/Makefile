@@ -13,7 +13,7 @@ SRCS		=	calc_exit_status.c \
 				unset.c \
 				fmt.c \
 				print_env.c \
-				is_option_n.c
+				utils_option.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
 LIBFT_DIR	=	../libft

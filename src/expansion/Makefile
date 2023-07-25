@@ -11,6 +11,8 @@ SRCS		=	change_quote_mode.c \
 				split_word_list_by_quote.c \
 				trim_quote_and_cat.c \
 				variable_expansion.c \
+				utils_ifs.c \
+				del_null_word_node.c \
 				replace.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
@@ -30,7 +32,7 @@ ENV_CTRL_DIR	=	../environ_control
 ENV_CTRL_A		=	environ_control.a
 ENV_CTRL		= 	$(ENV_CTRL_DIR)/$(ENV_CTRL_A)
 
-$(NAME): $(OBJS) $(PARSER) $(UTILS) $(LIBFT)
+$(NAME): $(OBJS) $(PARSER) $(ENV_CTRL) $(UTILS) $(LIBFT)
 	$(AR) $@ $^
 
 %.o: %.c
@@ -41,6 +43,9 @@ $(LIBFT):
 
 $(PARSER):
 	$(MAKE) -C $(PARSER_DIR)
+
+$(ENV_CTRL):
+	$(MAKE) -C $(ENV_CTRL_DIR)
 
 $(UTILS):
 	$(MAKE) -C $(UTILS_DIR)

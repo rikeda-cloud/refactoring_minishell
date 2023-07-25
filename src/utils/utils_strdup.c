@@ -16,17 +16,7 @@ char	*strdup_n(const char *src, size_t n)
 	return (dest);
 }
 
-char	*strdup_word(const char *str)
-{
-	char	*word;
-	size_t	word_size;
-
-	word_size = count_word_size(str);
-	word = strdup_n(str, word_size);
-	return (word);
-}
-
-char	*strdup_env(const char *str)
+char	*strdup_env(const char *str, bool *err_flag)
 {
 	const char	*env_position;
 	char		*env;
@@ -36,8 +26,6 @@ char	*strdup_env(const char *str)
 		return (NULL);
 	env = strdup_n(&env_position[1], count_env_size(env_position));
 	if (env == NULL)
-	{
-		return (NULL);
-	}
+		return (reverse_flag(err_flag));
 	return (env);
 }

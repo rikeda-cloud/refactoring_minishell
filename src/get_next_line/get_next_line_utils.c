@@ -1,8 +1,8 @@
 #include "../../include/minishell.h"
 
-static unsigned long long	sp_strlen(char *str)
+static size_t	sp_strlen(char *str)
 {
-	unsigned long long	len;
+	size_t	len;
 
 	len = 0;
 	while (*str != '\0' && *str != '\n')
@@ -45,8 +45,8 @@ static char	*sp_join_single_case(char *dest, char *src)
 
 static char	*sp_join_double_case(char *dest, char *src)
 {
-	char				*new_str;
-	unsigned long long	len;
+	char	*new_str;
+	size_t	len;
 
 	len = sp_strlen(dest) + sp_strlen(src);
 	new_str = (char *)malloc(sizeof(char) * (len + 1));

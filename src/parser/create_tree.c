@@ -36,10 +36,15 @@ static void	split_by_pipe(t_tree_node *node, t_token_type type, bool *err_flag)
 	t_words	*tmp_word_ptr;
 
 	node->left = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
-	node->right = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
-	if (node->left == NULL || node->right == NULL)
+	if (node->left == NULL)
 	{
-		printf("Error malloc\n");
+		*err_flag = true;
+		return ;
+	}
+	node->right = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
+	if (node->right == NULL)
+	{
+		free(node->left);
 		*err_flag = true;
 		return ;
 	}
@@ -67,18 +72,19 @@ static void	recursive_split_by_pipe(t_tree_node *node, bool *err_flag)
 		add_node_type(node);
 }
 
-t_tree_node	*create_tree(t_words *word_list)
+t_tree_node	*create_tree(t_words *word_list, t_data *data)
 {
 	t_tree_node	*root;
-	bool		err_flag;
 
 	root = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
 	if (root == NULL)
-		return (NULL);
+	{
+		free_all_word_list(word_list);
+		return (reverse_flag(&data->err_flag));
+	}
 	root->word_list = word_list;
-	err_flag = false;
-	recursive_split_by_pipe(root, &err_flag);
-	if (err_flag)
+	recursive_split_by_pipe(root, &data->err_flag);
+	if (data->err_flag)
 		root = free_all_tree_node(root);
 	return (root);
 }

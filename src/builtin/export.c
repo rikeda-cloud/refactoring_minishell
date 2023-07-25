@@ -1,21 +1,5 @@
 #include "../../include/minishell.h"
 
-static bool	is_not_a_valid_identifier(const char *str)
-{
-	if (ft_isalnum(*str))
-		return (true);
-	else
-		return (false);
-}
-
-static bool	is_not_only_under(const char *str)
-{
-	if (str[0] == '_' && str[1] == '=')
-		return (true);
-	else
-		return (false);
-}
-
 void	insert_or_update_env(char *word, t_data *data)
 {
 	char	*env_name;
@@ -40,15 +24,21 @@ void	insert_or_update_env(char *word, t_data *data)
 
 void	export_have_arg_pattern(t_words *word_list, t_data *data)
 {
-	char	*word;
-
 	while (word_list != NULL)
 	{
-		word = word_list->word;
-		if (is_not_a_valid_identifier(word))
-			printf(FMT_ERR_EXPORT_VALID, word);
-		else if (is_in_equal(word) && is_not_only_under(word))
-			insert_or_update_env(word_list->word, data);
+		if (is_only_under_env(word_list->word))
+			;
+		else if (is_not_a_valid_identifier(word_list->word))
+			err_export_valid(word_list->word, &data->err_code);
+		/* else */
+		/* { */
+		/* 	if (is_add_and_assign(word_list->word)) */
+		/* 		add_and_assign_env(word_list->word); */
+		/* 	else if (is_in_equal(word_list->word)) */
+		/* 		insert_or_update_env(word_list->word, data); */
+		/* 	else */
+		/* 		insert_env_to_env_map(data->env_map, word_list->word); */
+		/* } */
 		word_list = word_list->next;
 	}
 }
@@ -60,8 +50,14 @@ void	my_export(t_words *word_list, int fd, t_data *data)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
-	if (word_list == NULL)
+	if (word_list == NULL || is_only_null_word_node(word_list))
+	{
 		print_all_env(fmt_export, STDOUT_FILENO, data);
+		data->err_code = 0;
+	}
 	else
+	{
+		data->err_code = 0;
 		export_have_arg_pattern(word_list, data);
+	}
 }

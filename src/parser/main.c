@@ -67,7 +67,7 @@ int	main (int argc, char **argv)
 	if (argc == 1)
 	{
 		printf("argc = 1\n");
-		return (1);
+		return (0);
 	}
 	printf("enter str -> %s\n", argv[1]);
 	words = lexer(argv[1], &data);
@@ -95,10 +95,10 @@ int	main (int argc, char **argv)
 /* 	words = lexer(argv[1], &data); */
 /* 	if (words != NULL) */
 /* 	{ */
-/* 		root = create_tree(words); */
+/* 		root = create_tree(words, &data); */
 /* 		if (root != NULL) */
 /* 		{ */
-/* 			if (!check_syntax_err_tree(root)) */
+/* 			if (!check_syntax_err_tree(root, &data)) */
 /* 				print_tree(root); */
 /* 			free_all_tree_node(root); */
 /* 		} */

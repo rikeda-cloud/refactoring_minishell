@@ -7,7 +7,7 @@ t_tree_node		*get_leftmost_node(t_tree_node *node)
 	return (node);
 }
 
-t_token_type get_quote_type(int c)
+t_token_type	get_quote_type(int c)
 {
 	if (c == '\'')
 		return (TMP_SINGLE_QUOTE);

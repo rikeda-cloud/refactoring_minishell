@@ -8,15 +8,24 @@
 # define IFS_CHARS " \t\n"
 # define NEED_TO_BE_ESCAPED "$\"\\"
 
-# define FMT_ERR_SYNTAX	"minishell: syntax error near unexpected token `%s'\n"
-# define FMT_ERR_EXIT	"bash: exit: %s: numeric argument required\n"
-# define FMT_ERR_MANY_ARG_CD "minishell: cd: too many arguments\n"
-# define FMT_ERR_MANY_ARG_EXIT "minishell: exit: too many arguments\n"
-# define FMT_ERR_NO_HOME	"minishell: cd: HOME not set\n"
-# define FMT_ERR_NO_FILE	"minishell: cd: %s: No such file or directory\n"
-#define FMT_ERR_NOT_CLOSE_QUOTATION "Error not close quotation\n"
-#define FMT_ERR_CAN_NOT_CREATE_MAP "Error hash map can not create\n"
-#define FMT_ERR_EXPORT_VALID "minishell: export: `%s': not a valid identifier\n"
+# define ERR_SYNTAX	"minishell: syntax error near unexpected token `"
+# define ERR_SYNTAX_CLOSE	"'"
+
+# define ERR_MANY_ARG "minishell: "
+# define ERR_MANY_ARG_CLOSE	": too many arguments"
+
+# define ERR_NO_HOME	"minishell: cd: HOME not set"
+
+# define ERR_NO_FILE	"minishell: cd: "
+# define ERR_NO_FILE_CLOSE	": No such file or directory"
+
+# define ERR_EXIT	"bash: exit: "
+# define ERR_EXIT_CLOSE	": numeric argument required"
+
+#define ERR_NOT_CLOSE_QUOTATION "Error not close quotation"
+
+#define ERR_EXPORT_VALID "minishell: export: `"
+#define ERR_EXPORT_VALID_CLOSE	"': not a valid identifier"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -32,21 +41,6 @@
 # include <string.h>
 # include <limits.h>
 # include <stdint.h>
-
-typedef struct	s_env
-{
-	char			*original;
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
-typedef struct s_data
-{
-	int		err_number;
-	t_env	**env_map;
-	char	*crr_dir;
-}	t_data;
 
 typedef enum e_token_type
 {
@@ -68,7 +62,6 @@ typedef enum e_node_type
 	COMMAND = 0,
 	PIPE,
 }	t_node_type;
-
 
 enum e_quote_mode
 {
@@ -98,6 +91,25 @@ typedef struct s_tree_node
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;
+
+
+typedef struct	s_env
+{
+	char			*original;
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_data
+{
+	int			err_code;
+	bool		err_flag;
+	t_env		**env_map;
+	char		*crr_dir;
+	char		*line;
+	t_tree_node	*root;
+}	t_data;
 
 extern	char **environ;
 

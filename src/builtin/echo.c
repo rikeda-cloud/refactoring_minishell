@@ -1,11 +1,10 @@
 #include "../../include/minishell.h"
-#include <unistd.h>
 
 void	put_words_fd(t_words *word_list, int fd)
 {
 	while (word_list != NULL)
 	{
-		if (is_option(word_list->word, 'n') == false)
+		if (word_list->word != NULL)
 		{
 			ft_putstr_fd(word_list->word, fd);
 			if (word_list->next != NULL)
@@ -19,14 +18,21 @@ void	my_echo(t_words *word_list, int fd, t_data *data)
 {
 	bool	option_flag;
 
-	(void)data;
 	if (fd != STDOUT_FILENO)
 	{
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
-	option_flag = is_option_n(word_list);
-	put_words_fd(word_list, STDOUT_FILENO);
-	if (option_flag == false)
+	if (word_list == NULL)
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	else
+	{
+		option_flag = is_option_n_pattern(word_list);
+		if (option_flag)
+			word_list = get_not_option_node(word_list);
+		put_words_fd(word_list, STDOUT_FILENO);
+		if (option_flag == false)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+	}
+	data->err_code = 0;
 }

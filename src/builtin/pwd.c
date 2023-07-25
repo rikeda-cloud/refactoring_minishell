@@ -18,6 +18,6 @@ void	my_pwd(t_words *word_list, int fd, t_data *data)
 		printf("%s\n", path_name);
 		free_str(data->crr_dir);
 		data->crr_dir = path_name;
-		data->err_number = 0;
+		data->err_code = 0;
 	}
 }

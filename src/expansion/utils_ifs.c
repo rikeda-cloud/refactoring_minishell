@@ -1,15 +1,15 @@
 #include "../../include/minishell.h"
 
-bool	is_ifs(int c, t_data *data)
+static bool	is_ifs(int c, t_data *data)
 {
 	const char	*ifs_chars;
 	t_env		*env_ifs;
 
 	env_ifs = select_env(data->env_map, "IFS");
-	if (env_ifs == NULL)
-		ifs_chars = IFS_CHARS;
-	else
+	if (env_ifs != NULL)
 		ifs_chars = env_ifs->value;
+	else
+		ifs_chars = IFS_CHARS;
 	while (*ifs_chars != '\0')
 	{
 		if (*ifs_chars++ == c)
