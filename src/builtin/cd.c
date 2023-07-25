@@ -2,21 +2,24 @@
 
 void	cd_home_dir_pattern(t_data *data)
 {
-	t_env	*home_dir_env;
+	t_env	*env_home;
 	int		chdir_return_value;
 
-	home_dir_env = select_env(data->env_map, "HOME");
-	if (home_dir_env == NULL)
-		printf(FMT_ERR_NO_HOME);
+	env_home = select_env(data->env_map, "HOME");
+	if (env_home == NULL)
+		err_no_home(&data->err_code);
 	else
 	{
-		if (*home_dir_env->value != '\0')
+		if (*env_home->value != '\0')
 		{
-			chdir_return_value = chdir(home_dir_env->value);
+			chdir_return_value = chdir(env_home->value);
 			if (chdir_return_value != 0)
-				printf(FMT_ERR_NO_FILE, home_dir_env->value);
+				err_no_file(env_home->value, &data->err_code);
 			else
+			{
 				data->crr_dir = getcwd(NULL, 0);
+				data->err_code = 0;
+			}
 		}
 	}
 }
@@ -29,10 +32,12 @@ void	cd_normal_pattern(char *str, t_data *data)
 	{
 		chdir_return_value = chdir(str);
 		if (chdir_return_value != 0)
-			printf(FMT_ERR_NO_FILE, str);
+			err_no_file(str, &data->err_code);
 		else
 			data->crr_dir = getcwd(NULL, 0);
 	}
+	else
+		data->err_code = 0;
 }
 
 void	my_cd(t_words *word_list, int fd, t_data *data)
@@ -42,10 +47,12 @@ void	my_cd(t_words *word_list, int fd, t_data *data)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
+	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
+		word_list = word_list->next;
 	if (word_list == NULL)
 		cd_home_dir_pattern(data);
 	else if (word_list->next != NULL)
-		printf(FMT_ERR_MANY_ARG_CD);
+		err_many_arg("cd", &data->err_code);
 	else
 		cd_normal_pattern(word_list->word, data);
 }

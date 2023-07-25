@@ -3,17 +3,23 @@ CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
-SRCS		=	get_env_position.c \
-				hash.c \
-				print_fmt_err_syntax.c \
+SRCS		=	hash.c \
+				print_err.c \
 				reverse_flag.c \
+				get_env_position.c \
 				utils_count.c \
 				utils_free_hash_map.c \
 				utils_free_tree.c \
 				utils_free_word_list.c \
+				utils_free_all_data.c \
 				utils_get.c \
-				utils_ifs.c \
-				utils_is.c \
+				utils_is_assignment.c \
+				utils_is_do_not_word_split_pattern.c \
+				utils_is_only.c \
+				utils_is_other.c \
+				utils_is_quote.c \
+				utils_is_space.c \
+				utils_is_type.c \
 				utils_new.c \
 				utils_strdup.c
 OBJS		= 	$(SRCS:%.c=%.o)

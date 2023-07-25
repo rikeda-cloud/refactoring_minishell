@@ -20,8 +20,8 @@ static int	check_lf_in_buffer(char *buffer, char *tmp)
 
 static char	*remove_before_lf(char *tmp, char *buffer)
 {
-	unsigned long long	i;
-	unsigned long long	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -50,7 +50,7 @@ char	*get_next_line(int fd)
 	tmp = sp_join(NULL, buffer);
 	if (check_lf_in_buffer(buffer, tmp))
 		return (remove_before_lf(tmp, buffer));
-	while (1)
+	while (true)
 	{
 		size = read(fd, buffer, BUFFER_SIZE);
 		if (size <= 0 && tmp[0] == '\0')

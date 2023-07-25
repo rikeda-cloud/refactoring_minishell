@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static size_t	check_append_or_heredoc_pattern(const char *str)
+static size_t	check_append_or_heredoc_pattern(const char *const str)
 {
 	if (str[0] == '>' && str[1] == '>')
 		return (2);
@@ -22,7 +22,7 @@ size_t	count_word_size(const char *str)
 	{
 		if (is_quotation(str[size]) && quote_flag && str[size] == quote_char)
 			reverse_flag(&quote_flag);
-		else if (is_quotation(str[size]) && !quote_flag)
+		else if (is_quotation(str[size]) && quote_flag == false)
 		{
 			quote_char = str[size];
 			reverse_flag(&quote_flag);
@@ -41,27 +41,27 @@ size_t	count_to_front_of_c(char *str, int c)
 	size_t	size;
 
 	size = 0;
-	while (str[size] != c && str[size] != '\0')
+	while (str[size] != '\0' && str[size] != c)
 		size++;
 	return (size);
 }
 
 size_t	count_env_size(const char *str)
 {
-	size_t	counter;
+	size_t	size;
 
-	counter = 0;
+	size = 0;
 	str++;
 	if (*str == '?')
 		return (1);
-	while (str[counter] != '\0')
+	while (str[size] != '\0')
 	{
-		if (ft_isalnum(str[counter]) || *str == '_')
-			counter++;
+		if (ft_isalnum(str[size]) || str[size] == '_')
+			size++;
 		else
 			break;
 	}
-	return (counter);
+	return (size);
 }
 
 static size_t	count_hash_list_size(t_env *hash_list)

@@ -14,13 +14,13 @@ int	main (void)
 	words->word = strdup("echo");
 	words->next = calloc(sizeof(t_words), 1);
 	words = words->next;
-	words->word = strdup("-nnnnnnn");
+	words->word = strdup("-n");
 	words->next = calloc(sizeof(t_words), 1);
 	words = words->next;
-	words->word = strdup("abc");
+	words->word = strdup("");
 	words->next = calloc(sizeof(t_words), 1);
 	words = words->next;
-	words->word = strdup("123");
+	words->word = strdup("");
 	my_echo(top->next, STDOUT_FILENO, &data);
 	return (0);
 }

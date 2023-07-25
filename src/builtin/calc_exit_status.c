@@ -84,31 +84,12 @@ int	get_eight_bit(long int number)
 bool	calc_exit_status(const char *str, t_data *data)
 {
 	if (is_not_number_str(str))
-	{
-		 printf(FMT_ERR_EXIT, str);
-		 data->err_number = 2;
-		 return (true);
-	}
+		 return (err_exit(str, &data->err_code));
 	else if (is_over_long_max(str) || is_under_long_min(str))
-	{
-		 printf(FMT_ERR_EXIT, str);
-		 data->err_number = 2;
-		 return (true);
-	}
+		 return (err_exit(str, &data->err_code));
 	else
 	{
-		data->err_number = get_eight_bit(ft_atoi(str));
+		data->err_code = get_eight_bit(ft_atoi(str));
 		return (false);
 	}
 }
-
-/* int	main (int argc,char	**argv) */
-/* { */
-/* 	if (argc < 2) */
-/* 	{ */
-/* 		printf("argc = 1\n"); */
-/* 		return (0); */
-/* 	} */
-/* 	printf("input = %s\nexit_status = %d\n", argv[1], calc_exit_status(argv[1])); */
-/* 	return (0); */
-/* } */

@@ -15,7 +15,7 @@ int	main (void)
 	words->word = strdup("cd");
 	words->next = calloc(sizeof(t_words), 1);
 	words = words->next;
-	words->word = strdup("..........");
+	words->word = strdup("-");
 	my_cd(top->next, STDOUT_FILENO, &data);
 	printf("%s\n", data.crr_dir);
 	return (0);

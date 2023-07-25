@@ -20,7 +20,8 @@ void	choice_case_cmd(int argc, char **argv)
 	i = 2;
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && ft_strlen(argv[1]) == 8)
 	{
-		prev_fd = heredoc(argv[2]);
+		/* prev_fd = heredoc(argv[2]); */
+		prev_fd = heredoc(argv[2], 1, NULL);
 		i = i + 1;
 	}
 	while (i <= (size_t)argc - 2)

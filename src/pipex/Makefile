@@ -1,4 +1,5 @@
-NAME		=	pipex
+NAME		=	pipex.a
+AR			=	ar rcs
 CC			=	cc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
@@ -6,7 +7,6 @@ SRCS		=	child.c \
 				function_error.c \
 				heredoc.c \
 				libft_error.c \
-				main.c \
 				no_pipe.c \
 				parents.c \
 				path_check.c \
@@ -21,8 +21,12 @@ GNL_DIR		=	../get_next_line
 GNL_A		=	get_next_line.a
 GNL			=	$(GNL_DIR)/$(GNL_A)
 
-$(NAME): $(OBJS) $(LIBFT) $(GNL)
-	$(CC) $(CFLAGS) $^ -o $@
+UTILS_DIR	=	../utils
+UTILS_A		=	utils.a
+UTILS		=	$(UTILS_DIR)/$(UTILS_A)
+
+$(NAME): $(OBJS) $(LIBFT) $(GNL) $(UTILS)
+	$(AR) $@ $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
@@ -32,6 +36,9 @@ $(LIBFT):
 
 $(GNL):
 	$(MAKE) -C $(GNL_DIR)
+
+$(UTILS):
+	$(MAKE) -C $(UITLS_DIR)
 
 all: $(NAME)
 

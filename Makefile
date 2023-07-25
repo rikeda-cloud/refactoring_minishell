@@ -24,15 +24,23 @@ PARSER_DIR		=	$(SRC_DIR)/parser
 PARSER_A		=	parser.a
 PARSER			= 	$(PARSER_DIR)/$(PARSER_A)
 
+PIPEX_DIR		=	$(SRC_DIR)/pipex
+PIPEX_A			=	pipex.a
+PIPEX			= 	$(PIPEX_DIR)/$(PIPEX_A)
+
 UTILS_DIR		=	$(SRC_DIR)/utils
 UTILS_A			=	utils.a
 UTILS			= 	$(UTILS_DIR)/$(UTILS_A)
+
+GNL_DIR			=	$(SRC_DIR)/get_next_line
+GNL_A			=	get_next_line.a
+GNL				= 	$(GNL_DIR)/$(GNL_A)
 
 LIBFT_DIR		=	$(SRC_DIR)/libft
 LIBFT_A			=	libft.a
 LIBFT			= 	$(LIBFT_DIR)/$(LIBFT_A)
 
-$(NAME): $(OBJS) $(BUILTIN) $(EXPANTION) $(PARSER) $(ENV_CTRL) $(UTILS) $(LIBFT)
+$(NAME): $(OBJS) $(BUILTIN) $(EXPANTION) $(PARSER) $(PIPEX) $(ENV_CTRL) $(UTILS) $(GNL) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@ $(READLINE)
 
 %.o: %.c
@@ -50,8 +58,14 @@ $(EXPANTION):
 $(PARSER):
 	$(MAKE) -C $(PARSER_DIR)
 
+$(PIPEX):
+	$(MAKE) -C $(PIPEX_DIR)
+
 $(UTILS):
 	$(MAKE) -C $(UTILS_DIR)
+
+$(GNL):
+	$(MAKE) -C $(GNL_DIR)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -59,7 +73,7 @@ $(LIBFT):
 all: $(NAME)
 
 clean:	
-		$(RM) $(OBJS) $(BUILTIN_DIR)/*.[oa] $(ENV_CTRL_DIR)/*.[oa] $(EXPANTION)/*.[oa] $(LIBFT_DIR)/*.[oa] $(PARSER_DIR)/*.[oa] $(UTILS_DIR)/*.[oa]
+		$(RM) $(OBJS) $(BUILTIN_DIR)/*.[oa] $(ENV_CTRL_DIR)/*.[oa] $(EXPANTION)/*.[oa] $(LIBFT_DIR)/*.[oa] $(PARSER_DIR)/*.[oa] $(UTILS_DIR)/*.[oa] $(GNL_DIR)/*.[oa] $(PIPEX_DIR)/*.[oa]
 
 fclean:	clean
 		$(RM) $(NAME)

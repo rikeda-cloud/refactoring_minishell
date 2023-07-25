@@ -9,7 +9,7 @@ t_words	*new_word_node(const char *str)
 		return (NULL);
 	if (str == NULL)
 		return (word_list);
-	word_list->word = strdup_word(str);
+	word_list->word = strdup_n(str, count_word_size(str));
 	if (word_list->word == NULL)
 	{
 		free(word_list);

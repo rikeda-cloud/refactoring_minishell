@@ -15,7 +15,8 @@ pid_t	do_fork(void);
 int	    do_dup2(int pipefd, int fd);
 char	*do_file_access(char *file);
 
-int	    heredoc(char *limiter);
+bool	apparently_heredoc(t_tree_node *node);
+int		heredoc(const char *delimiter, t_token_type type, t_data *data);
 char	**do_split(char *str, char c);
 char	*do_strjoin(char *s1, char *s2);
 

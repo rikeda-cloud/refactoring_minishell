@@ -13,7 +13,7 @@ static bool	is_not_close_quotation(const char *str)
 			reverse_flag(&quote_flag);
 			quote_char = *str;
 		}
-		else if (is_quotation(*str) && quote_flag && quote_char == *str)
+		else if (quote_flag && quote_char == *str)
 				reverse_flag(&quote_flag);
 		str++;
 	}
@@ -25,10 +25,7 @@ bool	check_not_close_quotation(const t_words *word_list)
 	while (word_list != NULL)
 	{
 		if (is_not_close_quotation(word_list->word))
-		{
-			printf(FMT_ERR_NOT_CLOSE_QUOTATION);
-			return (true);
-		}
+			return (print_err1(ERR_NOT_CLOSE_QUOTATION));
 		word_list = word_list->next;
 	}
 	return (false);

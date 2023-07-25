@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	attach_env_original_to_env_ary(char **env_ary, t_env *hash_list)
+static void	attach_original_to_env_ary(char **env_ary, t_env *hash_list)
 {
 	size_t	idx;
 
@@ -25,6 +25,6 @@ char	**change_hash_map_to_environ(t_env **map)
 		return (NULL);
 	idx = 0;
 	while (idx < HASH_MAP_SIZE)
-		attach_env_original_to_env_ary(env_ary, map[idx++]);
+		attach_original_to_env_ary(env_ary, map[idx++]);
 	return (env_ary);
 }
