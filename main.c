@@ -33,10 +33,10 @@ size_t	print_words(t_words *words)
 	size_t	size;
 	
 	size = 0;
-	while (words != NULL && words->word != NULL)
+	while (words != NULL)
 	{
 		printf("[[%s]:%s]", type_to_char(words->token_type), words->word);
-		if (words->next != NULL && words->next->word != NULL)
+		if (words->next != NULL)
 			printf(" -> ");
 		words = words->next;
 		size++;
@@ -139,6 +139,6 @@ int	main (void)
 	g_sig_mode = NORMAL;
 	exec_shell_loop(&data);
 	free_all_data(&data);
-	ft_putendl_fd("exit", STDOUT_FILENO);
+	/* ft_putendl_fd("exit", STDOUT_FILENO); */
 	return (data.err_code);
 }
