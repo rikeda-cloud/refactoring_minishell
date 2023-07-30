@@ -4,10 +4,12 @@ AR 			= 	ar rcs
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
 SRCS		=	hash.c \
+				signal.c \
 				print_err.c \
 				reverse_flag.c \
 				get_env_position.c \
 				utils_count.c \
+				utils_free_char_list.c \
 				utils_free_hash_map.c \
 				utils_free_tree.c \
 				utils_free_word_list.c \
@@ -21,6 +23,7 @@ SRCS		=	hash.c \
 				utils_is_space.c \
 				utils_is_type.c \
 				utils_new.c \
+				utils_append.c \
 				utils_strdup.c
 OBJS		= 	$(SRCS:%.c=%.o)
 

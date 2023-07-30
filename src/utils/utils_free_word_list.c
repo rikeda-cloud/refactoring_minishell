@@ -28,3 +28,12 @@ void	*free_all_word_list(t_words *word_list)
 	}
 	return (NULL);
 }
+
+t_words	*free_word_node_get_next_node(t_words *word_node)
+{
+	t_words	*next_node;
+
+	next_node = word_node->next;
+	free_word_node(word_node);
+	return (next_node);
+}

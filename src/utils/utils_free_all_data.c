@@ -2,6 +2,8 @@
 
 void	*free_all_data(t_data *data)
 {
+	if (data == NULL)
+		return (NULL);
 	free_str(data->crr_dir);
 	free_str(data->line);
 	free_all_tree_node(data->root);

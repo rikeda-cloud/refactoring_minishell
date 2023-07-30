@@ -21,6 +21,8 @@ char	*strdup_env(const char *str, bool *err_flag)
 	const char	*env_position;
 	char		*env;
 
+	if (str == NULL)
+		return (NULL);
 	env_position = get_env_position(str);
 	if (*env_position == '\0')
 		return (NULL);

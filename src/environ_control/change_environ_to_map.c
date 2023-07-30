@@ -1,8 +1,7 @@
 #include "../../include/minishell.h"
 
-t_env	**change_environ_to_hash_map(void)
+t_env	**change_environ_to_map(void)
 {
-	extern char	**environ;
 	t_env		**map;
 
 	map = (t_env **)calloc(sizeof(t_env *), HASH_MAP_SIZE);

@@ -19,7 +19,7 @@ static bool	is_need_split(int q_char, int c)
 		return (false);
 }
 
-bool	append_word(t_words **words, char *str, size_t size, bool flag)
+static bool	append_word(t_words **words, char *str, size_t size, bool flag)
 {
 	t_words	*tmp_words;
 

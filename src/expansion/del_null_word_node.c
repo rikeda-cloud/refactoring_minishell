@@ -1,18 +1,5 @@
 #include "../../include/minishell.h"
 
-static t_words	*append_word_node_to_list(t_words *list, t_words *word_node)
-{
-	t_words	*list_head;
-
-	list_head = list;
-	if (list == NULL)
-		return (word_node);
-	while (list->next != NULL)
-		list = list->next;
-	list->next = word_node;
-	return (list_head);
-}
-
 static t_words	*delete_null_word_node(t_words *word_list)
 {
 	t_words	*new_word_list;
@@ -22,17 +9,13 @@ static t_words	*delete_null_word_node(t_words *word_list)
 	while (word_list != NULL)
 	{
 		if (word_list->word == NULL)
-		{
-			tmp = word_list;
-			word_list = word_list->next;
-			free_word_node(tmp);
-		}
+			word_list = free_word_node_get_next_node(word_list);
 		else
 		{
 			tmp = word_list;
 			word_list = word_list->next;
 			tmp->next = NULL;
-			new_word_list = append_word_node_to_list(new_word_list, tmp);
+			new_word_list = append_word_node(new_word_list, tmp);
 		}
 	}
 	return (new_word_list);

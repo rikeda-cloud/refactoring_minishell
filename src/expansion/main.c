@@ -56,7 +56,7 @@ void	init_data(t_data *data)
 {
 	data->err_flag = false;
 	data->err_code = 0;
-	data->env_map = change_environ_to_hash_map();
+	data->env_map = change_environ_to_map();
 	data->crr_dir = NULL;
 	data->line = NULL;
 	data->root = NULL;

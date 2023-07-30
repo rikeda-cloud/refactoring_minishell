@@ -27,7 +27,7 @@ t_env	*insert_env_to_env_map(t_env **map, char *original)
 	t_env	*new_env;
 	int		hash_value;
 
-	if (original == NULL || map == NULL)
+	if (map == NULL || original == NULL)
 		return (NULL);
 	hash_value = hash(*original);
 	new_env = new_new_env(original);

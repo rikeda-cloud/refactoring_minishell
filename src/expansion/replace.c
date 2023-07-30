@@ -23,7 +23,7 @@ char	*replace(char *str, char *target, const char *new_word)
 	char	*new_str;
 
 	new_str = new_new_str(str, target, new_word);
-	free(str);
-	free(target);
+	free_str(str);
+	free_str(target);
 	return (new_str);
 }

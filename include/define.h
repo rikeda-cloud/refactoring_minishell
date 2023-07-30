@@ -1,6 +1,7 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
+#include <bits/types/sig_atomic_t.h>
 # define PROMPT "minishell >> "
 
 # define SPECIAL_CHAR " \t\n<>|"
@@ -10,22 +11,17 @@
 
 # define ERR_SYNTAX	"minishell: syntax error near unexpected token `"
 # define ERR_SYNTAX_CLOSE	"'"
-
 # define ERR_MANY_ARG "minishell: "
 # define ERR_MANY_ARG_CLOSE	": too many arguments"
-
 # define ERR_NO_HOME	"minishell: cd: HOME not set"
-
 # define ERR_NO_FILE	"minishell: cd: "
 # define ERR_NO_FILE_CLOSE	": No such file or directory"
-
-# define ERR_EXIT	"bash: exit: "
+# define ERR_EXIT	"minishell: exit: "
 # define ERR_EXIT_CLOSE	": numeric argument required"
-
-#define ERR_NOT_CLOSE_QUOTATION "Error not close quotation"
-
-#define ERR_EXPORT_VALID "minishell: export: `"
-#define ERR_EXPORT_VALID_CLOSE	"': not a valid identifier"
+# define ERR_NOT_CLOSE_QUOTATION "Error not close quotation"
+# define ERR_CRR_DIR_NOT_EXIST	"Error: Current dir info does not exist"
+# define ERR_EXPORT_VALID "minishell: export: `"
+# define ERR_EXPORT_VALID_CLOSE	"': not a valid identifier"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -41,6 +37,35 @@
 # include <string.h>
 # include <limits.h>
 # include <stdint.h>
+
+enum e_size
+{
+	HASH_MAP_SIZE = 27,
+	BUFFER_SIZE = 100,
+};
+
+enum e_cd
+{
+	CD_FAILD = -1,
+	CD_SUCCESS = 0,
+	CD_MALLOC_ERR = -2,
+};
+
+enum e_quote_mode
+{
+	NOT_Q_MODE = 0,
+	SINGLE_Q_MODE,
+	DOUBLE_Q_MODE,
+};
+
+typedef enum e_sig_mode
+{
+	NORMAL = 0,
+	READLINE_MODE,
+	ENTER_CTRL_C_MODE,
+	HEREDOC_MODE,
+	EXEC_MODE,
+}	t_sig_mode;
 
 typedef enum e_token_type
 {
@@ -62,19 +87,6 @@ typedef enum e_node_type
 	COMMAND = 0,
 	PIPE,
 }	t_node_type;
-
-enum e_quote_mode
-{
-	NOT_Q_MODE = 0,
-	SINGLE_Q_MODE,
-	DOUBLE_Q_MODE,
-};
-
-enum e_size
-{
-	HASH_MAP_SIZE = 27,
-	BUFFER_SIZE = 100,
-};
 
 typedef struct s_words
 {
@@ -111,6 +123,7 @@ typedef struct s_data
 	t_tree_node	*root;
 }	t_data;
 
-extern	char **environ;
+extern char						**environ;
+extern volatile	sig_atomic_t	g_sig_mode;
 
 #endif

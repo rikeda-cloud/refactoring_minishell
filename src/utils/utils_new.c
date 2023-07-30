@@ -11,10 +11,7 @@ t_words	*new_word_node(const char *str)
 		return (word_list);
 	word_list->word = strdup_n(str, count_word_size(str));
 	if (word_list->word == NULL)
-	{
-		free(word_list);
-		return (NULL);
-	}
+		return (free_word_node(word_list));
 	return (word_list);
 }
 

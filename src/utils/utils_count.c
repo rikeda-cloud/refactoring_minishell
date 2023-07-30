@@ -64,20 +64,21 @@ size_t	count_env_size(const char *str)
 	return (size);
 }
 
-static size_t	count_hash_list_size(t_env *hash_list)
+static size_t	count_hash_list_size(t_env *hash_list, bool (f)(char *))
 {
 	size_t	size;
 
 	size = 0;
 	while (hash_list != NULL)
 	{
-		size++;
+		if (f(hash_list->value) == true)
+			size++;
 		hash_list = hash_list->next;
 	}
 	return (size);
 }
 
-size_t	count_map_size(t_env **map)
+size_t	count_map_size(t_env **map, bool (f)(char *))
 {
 	size_t	idx;
 	size_t	size;
@@ -85,6 +86,20 @@ size_t	count_map_size(t_env **map)
 	idx = 0;
 	size = 0;
 	while (idx < HASH_MAP_SIZE)
-		size += count_hash_list_size(map[idx++]);
+		size += count_hash_list_size(map[idx++], f);
+	return (size);
+}
+
+size_t	count_assignment_word(t_words *word_list)
+{
+	size_t	size;
+
+	size = 0;
+	while (word_list != NULL)
+	{
+		if (is_in_equal(word_list->word))
+			size++;
+		word_list = word_list->next;
+	}
 	return (size);
 }

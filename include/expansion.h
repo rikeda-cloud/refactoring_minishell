@@ -6,7 +6,7 @@
 t_words	*split_str_by_quote(char *str);
 void	variable_expansion(t_words *words, t_data *data);
 void	split_word_list_by_ifs(t_words *word_list, t_data *data);
-t_words	*trim_quote_and_cat(t_words *words, bool *err_flag);
+t_words	*trim_quote_and_cat(t_words *word, bool *err_flag);
 
 /* expansion */
 void	expansion_tree(t_tree_node *node, t_data *data);
