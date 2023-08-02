@@ -7,7 +7,7 @@ static char	*new_new_str(char *str, char *target, const char *new_word)
 	const char	*env_position;
 	
 	new_str_size = strlen(str) + strlen(new_word) - strlen(target) - 1;
-	new_str = (char *)calloc(sizeof(char), (new_str_size + 1));
+	new_str = (char *)ft_calloc(sizeof(char), (new_str_size + 1));
 	if (new_str == NULL)
 		return (NULL);
 	env_position = get_env_position(str);

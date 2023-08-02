@@ -7,6 +7,13 @@ void	*free_str(char *str)
 	return (NULL);
 }
 
+void	*free_double_str(char *str1, char *str2)
+{
+	free_str(str1);
+	free_str(str2);
+	return (NULL);
+}
+
 void	*free_word_node(t_words *word_node)
 {
 	if (word_node != NULL && word_node->word != NULL)

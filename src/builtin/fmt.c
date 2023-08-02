@@ -11,7 +11,6 @@ static bool	is_need_to_be_escaped(int c)
 			return (true);
 	}
 	return (false);
-
 }
 
 void	fmt_export(char *key, char *value, int fd)

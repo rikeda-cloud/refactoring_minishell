@@ -19,7 +19,8 @@ void	insert_or_update_env(char *word, t_data *data)
 		if (*word++ != '\0')
 		{
 			env_value = strdup_n(word, count_to_front_of_c(word, '\0'));
-			update_env(data->env_map, env_name, env_value);
+			if (env_value != NULL)
+				update_env(data->env_map, env_name, env_value);
 			free_str(env_value);
 		}
 	}

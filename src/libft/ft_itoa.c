@@ -56,7 +56,7 @@ char	*ft_itoa(int n)
 	if (flag_minus)
 		long_n = -long_n;
 	digit = count_digit(long_n);
-	ptr = (char *)malloc(sizeof(char) * (flag_minus + digit + 1));
+	ptr = (char *)ft_calloc(sizeof(char), (flag_minus + digit + 1));
 	if (ptr == NULL)
 		return (NULL);
 	fill_ptr(ptr, long_n, flag_minus, digit);

@@ -30,7 +30,7 @@ static t_words	*delete_null_word_node(t_words *word_list)
 			word_list = sever_connect_and_skip_n(word_list, 2);
 			new_word_list = append_word_node(new_word_list, tmp);
 		}
-		if (word_list->word == NULL)
+		else if (word_list->word == NULL)
 			word_list = free_word_node_get_next_node(word_list);
 		else
 		{

@@ -8,7 +8,7 @@ BUILTIN_DIR		=	$(SRC_DIR)/builtin/
 ENV_CTRL_DIR	=	$(SRC_DIR)/environ_control/
 EXPANTION_DIR	=	$(SRC_DIR)/expansion/
 PARSER_DIR		=	$(SRC_DIR)/parser/
-PIPEX_DIR		=	$(SRC_DIR)/pipex/
+EXEC_DIR		=	$(SRC_DIR)/exec/
 UTILS_DIR		=	$(SRC_DIR)/utils/
 GNL_DIR			=	$(SRC_DIR)/get_next_line/
 LIBFT_DIR		=	$(SRC_DIR)/libft/
@@ -20,6 +20,7 @@ SRCS			=	main.c \
 					$(BUILTIN_DIR)export.c \
 					$(BUILTIN_DIR)pwd.c \
 					$(BUILTIN_DIR)unset.c \
+					$(BUILTIN_DIR)env.c \
 					$(BUILTIN_DIR)fmt.c \
 					$(BUILTIN_DIR)print_env.c \
 					$(BUILTIN_DIR)utils_option.c \
@@ -43,43 +44,27 @@ SRCS			=	main.c \
 					$(GNL_DIR)get_next_line.c \
 					$(GNL_DIR)get_next_line_utils.c \
 					$(LIBFT_DIR)ft_atoi.c \
-					$(LIBFT_DIR)ft_bzero.c \
 					$(LIBFT_DIR)ft_calloc.c \
 					$(LIBFT_DIR)ft_isalnum.c \
 					$(LIBFT_DIR)ft_isalpha.c \
-					$(LIBFT_DIR)ft_isalunder.c \
-					$(LIBFT_DIR)ft_isascii.c \
 					$(LIBFT_DIR)ft_isdigit.c \
 					$(LIBFT_DIR)ft_islower.c \
-					$(LIBFT_DIR)ft_isprint.c \
 					$(LIBFT_DIR)ft_isupper.c \
 					$(LIBFT_DIR)ft_itoa.c  \
-					$(LIBFT_DIR)ft_memchr.c \
-					$(LIBFT_DIR)ft_memcmp.c \
-					$(LIBFT_DIR)ft_memcpy.c \
-					$(LIBFT_DIR)ft_memmove.c \
 					$(LIBFT_DIR)ft_memset.c \
 					$(LIBFT_DIR)ft_putchar_fd.c \
 					$(LIBFT_DIR)ft_putendl_fd.c \
-					$(LIBFT_DIR)ft_putnbr_fd.c \
 					$(LIBFT_DIR)ft_putstr_fd.c \
 					$(LIBFT_DIR)ft_split.c \
 					$(LIBFT_DIR)ft_strcat.c \
 					$(LIBFT_DIR)ft_strchr.c \
 					$(LIBFT_DIR)ft_strcmp.c \
 					$(LIBFT_DIR)ft_strdup.c \
-					$(LIBFT_DIR)ft_striteri.c \
 					$(LIBFT_DIR)ft_strjoin.c \
 					$(LIBFT_DIR)ft_strlcat.c \
 					$(LIBFT_DIR)ft_strlcpy.c \
 					$(LIBFT_DIR)ft_strlen.c \
 					$(LIBFT_DIR)ft_strncmp.c \
-					$(LIBFT_DIR)ft_strnstr.c \
-					$(LIBFT_DIR)ft_strrchr.c \
-					$(LIBFT_DIR)ft_strtrim.c \
-					$(LIBFT_DIR)ft_substr.c \
-					$(LIBFT_DIR)ft_tolower.c \
-					$(LIBFT_DIR)ft_toupper.c \
 					$(PARSER_DIR)change_str_to_word_list.c \
 					$(PARSER_DIR)lexer.c \
 					$(PARSER_DIR)parser.c \
@@ -110,14 +95,13 @@ SRCS			=	main.c \
 					$(UTILS_DIR)utils_new.c \
 					$(UTILS_DIR)utils_append.c \
 					$(UTILS_DIR)utils_strdup.c \
-					$(PIPEX_DIR)child.c \
-					$(PIPEX_DIR)function_error.c \
-					$(PIPEX_DIR)heredoc.c \
-					$(PIPEX_DIR)libft_error.c \
-					$(PIPEX_DIR)no_pipe.c \
-					$(PIPEX_DIR)parents.c \
-					$(PIPEX_DIR)path_check.c \
-					$(PIPEX_DIR)pipex.c
+					$(EXEC_DIR)path_check.c \
+					$(EXEC_DIR)do_cmd.c \
+					$(EXEC_DIR)heredoc.c \
+					$(EXEC_DIR)pipex.c \
+					$(EXEC_DIR)redirect.c \
+					$(EXEC_DIR)access.c \
+					$(EXEC_DIR)delete_redirect_node.c
 OBJS			= 	$(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)

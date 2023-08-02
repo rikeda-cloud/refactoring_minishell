@@ -1,13 +1,12 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
-#include <bits/types/sig_atomic_t.h>
 # define PROMPT "minishell >> "
-
+# define HEREDOC_PROMPT "> "
 # define SPECIAL_CHAR " \t\n<>|"
 # define SPACE_CHAR " \t\n"
 # define IFS_CHARS " \t\n"
-# define NEED_TO_BE_ESCAPED "$\"\\"
+# define NEED_TO_BE_ESCAPED "\n`$\"\\"
 
 # define ERR_SYNTAX	"minishell: syntax error near unexpected token `"
 # define ERR_SYNTAX_CLOSE	"'"
@@ -18,15 +17,15 @@
 # define ERR_NO_FILE_CLOSE	": No such file or directory"
 # define ERR_EXIT	"minishell: exit: "
 # define ERR_EXIT_CLOSE	": numeric argument required"
-# define ERR_NOT_CLOSE_QUOTATION "Error not close quotation"
+# define ERR_NOT_CLOSE_QUOTATION "Error: not close quotation"
 # define ERR_CRR_DIR_NOT_EXIST	"Error: Current dir info does not exist"
 # define ERR_EXPORT_VALID "minishell: export: `"
 # define ERR_EXPORT_VALID_CLOSE	"': not a valid identifier"
 
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -46,8 +45,8 @@ enum e_size
 
 enum e_cd
 {
-	CD_FAILD = -1,
 	CD_SUCCESS = 0,
+	CD_FAILD = -1,
 	CD_MALLOC_ERR = -2,
 };
 
@@ -93,6 +92,7 @@ typedef struct s_words
 	struct s_words	*next;
 	t_token_type	token_type;
 	char			*word;
+	pid_t			command_pid;
 }	t_words;
 
 typedef struct s_tree_node

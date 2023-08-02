@@ -4,7 +4,7 @@ t_env	*new_new_env(char *original)
 {
 	t_env	*new_env;
 
-	new_env = (t_env *)calloc(sizeof(t_env), 1);
+	new_env = (t_env *)ft_calloc(sizeof(t_env), 1);
 	if (new_env == NULL)
 		return (NULL);
 	new_env->original = original;

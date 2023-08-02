@@ -1,15 +1,17 @@
-NAME		=	pipex.a
+NAME		=	exec.a
 AR			=	ar rcs
 CC			=	cc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
-SRCS		=	child.c \
-				function_error.c \
-				heredoc.c \
+SRCS		=	heredoc.c \
 				libft_error.c \
 				no_pipe.c \
 				parents.c \
 				path_check.c \
+				redirect.c \
+				delete_redirect_node.c \
+				do_cmd.c \
+				access.c \
 				pipex.c
 OBJS		= 	$(SRCS:%.c=%.o)
 

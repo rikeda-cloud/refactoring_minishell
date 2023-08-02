@@ -38,7 +38,7 @@ static char	*ft_set(char **tmp, char const *s, char c)
 		i = ft_strlen_c(s, c);
 		if (*s == '\0' || i > 0)
 		{
-			*tmp = malloc (sizeof(char) * i + 1);
+			*tmp = ft_calloc(sizeof(char), (i + 1));
 			if (*tmp == NULL)
 				return (ft_malloc_check(tmp, count));
 			ft_strlcpy (*tmp, (const char *)s, i + 1);
@@ -79,7 +79,7 @@ char	**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	count = ft_count(s, c);
-	tmp = malloc (sizeof(char *) * (count + 1));
+	tmp = ft_calloc(sizeof(char *), (count + 1));
 	if (tmp == NULL)
 		return (NULL);
 	tmp1 = tmp;

@@ -9,11 +9,11 @@ static char	*check_access(char *flag, char *separgv)
 	char	*tmp;
 
 	i = 0;
-	sepflag = do_split(flag, ':');
+	sepflag = ft_split(flag, ':');
 	while (sepflag[i] != NULL)
 	{
-		tmp = do_strjoin(sepflag[i], "/");
-		path = do_strjoin(tmp, separgv);
+		tmp = ft_strjoin(sepflag[i], "/");
+		path = ft_strjoin(tmp, separgv);
 		free(tmp);
 		check = access(path, X_OK);
 		if (check == 0)

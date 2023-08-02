@@ -2,15 +2,28 @@
 
 char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
 {
-	t_env *env;
+	t_env	*env;
+	char	*str_err_code;
+	char	*new_str;
 
 	env = select_env(data->env_map, target);
+	new_str = NULL;
 	if (*target == '?')
-		return (replace(word, target, ft_itoa(data->err_code)));
+	{
+		str_err_code = ft_itoa(data->err_code);
+		if (str_err_code != NULL)
+			new_str = replace(word, target, str_err_code);
+		else
+			free_double_str(word, target);
+		free_str(str_err_code);
+	}
 	else if (env == NULL)
-		return (replace(word, target, ""));
+		new_str = replace(word, target, "");
 	else
-		return (replace(word, target, env->value));
+		new_str = replace(word, target, env->value);
+	if (new_str == NULL)
+		data->err_flag = true;
+	return (new_str);
 }
 
 char	*replace_all_env(char *str, t_data *data)
@@ -44,13 +57,14 @@ void	variable_expansion(t_words *words, t_data *data)
 			change_quote_mode(&quote_mode, words->token_type);
 			words = words->next;
 		}
-		else if (quote_mode == SINGLE_Q_MODE || target == NULL)
+		else if (target == NULL)
 			words = words->next;
-		else
+		else if (quote_mode == SINGLE_Q_MODE)
 		{
-			words->word = replace_dallor_str_to_env(words->word, target, data);
-			if (words->word == NULL)
-				data->err_flag = true;
+			free_str(target);
+			words = words->next;
 		}
+		else
+			words->word = replace_dallor_str_to_env(words->word, target, data);
 	}
 }

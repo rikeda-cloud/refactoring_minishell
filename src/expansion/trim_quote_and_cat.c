@@ -3,6 +3,7 @@
 static char	*cat_word_str(t_words *words, bool *err_flag)
 {
 	char	*new_str;
+	char	*tmp;
 
 	new_str = NULL;
 	while (words != NULL)
@@ -11,7 +12,9 @@ static char	*cat_word_str(t_words *words, bool *err_flag)
 			break;
 		else if (is_quote_node(words) == false)
 		{
+			tmp = new_str;
 			new_str = ft_strjoin(new_str, words->word);
+			free_str(tmp);
 			if (new_str == NULL)
 				return (reverse_flag(err_flag));
 		}

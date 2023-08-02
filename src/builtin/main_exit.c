@@ -13,13 +13,13 @@ int	main (void)
 	data.env_map = NULL;
 	data.line = NULL;
 	data.root = NULL;
-	words = calloc(sizeof(t_words), 1);
+	words = ft_calloc(sizeof(t_words), 1);
 	top = words;
 	words->word = strdup("exit");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	words = words->next;
 	words->word = strdup("a");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	words = words->next;
 	words->word = strdup("b");
 	my_exit(top->next, STDOUT_FILENO, &data);

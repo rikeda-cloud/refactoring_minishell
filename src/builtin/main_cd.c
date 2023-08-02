@@ -10,7 +10,7 @@ int	main (void)
 
 	data.crr_dir = getcwd(NULL, 0);
 	data.env_map = change_environ_to_map();
-	words = calloc(sizeof(t_words), 1);
+	words = ft_calloc(sizeof(t_words), 1);
 	top = words;
 	words->word = strdup("cd");
 	/* words->next = calloc(sizeof(t_words), 1); */

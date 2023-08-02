@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-bool	is_option(const char *str, int option_c)
+static bool	is_option(const char *str, int option_c)
 {
 	if (*str != '-')
 		return (false);

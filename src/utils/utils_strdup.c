@@ -5,8 +5,12 @@ char	*strdup_n(const char *src, size_t n)
 	size_t	idx;
 	char	*dest;
 
+	if (src == NULL)
+		return (NULL);
 	idx = 0;
-	dest = (char *)calloc(sizeof(char), (n + 1));
+	dest = (char *)ft_calloc(sizeof(char), (n + 1));
+	if (dest == NULL)
+		return (NULL);
 	while (idx < n)
 	{
 		dest[idx] = src[idx];

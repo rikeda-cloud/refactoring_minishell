@@ -9,16 +9,16 @@ int	main (void)
 	t_words *top;
 	t_data	data;
 
-	words = calloc(sizeof(t_words), 1);
+	words = ft_calloc(sizeof(t_words), 1);
 	top = words;
 	words->word = strdup("echo");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	words = words->next;
 	words->word = strdup("-n");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	words = words->next;
 	words->word = strdup("");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	words = words->next;
 	words->word = strdup("");
 	my_echo(top->next, STDOUT_FILENO, &data);

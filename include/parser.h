@@ -14,7 +14,7 @@ bool		check_syntax_err_words(const t_words *word_list, t_data *data);
 
 /* ----------------- parser --------------------------- */
 
-t_tree_node	*parser(t_words *word_list, t_data *data);
+t_tree_node	*parser(const char *str, t_data *data);
 
 t_tree_node	*create_tree(t_words *words, t_data *data);
 void		add_node_type(t_tree_node * const node);

@@ -1,6 +1,5 @@
 #include "include/minishell.h"
 
-
 volatile sig_atomic_t	g_sig_mode;
 
 /* ------------------------------------------------------------------------ */
@@ -73,8 +72,8 @@ void	builtin_exec(t_tree_node *root, t_data *data)
 			my_pwd(root->word_list->next, STDOUT_FILENO, data);
 		else if (ft_strcmp(root->word_list->word, "unset") == 0)
 			my_unset(root->word_list->next, STDOUT_FILENO, data);
-		/* else if (ft_strcmp(root->word_list->word, "env") == 0) */
-		/* 	my_env(root->word_list->next, STDOUT_FILENO, data); */
+		else if (ft_strcmp(root->word_list->word, "env") == 0)
+			my_env(root->word_list->next, STDOUT_FILENO, data);
 	}
 }
 
@@ -82,25 +81,24 @@ void	builtin_exec(t_tree_node *root, t_data *data)
 
 void	exec_command_line(const char *line, t_data *data)
 {
-	t_words		*word_list;
 	t_tree_node	*root;
 
 	g_sig_mode = NORMAL;
 	data->err_flag = false;
-	word_list = lexer(line, data);
-	if (word_list == NULL)
-		return ;
-	root = parser(word_list, data);
+	root = parser(line, data);
 	if (root == NULL)
 		return ;
 	expansion_tree(root, data);
 	if (data->err_flag)
+	{
+		data->root = free_all_tree_node(root);
 		return ;
+	}
 	del_null_word_node_in_tree(root);
 	data->root = root;
-	print_tree(root);
-	builtin_exec(root, data);
-	/* do_command(root, data) */
+	/* print_tree(root); */
+	/* builtin_exec(root, data); */
+	command_loop(root, data);
 	data->root = free_all_tree_node(root);
 }
 
@@ -109,18 +107,18 @@ void	exec_shell_loop(t_data *data)
 	while (true)
 	{
 		g_sig_mode = READLINE_MODE;
-		data->line = readline(PROMPT);
+		/* data->line = readline(PROMPT); */
+		data->line = get_next_line(STDIN_FILENO);
 		if (data->line == NULL)
 			break ;
 		else if (data->line[0] != '\0')
 		{
 			if (g_sig_mode == ENTER_CTRL_C_MODE)
 				data->err_code = 130;
-			add_history(data->line);
+			/* add_history(data->line); */
 			exec_command_line(data->line, data);
 		}
 		data->line = free_str(data->line);
-		data->err_flag = false;
 	}
 }
 
@@ -139,6 +137,6 @@ int	main (void)
 	g_sig_mode = NORMAL;
 	exec_shell_loop(&data);
 	free_all_data(&data);
-	/* ft_putendl_fd("exit", STDOUT_FILENO); */
+	ft_putendl_fd("exit\n", STDOUT_FILENO);
 	return (data.err_code);
 }

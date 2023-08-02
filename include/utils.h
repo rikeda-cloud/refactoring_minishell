@@ -36,11 +36,12 @@ size_t	count_word_size(const char *str);
 size_t	count_new_word_size(char *word);
 size_t	count_to_front_of_c(char *str, int c);
 size_t	count_env_size(const char *str);
-size_t	count_map_size(t_env **map, bool (f)(char *));
+size_t	count_map_size(t_env **map);
 size_t	count_assignment_word(t_words *word_list);
 
 /* free */
 void	*free_str(char *str);
+void	*free_double_str(char *str1, char *str2);
 void	*free_char_list(char **char_list);
 void	*free_all_word_list(t_words *word_list);
 void	*free_all_tree_node(t_tree_node *root);
