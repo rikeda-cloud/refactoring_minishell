@@ -13,7 +13,8 @@
 # define ERR_MANY_ARG "minishell: "
 # define ERR_MANY_ARG_CLOSE	": too many arguments"
 # define ERR_NO_HOME	"minishell: cd: HOME not set"
-# define ERR_NO_FILE	"minishell: cd: "
+# define ERR_NO_FILE	"minishell: "
+# define ERR_NO_CD_FILE	"minishell: cd: "
 # define ERR_NO_FILE_CLOSE	": No such file or directory"
 # define ERR_EXIT	"minishell: exit: "
 # define ERR_EXIT_CLOSE	": numeric argument required"
@@ -65,6 +66,13 @@ typedef enum e_sig_mode
 	HEREDOC_MODE,
 	EXEC_MODE,
 }	t_sig_mode;
+
+typedef enum e_exec_type
+{
+	STANDARD = 0,
+	BUILTIN_WITHOUT_ENV,
+	NONE,
+}	t_exec_type;
 
 typedef enum e_token_type
 {
@@ -123,7 +131,6 @@ typedef struct s_data
 	t_tree_node	*root;
 }	t_data;
 
-extern char						**environ;
 extern volatile	sig_atomic_t	g_sig_mode;
 
 #endif

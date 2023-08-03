@@ -17,12 +17,12 @@ static void	handler_readline(void)
 static void	handler_heredoc(void)
 {
 	close(STDIN_FILENO);
-	g_sig_mode = NORMAL;
+	g_sig_mode = ENTER_CTRL_C_MODE;
 }
 
 static void	handler_exec(void)
 {
-	return ;
+	ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
 void	minishell_handler(int signal)

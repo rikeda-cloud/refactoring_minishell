@@ -39,8 +39,11 @@ SRCS			=	main.c \
 					$(EXPANTION_DIR)trim_quote_and_cat.c \
 					$(EXPANTION_DIR)variable_expansion.c \
 					$(EXPANTION_DIR)utils_ifs.c \
-					$(EXPANTION_DIR)del_null_word_node.c \
+					$(EXPANTION_DIR)delete_null_word_node.c \
+					$(EXPANTION_DIR)delete_last_dallor.c \
 					$(EXPANTION_DIR)replace.c \
+					$(EXPANTION_DIR)is_assignment_pattern.c \
+					$(EXPANTION_DIR)is_do_not_word_split_pattern.c \
 					$(GNL_DIR)get_next_line.c \
 					$(GNL_DIR)get_next_line_utils.c \
 					$(LIBFT_DIR)ft_atoi.c \
@@ -57,7 +60,6 @@ SRCS			=	main.c \
 					$(LIBFT_DIR)ft_putstr_fd.c \
 					$(LIBFT_DIR)ft_split.c \
 					$(LIBFT_DIR)ft_strcat.c \
-					$(LIBFT_DIR)ft_strchr.c \
 					$(LIBFT_DIR)ft_strcmp.c \
 					$(LIBFT_DIR)ft_strdup.c \
 					$(LIBFT_DIR)ft_strjoin.c \
@@ -85,8 +87,6 @@ SRCS			=	main.c \
 					$(UTILS_DIR)utils_free_word_list.c \
 					$(UTILS_DIR)utils_free_all_data.c \
 					$(UTILS_DIR)utils_get.c \
-					$(UTILS_DIR)utils_is_assignment.c \
-					$(UTILS_DIR)utils_is_do_not_word_split_pattern.c \
 					$(UTILS_DIR)utils_is_only.c \
 					$(UTILS_DIR)utils_is_other.c \
 					$(UTILS_DIR)utils_is_quote.c \
@@ -95,13 +95,17 @@ SRCS			=	main.c \
 					$(UTILS_DIR)utils_new.c \
 					$(UTILS_DIR)utils_append.c \
 					$(UTILS_DIR)utils_strdup.c \
-					$(EXEC_DIR)path_check.c \
+					$(EXEC_DIR)apparently_heredoc.c \
+					$(EXEC_DIR)change_word_list_to_cmd.c \
+					$(EXEC_DIR)check_exec_pattern.c \
+					$(EXEC_DIR)delete_redirect_node.c \
+					$(EXEC_DIR)do_builtin.c \
 					$(EXEC_DIR)do_cmd.c \
 					$(EXEC_DIR)heredoc.c \
+					$(EXEC_DIR)path_check.c \
 					$(EXEC_DIR)pipex.c \
 					$(EXEC_DIR)redirect.c \
-					$(EXEC_DIR)access.c \
-					$(EXEC_DIR)delete_redirect_node.c
+					$(EXEC_DIR)utils_is.c
 OBJS			= 	$(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)

@@ -17,8 +17,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(const char *s, int fd);
 void	ft_putstr_fd(const char *s, int fd);
 char	**ft_split(char const *s, char c);
-int 	ft_strchr_asaka( const  char *s, int c);
-char	*ft_strchr( const  char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);

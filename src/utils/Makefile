@@ -15,8 +15,6 @@ SRCS		=	hash.c \
 				utils_free_word_list.c \
 				utils_free_all_data.c \
 				utils_get.c \
-				utils_is_assignment.c \
-				utils_is_do_not_word_split_pattern.c \
 				utils_is_only.c \
 				utils_is_other.c \
 				utils_is_quote.c \

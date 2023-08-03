@@ -84,9 +84,9 @@ int	get_eight_bit(long int number)
 bool	calc_exit_status(const char *str, t_data *data)
 {
 	if (is_not_number_str(str))
-		 return (err_exit(str, &data->err_code));
+		return (err_exit(str, &data->err_code));
 	else if (is_over_long_max(str) || is_under_long_min(str))
-		 return (err_exit(str, &data->err_code));
+		return (err_exit(str, &data->err_code));
 	else
 	{
 		data->err_code = get_eight_bit(ft_atoi(str));

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static char	*new_new_str(char *str, char *target, const char *new_word)
+static char	*new_new_word(char *str, char *target, const char *new_word)
 {
 	size_t		new_str_size;
 	char		*new_str;
@@ -22,7 +22,7 @@ char	*replace(char *str, char *target, const char *new_word)
 {
 	char	*new_str;
 
-	new_str = new_new_str(str, target, new_word);
+	new_str = new_new_word(str, target, new_word);
 	free_str(str);
 	free_str(target);
 	return (new_str);

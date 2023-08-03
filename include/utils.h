@@ -13,12 +13,11 @@ bool	is_redirect(const t_token_type type);
 bool	is_token_type_quotation(t_token_type type);
 bool	is_type_in_word_list(t_words *word_list, t_token_type word_type);
 bool	is_only_null_char_node(t_words *word_list);
-bool	is_assignment_pattern(t_tree_node *node);
 bool	is_in_equal(const char *str);
-bool	is_do_not_word_split_pattern(bool flag, const char *str);
 bool	is_only_under_env(const char *str);
 bool	is_not_a_valid_identifier(const char *str);
 bool	is_add_and_assign(const char *str);
+bool	is_c_in_str(const char *str, int c);
 
 /* strdup */
 char	*strdup_n(const char *src, size_t n);
@@ -71,7 +70,8 @@ bool	print_err1(const char *arg1);
 bool	print_err2(const char *arg1, const char *arg2);
 bool	print_err3(const char *arg1, const char *arg2, const char *arg3);
 bool	err_syntax(const char *unexpected_token, int *err_code);
-bool	err_no_file(const char *not_exist_home, int *err_code);
+bool	err_no_file(const char *not_exist_cmd, int *err_code);
+bool	err_no_cd_file(const char *not_exist_home, int *err_code);
 bool	err_no_home(int *err_code);
 bool	err_many_arg(const char *command, int *err_code);
 bool	err_exit(const char *str, int *err_code);

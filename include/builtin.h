@@ -8,7 +8,7 @@ void	my_pwd(t_words *word_list, int fd, t_data *data);
 void	my_export(t_words *word_list, int fd, t_data *data);
 void	my_env(t_words *word_list, int fd, t_data *data);
 void	my_unset(t_words *word_list, int fd, t_data *data);
-void	my_exit(t_words *word_list, int fd, t_data *data);
+bool	my_exit(t_words *word_list, int fd, t_data *data);
 void	my_cd(t_words *word_list, int fd, t_data *data);
 
 bool	calc_exit_status(const char *str, t_data *data);

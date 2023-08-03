@@ -1,20 +1,5 @@
 #include "../../include/minishell.h"
 
-char *str_to_command(t_tree_node *root)
-{
-    char    *command;
-    t_words *tmp;
-
-    command = root->word_list->word;
-    tmp = root->word_list->next;
-    while (tmp != NULL)
-    {
-        command = ft_strjoin(command, " ");
-        command = ft_strjoin(command, tmp->word);
-        tmp = tmp->next;
-    }
-    return(command);
-}
 
 void    command_loop(t_tree_node *root, t_data *data)
 {
@@ -26,18 +11,24 @@ void    command_loop(t_tree_node *root, t_data *data)
     root = get_leftmost_node(root);
     first_command = root;
     table = heredoc_loop(root, data);
-    while(true)
-    {
-        if (root->prev == NULL || (root->prev->prev == NULL && root != root->prev->left))
+	g_sig_mode = EXEC_MODE;
+	if (is_builtin_cmd_alone_without_env(root))
+		do_builtin_cmd_alone_without_env(root->word_list, data);
+	else
+	{
+		while(true)
 		{
-            do_last_command(root, prevfd, *table++);
-            break ;
-        }
-        prevfd = do_command(root, prevfd, *table++);
-        if (root == first_command)
-            root = root->prev->right;
-        else
-            root = root->prev->prev->right;
-    }
-    child_wait(root, first_command);
+			if (is_last_cmd(root))
+			{
+				do_lst_cmd(root, prevfd, *table++, data);
+				break ;
+			}
+			prevfd = do_cmd(root, prevfd, *table++, data);
+			if (root == first_command)
+				root = root->prev->right;
+			else
+				root = root->prev->prev->right;
+		}
+		child_wait(root, first_command, data);
+	}
 }

@@ -42,7 +42,7 @@ static t_words	*delete_null_word_node(t_words *word_list)
 	return (new_word_list);
 }
 
-void	del_null_word_node_in_tree(t_tree_node *node)
+void	delete_null_word_node_in_tree(t_tree_node *node)
 {
 	node = get_leftmost_node(node);
 	node->word_list = delete_null_word_node(node->word_list);

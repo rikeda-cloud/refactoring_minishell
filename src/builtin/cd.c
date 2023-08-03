@@ -58,7 +58,7 @@ static void	cd_normal(t_data *data, char *str)
 	else if (return_number == CD_FAILD && *str == '\0')
 		change_pwd_oldpwd_crrdir(data, true);
 	else if (return_number == CD_FAILD)
-		err_no_file(str, &data->err_code);
+		err_no_cd_file(str, &data->err_code);
 	else if (return_number == CD_MALLOC_ERR)
 		data->err_code = 0;
 }

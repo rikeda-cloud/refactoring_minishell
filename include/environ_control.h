@@ -3,7 +3,7 @@
 
 #include "define.h"
 
-t_env	**change_environ_to_map(void);
+t_env	**change_environ_to_map(const char **environ);
 char	**change_map_to_environ(t_env **map);
 void	insert_new_env(t_env **map, t_env *new_env, int hash_value);
 t_env	*insert_env_to_env_map(t_env **map, char *original);

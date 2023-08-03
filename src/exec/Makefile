@@ -10,8 +10,8 @@ SRCS		=	heredoc.c \
 				path_check.c \
 				redirect.c \
 				delete_redirect_node.c \
+				change_word_list_to_cmd.c \
 				do_cmd.c \
-				access.c \
 				pipex.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
@@ -47,10 +47,10 @@ all: $(NAME)
 bonus: $(NAME)
 
 clean:	
-		$(RM) $(OBJS) $(LIBFT_DIR)/*.o $(GNL_DIR)/*.o
+		$(RM) *.o
 
 fclean:	clean
-		$(RM) $(NAME) $(LIBFT) $(GNL)
+		$(RM) $(NAME)
 
 re:		fclean all
 

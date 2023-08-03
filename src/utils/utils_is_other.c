@@ -43,3 +43,27 @@ bool	is_not_a_valid_identifier(const char *str)
 		return (true);
 	return (false);
 }
+
+bool	is_c_in_str(const char *str, int c)
+{
+	if (str == NULL)
+		return (false);
+	while (*str != '\0')
+	{
+		if (*str++ == c)
+			return (true);
+	}
+	return (false);
+}
+
+bool	is_in_equal(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	while (*str != '\0')
+	{
+		if (*str++ == '=')
+			return (true);
+	}
+	return (false);
+}

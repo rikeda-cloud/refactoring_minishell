@@ -47,6 +47,7 @@ void	variable_expansion(t_words *words, t_data *data)
 	char	*target;
 
 	quote_mode = NOT_Q_MODE;
+	delete_last_dallor(words, data);
 	if (words == NULL)
 		data->err_flag = true;
 	while (data->err_flag == false && words != NULL)
@@ -57,9 +58,7 @@ void	variable_expansion(t_words *words, t_data *data)
 			change_quote_mode(&quote_mode, words->token_type);
 			words = words->next;
 		}
-		else if (target == NULL)
-			words = words->next;
-		else if (quote_mode == SINGLE_Q_MODE)
+		else if (target == NULL || quote_mode == SINGLE_Q_MODE)
 		{
 			free_str(target);
 			words = words->next;

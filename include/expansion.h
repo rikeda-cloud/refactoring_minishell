@@ -23,6 +23,10 @@ size_t	strlen_to_ifs(const char *str, t_data *data);
 void	change_quote_mode(int *mode, t_token_type type);
 char	*replace(char *str, char *target, const char *new_word);
 char	*replace_all_env(char *str, t_data *data);
-void	del_null_word_node_in_tree(t_tree_node *node);
+void	delete_last_dallor(t_words *words, t_data *data);
+void	delete_null_word_node_in_tree(t_tree_node *node);
+
+bool	is_assignment_pattern(t_tree_node *node);
+bool	is_do_not_word_split_pattern(bool flag, const char *str);
 
 #endif

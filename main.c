@@ -94,7 +94,7 @@ void	exec_command_line(const char *line, t_data *data)
 		data->root = free_all_tree_node(root);
 		return ;
 	}
-	del_null_word_node_in_tree(root);
+	delete_null_word_node_in_tree(root);
 	data->root = root;
 	/* print_tree(root); */
 	/* builtin_exec(root, data); */
@@ -122,13 +122,15 @@ void	exec_shell_loop(t_data *data)
 	}
 }
 
-int	main (void)
+int	main (int argc, char **argv, const char **envp)
 {
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
 	signal(SIGINT, minishell_handler);
 	signal(SIGQUIT, SIG_IGN);
-	data.env_map = change_environ_to_map();
+	data.env_map = change_environ_to_map(envp);
 	data.crr_dir = getcwd(NULL, 0);
 	data.err_code = 0;
 	data.err_flag = false;
@@ -137,6 +139,6 @@ int	main (void)
 	g_sig_mode = NORMAL;
 	exec_shell_loop(&data);
 	free_all_data(&data);
-	ft_putendl_fd("exit\n", STDOUT_FILENO);
+	ft_putendl_fd("exit", STDERR_FILENO);
 	return (data.err_code);
 }

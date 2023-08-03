@@ -46,7 +46,7 @@ $(UTILS):
 all: $(NAME)
 
 clean:	
-		$(RM) $(OBJS) $(ENV_CTRL_DIR)/*.[oa] $(LIBFT_DIR)/*.[oa] $(UTILS_DIR)/*.[oa]
+		$(RM) *.o
 
 fclean:	clean
 		$(RM) $(NAME)

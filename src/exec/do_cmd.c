@@ -1,65 +1,59 @@
 #include "../../include/minishell.h"
 
-int parents(t_tree_node *root, pid_t pid, int prevfd, int *pipefd)
+static int parents(t_words *word_list, pid_t pid, int prevfd, int *pipefd)
 {
-    root -> word_list -> command_pid = pid;
-    if (prevfd == 0)
-    {
-        prevfd = pipefd[0];
-        close(pipefd[1]);
-        return(prevfd);
-    }
-    else
-    {
-        close(prevfd);
-        prevfd = pipefd[0];
-        close(pipefd[1]);
-        return(prevfd);
-    }
+    word_list->command_pid = pid;
+	if (prevfd != 0)
+		close(prevfd);
+    close(pipefd[1]);
+    return(pipefd[0]);
 }
 
-void    last_parents(t_tree_node *root, pid_t pid, int prevfd)
+static void    last_parents(t_words *word_list, pid_t pid, int prevfd)
 {
-    root -> word_list -> command_pid = pid;
+    word_list->command_pid = pid;
 	if (prevfd != 0)
 		close(prevfd);
 }
 
-void    child_wait(t_tree_node *root, t_tree_node *first_command)
+static int change_wstatus_to_err_code(int wstatus)
 {
-	int	wstatus;
-    root = first_command;
-    while(true)
-    {
-        if (root -> prev == NULL ||(root -> prev -> prev == NULL && root != root -> prev -> left))
-        {
-            waitpid(root -> word_list -> command_pid, &wstatus, 0);
-            /* waitpid(root -> word_list -> command_pid, NULL, 0); */
-            break ;
-        }
-        else
-        {
-            waitpid(root ->word_list -> command_pid, &wstatus, 0); 
-            /* waitpid(root ->word_list -> command_pid, NULL, 0); */ 
-            if (root == first_command)
-                root = root -> prev -> right;
-            else
-                root = root -> prev -> prev -> right;
-        }
-    }
-    return ;
+	if (WIFEXITED(wstatus))
+		return (WEXITSTATUS(wstatus));
+	else
+		return (128 + WTERMSIG(wstatus));
 }
 
-int do_command(t_tree_node *root, int prevfd, int heredoc_fd)
+void    child_wait(t_tree_node *root, t_tree_node *first_cmd, t_data *data)
+{
+	int	wstatus;
+
+    root = first_cmd;
+    while(true)
+    {
+		if (root->prev == NULL || (root->prev->prev == NULL && root != root->prev->left))
+        {
+			waitpid(root->word_list->command_pid, &wstatus, 0);
+			data->err_code = change_wstatus_to_err_code(wstatus);
+			break ;
+        }
+		else
+			waitpid(root->word_list->command_pid, NULL, 0); 
+		if (root == first_cmd)
+            root = root->prev->right;
+		else
+            root = root->prev->prev->right;
+    }
+}
+
+int do_cmd(t_tree_node *root, int prevfd, int heredocfd, t_data *data)
 {
     pid_t   pid;
     char    **separgv;
+    char    **my_environ;
     char    *path;
     int     pipefd[2];
-    // int     stdin_fd;
 
-    // stdin_fd = dup(0);
-    // prevfd = heredoc_check(root -> word_list);
     pipe(pipefd);
     pid = fork();
     if (pid == 0)
@@ -72,30 +66,37 @@ int do_command(t_tree_node *root, int prevfd, int heredoc_fd)
         close(pipefd[0]);
         dup2(pipefd[1], 1);
         close(pipefd[1]);
-        if (heredoc_fd != 0)
+        if (heredocfd != 0)
         {
-            dup2(heredoc_fd, 0);
-            close(heredoc_fd);
+            dup2(heredocfd, 0);
+            close(heredocfd);
         }
-        redirect_check(root -> word_list);
-        root -> word_list = delete_redirect_node(root -> word_list);
-        separgv = ft_split(str_to_command(root), ' ');
-        path = get_path(separgv[0]);
-        execve(path, separgv, environ);
+        redirect_check(root -> word_list, data);
+        root->word_list = delete_redirect_node(root->word_list);
+		if (is_builtin_cmd(root->word_list->word))
+		{
+			do_builtin_cmd(root->word_list, data);
+			/* free_all_data(data); */
+			exit(data->err_code);
+		}
+		else
+		{
+	        separgv = change_word_list_to_cmd(root->word_list);
+			path = get_path(separgv[0], data);
+			my_environ = change_map_to_environ(data->env_map);
+			execve(path, separgv, my_environ);
+		}
     }
-    // close (stdin_fd);
-    return (parents(root, pid, prevfd, pipefd));
+    return (parents(root->word_list, pid, prevfd, pipefd));
 }
 
-void    do_last_command(t_tree_node *root, int prevfd, int heredoc_fd)
+void    do_lst_cmd(t_tree_node *root, int prevfd, int heredocfd, t_data *data)
 {
-    char    **separgv;
-    char    *path;
     pid_t   pid;
-    // int     stdin_fd;
+    char    **separgv;
+	char	**my_environ;
+    char    *path;
 
-    // stdin_fd = dup(0);
-    // prevfd = heredoc_check(root -> word_list);
     pid = fork();
     if (pid == 0)
     {
@@ -104,21 +105,27 @@ void    do_last_command(t_tree_node *root, int prevfd, int heredoc_fd)
             dup2(prevfd, 0);
             close (prevfd);
         }
-        // heredoc_check(root -> word_list, stdin_fd);
-        if (heredoc_fd != 0)
+        if (heredocfd != 0)
         {
-            dup2(heredoc_fd, 0);
-            close(heredoc_fd);
+            dup2(heredocfd, 0);
+            close(heredocfd);
         }
-        redirect_check(root -> word_list);
-        root -> word_list = delete_redirect_node(root -> word_list);
-        separgv = ft_split(str_to_command(root), ' ');
-        path = get_path(separgv[0]);
-        execve(path, separgv, environ);
+        redirect_check(root->word_list, data);
+        root->word_list = delete_redirect_node(root->word_list);
+		if (is_builtin_cmd(root->word_list->word))
+		{
+			do_builtin_cmd(root->word_list, data);
+			/* free_all_data(data); */
+			exit(data->err_code);
+		}
+		else
+		{
+			separgv = change_word_list_to_cmd(root->word_list);
+			path = get_path(separgv[0], data);
+			my_environ = change_map_to_environ(data->env_map);
+			execve(path, separgv, my_environ);
+		}
     }
     else
-    {
-        // close(stdin_fd);
-        last_parents(root, pid, prevfd);
-    }
+        last_parents(root->word_list, pid, prevfd);
 }

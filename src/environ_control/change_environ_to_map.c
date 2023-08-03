@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-t_env	**change_environ_to_map(void)
+t_env	**change_environ_to_map(const char **environ)
 {
 	t_env	**map;
 	size_t	idx;

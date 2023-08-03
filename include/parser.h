@@ -7,7 +7,6 @@
 t_words		*lexer(const char *str, t_data *data);
 
 t_words		*change_str_to_word_list(const char *str, t_data *data);
-void		identify_word_type(t_words *const words);
 void		add_words_type(t_words *words);
 bool		check_not_close_quotation(const t_words *word_list);
 bool		check_syntax_err_words(const t_words *word_list, t_data *data);
