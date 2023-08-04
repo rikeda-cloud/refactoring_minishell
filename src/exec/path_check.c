@@ -42,13 +42,13 @@ static char	*check_access(char *flag, char *separgv, t_data *data)
 			break;
 		if (access(path, X_OK) == 0)
 		{
-			free_char_list(sepflag);
+			free_char_array(sepflag);
 			return (path);
 		}
 		free_str(path);
 	}
 	err_no_file(separgv, &data->err_code);
-	free_char_list(sepflag);
+	free_char_array(sepflag);
 	(void)data;
 	/* free_all_data(data); */
 	exit (127);

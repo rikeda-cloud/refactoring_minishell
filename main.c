@@ -55,27 +55,6 @@ void	print_tree(t_tree_node *node)
 	}
 }
 
-void	builtin_exec(t_tree_node *root, t_data *data)
-{
-	root = get_leftmost_node(root);
-	if (root->prev == NULL)
-	{
-		if (ft_strcmp(root->word_list->word, "cd") == 0)
-			my_cd(root->word_list->next, STDOUT_FILENO, data);
-		else if (ft_strcmp(root->word_list->word, "echo") == 0)
-			my_echo(root->word_list->next, STDOUT_FILENO, data);
-		else if (ft_strcmp(root->word_list->word, "exit") == 0)
-			my_exit(root->word_list->next, STDOUT_FILENO, data);
-		else if (ft_strcmp(root->word_list->word, "export") == 0)
-			my_export(root->word_list->next, STDOUT_FILENO, data);
-		else if (ft_strcmp(root->word_list->word, "pwd") == 0)
-			my_pwd(root->word_list->next, STDOUT_FILENO, data);
-		else if (ft_strcmp(root->word_list->word, "unset") == 0)
-			my_unset(root->word_list->next, STDOUT_FILENO, data);
-		else if (ft_strcmp(root->word_list->word, "env") == 0)
-			my_env(root->word_list->next, STDOUT_FILENO, data);
-	}
-}
 
 /* ------------------------------------------------------------------------ */
 
@@ -96,9 +75,10 @@ void	exec_command_line(const char *line, t_data *data)
 	}
 	delete_null_word_node_in_tree(root);
 	data->root = root;
-	/* print_tree(root); */
+	print_tree(root);
 	/* builtin_exec(root, data); */
-	command_loop(root, data);
+	cmd_loop(root, data);
+	print_tree(root);
 	data->root = free_all_tree_node(root);
 }
 
@@ -107,15 +87,15 @@ void	exec_shell_loop(t_data *data)
 	while (true)
 	{
 		g_sig_mode = READLINE_MODE;
-		/* data->line = readline(PROMPT); */
-		data->line = get_next_line(STDIN_FILENO);
+		data->line = readline(PROMPT);
+		/* data->line = get_next_line(STDIN_FILENO); */
 		if (data->line == NULL)
 			break ;
 		else if (data->line[0] != '\0')
 		{
 			if (g_sig_mode == ENTER_CTRL_C_MODE)
 				data->err_code = 130;
-			/* add_history(data->line); */
+			add_history(data->line);
 			exec_command_line(data->line, data);
 		}
 		data->line = free_str(data->line);
@@ -139,6 +119,6 @@ int	main (int argc, char **argv, const char **envp)
 	g_sig_mode = NORMAL;
 	exec_shell_loop(&data);
 	free_all_data(&data);
-	ft_putendl_fd("exit", STDERR_FILENO);
+	/* ft_putendl_fd("exit", STDERR_FILENO); */
 	return (data.err_code);
 }

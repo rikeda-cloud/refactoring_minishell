@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static size_t	count_cmd_size(t_words *word_list)
+static size_t	count_cmd_seqargv_size(t_words *word_list)
 {
 	size_t	size;
 
@@ -30,7 +30,7 @@ char	**change_word_list_to_cmd(t_words *word_list)
 	char	**cmd;
 	size_t	size;
 
-	size = count_cmd_size(word_list);
+	size = count_cmd_seqargv_size(word_list);
 	cmd = (char **)ft_calloc(sizeof(char *), (size + 1));
 	if (cmd == NULL)
 		return (NULL);

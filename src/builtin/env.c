@@ -6,11 +6,7 @@ void	my_env(t_words *word_list, int fd, t_data *data)
 	char	**separgv;
 	char	*path;
 
-	if (fd != STDOUT_FILENO)
-	{
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-	}
+	dup2_and_close_3(fd);
 	while (word_list != NULL && is_in_equal(word_list->word))
 	{
 		insert_or_update_env(word_list->word, data);

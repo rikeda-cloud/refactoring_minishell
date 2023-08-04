@@ -15,11 +15,7 @@ void	my_echo(t_words *word_list, int fd, t_data *data)
 {
 	bool	option_flag;
 
-	if (fd != STDOUT_FILENO)
-	{
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-	}
+	dup2_and_close_3(fd);
 	if (word_list == NULL)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	else

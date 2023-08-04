@@ -6,8 +6,8 @@ void	heredoc_not_save_data(const char *delimiter)
 
 	while (true)
 	{
-		line = get_next_line(STDIN_FILENO);
-		/* line = readline(HEREDOC_PROMPT); */
+		/* line = get_next_line(STDIN_FILENO); */
+		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
 			break ;
 		else if (is_same_to_newline(line, delimiter))
