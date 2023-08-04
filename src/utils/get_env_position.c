@@ -2,11 +2,15 @@
 
 static bool	is_deal_target(const char *str)
 {
-	if (ft_isalpha(str[1]))
+	if (str[0] != '$')
+		return (false);
+	else if (ft_isalpha(str[1]) || str[1] == '_' || str[1] == '?')
 		return (true);
-	else if (str[1] == '_' && str[1] != '\0' && str[2] == '_')
-		return (true);
-	return (false);
+	else
+		return (false);
+	/* else if (str[1] == '_' && str[1] != '\0' && str[2] == '_') */
+		/* return (true); */
+	/* return (false); */
 }
 
 static const char	*skip_to_next_quote_or_dallor_prev_char(const char *str)

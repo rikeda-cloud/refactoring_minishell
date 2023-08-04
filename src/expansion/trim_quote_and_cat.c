@@ -1,21 +1,9 @@
 #include "../../include/minishell.h"
 
-static t_words	*append_word(t_words *word_list, t_words *new_word)
-{
-	t_words	*word_list_head;
-
-	word_list_head = word_list;
-	if (word_list == NULL)
-		return (new_word);
-	while (word_list->next != NULL)
-		word_list = word_list->next;
-	word_list->next = new_word;
-	return (word_list_head);
-}
-
 static char	*cat_word_str(t_words *words, bool *err_flag)
 {
 	char	*new_str;
+	char	*tmp;
 
 	new_str = NULL;
 	while (words != NULL)
@@ -24,7 +12,9 @@ static char	*cat_word_str(t_words *words, bool *err_flag)
 			break;
 		else if (is_quote_node(words) == false)
 		{
+			tmp = new_str;
 			new_str = ft_strjoin(new_str, words->word);
+			free_str(tmp);
 			if (new_str == NULL)
 				return (reverse_flag(err_flag));
 		}
@@ -55,19 +45,19 @@ static t_words *cat_word_list(t_words *words, bool *err_flag)
 	return (new_words);
 }
 
-t_words	*trim_quote_and_cat(t_words *words, bool *err_flag)
+t_words	*trim_quote_and_cat(t_words *word, bool *err_flag)
 {
 	t_words	*new_words;
 	t_words	*words_head;
 
-	words_head = words;
+	words_head = word;
 	new_words = NULL;
-	if (is_only_null_char_node(words))
-		return (new_null_node_and_free_words(words, err_flag));
-	while (words != NULL && *err_flag == false)
+	if (is_only_null_char_node(word))
+		return (new_null_node_and_free_words(word, err_flag));
+	while (word != NULL && *err_flag == false)
 	{
-		new_words = append_word(new_words, cat_word_list(words, err_flag));
-		words = get_next_start_word(words);
+		new_words = append_word_node(new_words, cat_word_list(word, err_flag));
+		word = get_next_start_word(word);
 	}
 	free_all_word_list(words_head);
 	if (*err_flag)

@@ -4,7 +4,7 @@ t_env	*new_new_env(char *original)
 {
 	t_env	*new_env;
 
-	new_env = (t_env *)calloc(sizeof(t_env), 1);
+	new_env = (t_env *)ft_calloc(sizeof(t_env), 1);
 	if (new_env == NULL)
 		return (NULL);
 	new_env->original = original;
@@ -27,7 +27,7 @@ t_env	*insert_env_to_env_map(t_env **map, char *original)
 	t_env	*new_env;
 	int		hash_value;
 
-	if (original == NULL || map == NULL)
+	if (map == NULL || original == NULL)
 		return (NULL);
 	hash_value = hash(*original);
 	new_env = new_new_env(original);

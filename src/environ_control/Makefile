@@ -3,8 +3,8 @@ CC			=	cc
 AR 			= 	ar rcs
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
-SRCS		=	change_environ_to_hash_map.c \
-				change_hash_map_to_environ.c \
+SRCS		=	change_environ_to_map.c \
+				change_map_to_environ.c \
 				delete_env.c \
 				insert_env_to_map.c \
 				insert_new_env.c \

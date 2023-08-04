@@ -28,9 +28,16 @@ bool	err_syntax(const char *unexpected_token, int *err_code)
 	return (true);
 }
 
-bool	err_no_file(const char *not_exist_home, int *err_code)
+bool	err_no_file(const char *not_exist_cmd, int *err_code)
 {
-	print_err3(ERR_NO_FILE, not_exist_home, ERR_NO_FILE_CLOSE);
+	print_err3(ERR_NO_FILE, not_exist_cmd, ERR_NO_FILE_CLOSE);
+	*err_code = 127;
+	return (true);
+}
+
+bool	err_no_cd_file(const char *not_exist_home, int *err_code)
+{
+	print_err3(ERR_NO_CD_FILE, not_exist_home, ERR_NO_FILE_CLOSE);
 	*err_code = 1;
 	return (true);
 }

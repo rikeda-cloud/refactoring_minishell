@@ -12,7 +12,10 @@ void	*ft_calloc(size_t count, size_t size)
 	memory_size = count * size;
 	ptr = (char *)malloc(memory_size);
 	if (ptr == NULL)
+	{
+		perror("Error");
 		return (NULL);
+	}
 	ft_memset(ptr, 0, memory_size);
 	return ((void *)ptr);
 }

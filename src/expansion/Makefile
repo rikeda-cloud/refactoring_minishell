@@ -12,7 +12,9 @@ SRCS		=	change_quote_mode.c \
 				trim_quote_and_cat.c \
 				variable_expansion.c \
 				utils_ifs.c \
-				del_null_word_node.c \
+				is_assignment_pattern.c \
+				delete_null_word_node.c \
+				delete_last_dallor.c \
 				replace.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
@@ -53,7 +55,7 @@ $(UTILS):
 all: $(NAME)
 
 clean:	
-		$(RM) $(OBJS) $(PARSER_DIR)/*.[oa] $(LIBFT_DIR)/*.[oa] $(UTILS_DIR)/*.[oa]
+		$(RM) *.o
 
 fclean:	clean
 		$(RM) $(NAME)

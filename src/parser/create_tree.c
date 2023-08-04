@@ -35,13 +35,13 @@ static void	split_by_pipe(t_tree_node *node, t_token_type type, bool *err_flag)
 {
 	t_words	*tmp_word_ptr;
 
-	node->left = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
+	node->left = (t_tree_node *)ft_calloc(sizeof(t_tree_node), 1);
 	if (node->left == NULL)
 	{
 		*err_flag = true;
 		return ;
 	}
-	node->right = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
+	node->right = (t_tree_node *)ft_calloc(sizeof(t_tree_node), 1);
 	if (node->right == NULL)
 	{
 		free(node->left);
@@ -76,7 +76,7 @@ t_tree_node	*create_tree(t_words *word_list, t_data *data)
 {
 	t_tree_node	*root;
 
-	root = (t_tree_node *)calloc(sizeof(t_tree_node), 1);
+	root = (t_tree_node *)ft_calloc(sizeof(t_tree_node), 1);
 	if (root == NULL)
 	{
 		free_all_word_list(word_list);

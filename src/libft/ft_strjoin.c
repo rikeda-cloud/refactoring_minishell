@@ -33,11 +33,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*tmp_ptr;
 
 	if (s1 == NULL && s2 == NULL)
-	{
-		tmp_ptr = (char *)ft_calloc(sizeof(char), 1);
-		if (tmp_ptr == NULL)
-			return (NULL);
-	}
+		return (NULL);
 	else if (s1 == NULL || s2 == NULL)
 		tmp_ptr = strjoin_single_case(s1, s2);
 	else

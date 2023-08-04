@@ -1,34 +1,13 @@
 #include "../../include/minishell.h"
 
-static bool	is_same_to_newline(const char *have_newline_str, const char *str)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (have_newline_str[idx] != '\0' && have_newline_str[idx] != '\n')
-	{
-		if (have_newline_str[idx] != str[idx])
-			return (false);
-		idx++;
-	}
-	idx = 0;
-	while (str[idx] != '\0')
-	{
-		if (have_newline_str[idx] != str[idx])
-			return (false);
-		idx++;
-	}
-	return (true);
-}
-
-static void	heredoc_not_save_data(const char *delimiter)
+void	heredoc_not_save_data(const char *delimiter)
 {
 	char	*line;
 
 	while (true)
 	{
-		ft_putchar_fd('>', STDOUT_FILENO);
 		line = get_next_line(STDIN_FILENO);
+		/* line = readline(HEREDOC_PROMPT); */
 		if (line == NULL)
 			break ;
 		else if (is_same_to_newline(line, delimiter))
@@ -81,32 +60,4 @@ bool	apparently_heredoc(t_tree_node *node)
 		node = node->prev->prev->right;
 	}
 	return (empty_heredoc(node->word_list, NULL));
-}
-
-int	heredoc(const char *delimiter, t_token_type type, t_data *data)
-{
-	int		pipefd[2];
-	char	*line;
-	int		prev_fd;
-
-	do_pipe(pipefd);
-	while (true)
-	{
-		ft_putchar_fd('>', STDOUT_FILENO);
-		line = get_next_line(STDIN_FILENO);
-		if (line == NULL)
-			break ;
-		else if (is_same_to_newline(line, delimiter))
-		{
-			free(line);
-			break ;
-		}
-		if (type != DELIMITER_QUOTE)
-			line = replace_all_env(line, data);
-		ft_putstr_fd(line, pipefd[1]);
-		free(line);
-	}
-	prev_fd = pipefd[0];
-	do_close(pipefd[1]);
-	return (prev_fd);
 }

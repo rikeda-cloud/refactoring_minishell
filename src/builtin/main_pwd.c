@@ -9,10 +9,10 @@ int	main (void)
 	t_data	data;
 
 	data.crr_dir = getcwd(NULL, 0);
-	words = (t_words *)calloc(sizeof(t_words), 1);
+	words = (t_words *)ft_calloc(sizeof(t_words), 1);
 	top = words;
 	words->word = strdup("pwd");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	/* words = words->next; */
 	/* words->word = strdup(""); */
 	my_pwd(top->next, STDOUT_FILENO, &data);

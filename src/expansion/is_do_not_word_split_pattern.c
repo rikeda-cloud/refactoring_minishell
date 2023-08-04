@@ -1,17 +1,5 @@
 #include "../../include/minishell.h"
 
-bool	is_in_equal(const char *str)
-{
-	if (str == NULL)
-		return (false);
-	while (*str != '\0')
-	{
-		if (*str++ == '=')
-			return (true);
-	}
-	return (false);
-}
-
 static bool	is_in_dallor_front_of_equal(const char *str)
 {
 	while (*str != '\0' && *str != '=')

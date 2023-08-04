@@ -44,11 +44,25 @@ bool	is_not_a_valid_identifier(const char *str)
 	return (false);
 }
 
-bool	is_add_and_assign(const char *str)
+bool	is_c_in_str(const char *str, int c)
 {
-	while (str[0] != '\0' && str[1] != '\0')
+	if (str == NULL)
+		return (false);
+	while (*str != '\0')
 	{
-		if (ft_strncmp(str++, "+=", 2) == 0)
+		if (*str++ == c)
+			return (true);
+	}
+	return (false);
+}
+
+bool	is_in_equal(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	while (*str != '\0')
+	{
+		if (*str++ == '=')
 			return (true);
 	}
 	return (false);

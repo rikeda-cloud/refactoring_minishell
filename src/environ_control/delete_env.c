@@ -7,13 +7,7 @@ static t_env	*del_env_node(t_env *env)
 	if (env == NULL)
 		return (NULL);
 	next_node = env->next;
-	if (env->name != NULL)
-		free(env->name);
-	if (env->value != NULL)
-		free(env->value);
-	if (env->original != NULL)
-		free(env->original);
-	free(env);
+	free_env(env);
 	return (next_node);
 }
 
@@ -22,7 +16,7 @@ static t_env	*del_top_env(t_env *env_list)
 	return (del_env_node(env_list));
 }
 
-static void	del_middle_env(t_env *env_list, char *env_name)
+static void	del_middle_env(t_env *env_list, const char *env_name)
 {
 	t_env	*prev_env;
 
@@ -40,7 +34,7 @@ static void	del_middle_env(t_env *env_list, char *env_name)
 	}
 }
 
-bool	delete_env(t_env **map, char *env_name)
+bool	delete_env(t_env **map, const char *env_name)
 {
 	int	hash_value;
 

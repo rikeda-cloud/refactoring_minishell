@@ -4,12 +4,9 @@ void	*free_env(t_env *env)
 {
 	if (env == NULL)
 		return (NULL);
-	if (env->name != NULL)
-		free(env->name);
-	if (env->value != NULL)
-		free(env->value);
-	if (env->original != NULL)
-		free(env->original);
+	env->name = free_str(env->name);
+	env->value = free_str(env->value);
+	env->original = free_str(env->original);
 	free(env);
 	return (NULL);
 }
@@ -31,6 +28,8 @@ void	*free_hash_map(t_env **hash_map)
 {
 	size_t	idx;
 
+	if (hash_map == NULL)
+		return (NULL);
 	idx = 0;
 	while (idx < HASH_MAP_SIZE)
 		free_hash_list(hash_map[idx++]);

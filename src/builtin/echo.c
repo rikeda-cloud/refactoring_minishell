@@ -4,12 +4,9 @@ void	put_words_fd(t_words *word_list, int fd)
 {
 	while (word_list != NULL)
 	{
-		if (word_list->word != NULL)
-		{
-			ft_putstr_fd(word_list->word, fd);
-			if (word_list->next != NULL)
-				ft_putchar_fd(' ', fd);
-		}
+		ft_putstr_fd(word_list->word, fd);
+		if (word_list->next != NULL)
+			ft_putchar_fd(' ', fd);
 		word_list = word_list->next;
 	}
 }
@@ -27,7 +24,7 @@ void	my_echo(t_words *word_list, int fd, t_data *data)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	else
 	{
-		option_flag = is_option_n_pattern(word_list);
+		option_flag = is_option_n(word_list->word);
 		if (option_flag)
 			word_list = get_not_option_node(word_list);
 		put_words_fd(word_list, STDOUT_FILENO);

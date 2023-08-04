@@ -11,14 +11,17 @@ static bool	is_need_to_be_escaped(int c)
 			return (true);
 	}
 	return (false);
-
 }
 
 void	fmt_export(char *key, char *value, int fd)
 {
-	if (ft_strcmp(key, "_") != 0)
+	if (ft_strcmp(key, "_") == 0)
+		return ;
+	ft_putstr_fd("declare -x ", fd);
+	if (value == NULL)
+		ft_putendl_fd(key, fd);
+	else
 	{
-		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(key, fd);
 		ft_putstr_fd("=\"", fd);
 		while (*value != '\0')
@@ -33,6 +36,8 @@ void	fmt_export(char *key, char *value, int fd)
 
 void	fmt_env(char *key, char *value, int fd)
 {
+	if (value == NULL)
+		return ;
 	ft_putstr_fd(key, fd);
 	ft_putchar_fd('=', fd);
 	ft_putstr_fd(value, fd);

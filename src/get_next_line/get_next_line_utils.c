@@ -35,7 +35,7 @@ static char	*sp_join_single_case(char *dest, char *src)
 		not_null_str = dest;
 	else
 		not_null_str = src;
-	new_str = (char *)malloc(sizeof(char) * (sp_strlen(not_null_str) + 1));
+	new_str = (char *)ft_calloc(sizeof(char), (sp_strlen(not_null_str) + 1));
 	if (new_str == NULL)
 		return (NULL);
 	new_str[0] = '\0';
@@ -49,7 +49,7 @@ static char	*sp_join_double_case(char *dest, char *src)
 	size_t	len;
 
 	len = sp_strlen(dest) + sp_strlen(src);
-	new_str = (char *)malloc(sizeof(char) * (len + 1));
+	new_str = (char *)ft_calloc(sizeof(char), (len + 1));
 	if (new_str == NULL)
 		return (NULL);
 	new_str[0] = '\0';

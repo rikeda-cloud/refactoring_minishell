@@ -1,15 +1,17 @@
-NAME		=	pipex.a
+NAME		=	exec.a
 AR			=	ar rcs
 CC			=	cc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
-SRCS		=	child.c \
-				function_error.c \
-				heredoc.c \
+SRCS		=	heredoc.c \
 				libft_error.c \
 				no_pipe.c \
 				parents.c \
 				path_check.c \
+				redirect.c \
+				delete_redirect_node.c \
+				change_word_list_to_cmd.c \
+				do_cmd.c \
 				pipex.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
@@ -45,10 +47,10 @@ all: $(NAME)
 bonus: $(NAME)
 
 clean:	
-		$(RM) $(OBJS) $(LIBFT_DIR)/*.o $(GNL_DIR)/*.o
+		$(RM) *.o
 
 fclean:	clean
-		$(RM) $(NAME) $(LIBFT) $(GNL)
+		$(RM) $(NAME)
 
 re:		fclean all
 

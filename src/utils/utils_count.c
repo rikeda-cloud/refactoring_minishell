@@ -52,7 +52,7 @@ size_t	count_env_size(const char *str)
 
 	size = 0;
 	str++;
-	if (*str == '?')
+	if (*str == '?' || *str == '\0')
 		return (1);
 	while (str[size] != '\0')
 	{
@@ -71,7 +71,8 @@ static size_t	count_hash_list_size(t_env *hash_list)
 	size = 0;
 	while (hash_list != NULL)
 	{
-		size++;
+		if (hash_list->value != NULL)
+			size++;
 		hash_list = hash_list->next;
 	}
 	return (size);

@@ -1,28 +1,13 @@
 #include "../../include/minishell.h"
 
-static t_words	*append_word_list(t_words *dst, t_words *src, bool err_flag)
-{
-	t_words	*dst_head_ptr;
-
-	if (err_flag)
-		return (dst);
-	if (dst == NULL)
-		return (src);
-	dst_head_ptr = dst;
-	while (dst->next != NULL)
-		dst = dst->next;
-	dst->next = src;
-	return (dst_head_ptr);
-}
-
 t_words	*do_expansion(t_tree_node *node, bool assign_flag, t_data *data)
 {
 	t_words	*word_list_head;
 	t_words	*word_list;
-	t_words	*new_word_list;
+	t_words	*new_list;
 
 	word_list_head = node->word_list;
-	new_word_list = NULL;
+	new_list = NULL;
 	while (data->err_flag == false && node->word_list != NULL)
 	{
 		if (node->word_list->token_type == HEREDOC)
@@ -33,13 +18,13 @@ t_words	*do_expansion(t_tree_node *node, bool assign_flag, t_data *data)
 		}
 		else
 			word_list = expansion_node(node, assign_flag, data);
-		new_word_list = append_word_list(new_word_list, word_list, data->err_flag);
+		new_list = append_with_flag(new_list, word_list, data->err_flag);
 		node->word_list = node->word_list->next;
 	}
 	if (data->err_flag)
-		new_word_list = free_all_word_list(new_word_list);
+		new_list = free_all_word_list(new_list);
 	free_all_word_list(word_list_head);
-	return (new_word_list);
+	return (new_list);
 }
 
 static t_words	*expansion(t_tree_node *node, t_data *data)

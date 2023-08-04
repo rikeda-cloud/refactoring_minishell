@@ -9,15 +9,19 @@ int	main (void)
 	t_data  data;
 
 	data.err_code = 0;
-	words = calloc(sizeof(t_words), 1);
+	data.crr_dir = NULL;
+	data.env_map = NULL;
+	data.line = NULL;
+	data.root = NULL;
+	words = ft_calloc(sizeof(t_words), 1);
 	top = words;
 	words->word = strdup("exit");
-	words->next = calloc(sizeof(t_words), 1);
+	words->next = ft_calloc(sizeof(t_words), 1);
 	words = words->next;
-	words->word = strdup("--");
-	/* words->next = calloc(sizeof(t_words), 1); */
-	/* words = words->next; */
-	/* words->word = strdup("456"); */
+	words->word = strdup("a");
+	words->next = ft_calloc(sizeof(t_words), 1);
+	words = words->next;
+	words->word = strdup("b");
 	my_exit(top->next, STDOUT_FILENO, &data);
 	write(STDOUT_FILENO, "NOT EXIT\n", 9);
 	return (data.err_code);

@@ -30,6 +30,8 @@ void	print_all_env(void (*fmt)(char *,char *,int), int fd, t_data *data)
 {
 	size_t	hash_number;
 
+	if (data->env_map == NULL)
+		return ;
 	hash_number = 1;
 	while (hash_number < HASH_MAP_SIZE)
 		print_hash_upper(data->env_map[hash_number++], fmt, fd);

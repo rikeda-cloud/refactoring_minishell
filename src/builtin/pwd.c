@@ -2,22 +2,20 @@
 
 void	my_pwd(t_words *word_list, int fd, t_data *data)
 {
-	char	*path_name;
-
 	(void)word_list;
 	if (fd != STDOUT_FILENO)
 	{
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
-	path_name = getcwd(NULL, 0);
-	if (path_name == NULL)
-		printf("getcwd ERR\n");
+	if (data->crr_dir != NULL)
+	{
+		ft_putendl_fd(data->crr_dir, STDOUT_FILENO);
+		data->err_code = 0;
+	}
 	else
 	{
-		printf("%s\n", path_name);
-		free_str(data->crr_dir);
-		data->crr_dir = path_name;
-		data->err_code = 0;
+		print_err1(ERR_CRR_DIR_NOT_EXIST);
+		data->err_code = 1;
 	}
 }
