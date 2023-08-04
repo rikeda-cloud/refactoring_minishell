@@ -22,13 +22,16 @@ bool    do_builtin_cmd(t_words *cmd, t_data *data)
 	return (can_exit_flag);
 }
 
-void	do_builtin_cmd_alone_without_env(t_words *cmd, t_data *data)
+void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 {
 	int		tmp_err_code;
 
-	if (ft_strcmp(cmd->word, "exit") == 0)
+	apparently_heredoc(root);
+	redirect_check(root->word_list, data);
+	root->word_list = delete_redirect_node(root->word_list);
+	if (ft_strcmp(root->word_list->word, "exit") == 0)
 		ft_putendl_fd("exit", STDERR_FILENO);
-	if (do_builtin_cmd(cmd, data))
+	if (do_builtin_cmd(root->word_list, data))
 	{
 		tmp_err_code = data->err_code;
 		free_all_data(data);

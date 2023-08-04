@@ -28,9 +28,9 @@ SRCS			=	main.c \
 					$(ENV_CTRL_DIR)change_map_to_environ.c \
 					$(ENV_CTRL_DIR)delete_env.c \
 					$(ENV_CTRL_DIR)insert_env_to_map.c \
-					$(ENV_CTRL_DIR)insert_new_env.c \
 					$(ENV_CTRL_DIR)select_env.c \
 					$(ENV_CTRL_DIR)update_env.c \
+					$(ENV_CTRL_DIR)insert_or_update_env.c \
 					$(EXPANTION_DIR)change_quote_mode.c \
 					$(EXPANTION_DIR)expansion.c \
 					$(EXPANTION_DIR)expansion_node.c \
@@ -81,7 +81,7 @@ SRCS			=	main.c \
 					$(UTILS_DIR)reverse_flag.c \
 					$(UTILS_DIR)get_env_position.c \
 					$(UTILS_DIR)utils_count.c \
-					$(UTILS_DIR)utils_free_char_list.c \
+					$(UTILS_DIR)utils_free_list.c \
 					$(UTILS_DIR)utils_free_hash_map.c \
 					$(UTILS_DIR)utils_free_tree.c \
 					$(UTILS_DIR)utils_free_word_list.c \
@@ -95,16 +95,18 @@ SRCS			=	main.c \
 					$(UTILS_DIR)utils_new.c \
 					$(UTILS_DIR)utils_append.c \
 					$(UTILS_DIR)utils_strdup.c \
+					$(UTILS_DIR)dup2_and_close.c \
 					$(EXEC_DIR)apparently_heredoc.c \
 					$(EXEC_DIR)change_word_list_to_cmd.c \
-					$(EXEC_DIR)check_exec_pattern.c \
+					$(EXEC_DIR)cmd_loop.c \
 					$(EXEC_DIR)delete_redirect_node.c \
-					$(EXEC_DIR)do_builtin.c \
+					$(EXEC_DIR)do_builtin_cmd.c \
 					$(EXEC_DIR)do_cmd.c \
+					$(EXEC_DIR)exec_cmd.c \
 					$(EXEC_DIR)heredoc.c \
 					$(EXEC_DIR)path_check.c \
-					$(EXEC_DIR)pipex.c \
 					$(EXEC_DIR)redirect.c \
+					$(EXEC_DIR)child_wait.c \
 					$(EXEC_DIR)utils_is.c
 OBJS			= 	$(SRCS:%.c=%.o)
 

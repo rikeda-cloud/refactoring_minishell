@@ -16,8 +16,9 @@ static void	handler_readline(void)
 
 static void	handler_heredoc(void)
 {
-	close(STDIN_FILENO);
+	rl_done = 1;
 	g_sig_mode = ENTER_CTRL_C_MODE;
+	ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
 static void	handler_exec(void)

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	*free_char_list(char **char_list)
+void	*free_char_array(char **char_list)
 {
 	size_t	idx;
 
@@ -10,5 +10,11 @@ void	*free_char_list(char **char_list)
 	while (char_list[idx] != NULL)
 		free_str(char_list[idx++]);
 	free(char_list);
+	return (NULL);
+}
+
+void	*free_int_array(int *array)
+{
+	free(array);
 	return (NULL);
 }

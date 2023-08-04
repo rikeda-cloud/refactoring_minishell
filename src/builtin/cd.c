@@ -35,11 +35,11 @@ int	chdir_with_cdpath(t_env **map, const char *str)
 		if (chdir(ft_strjoin(cdpath[idx++], str)) == CD_SUCCESS)
 		{
 			ft_putendl_fd(getcwd(NULL, 0), STDOUT_FILENO);
-			free_char_list(cdpath);
+			free_char_array(cdpath);
 			return (CD_SUCCESS);
 		}
 	}
-	free_char_list(cdpath);
+	free_char_array(cdpath);
 	return (chdir(str));
 }
 
@@ -78,11 +78,7 @@ static void	cd_home_dir(t_data *data)
 
 void	my_cd(t_words *word_list, int fd, t_data *data)
 {
-	if (fd != STDOUT_FILENO)
-	{
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-	}
+	dup2_and_close_3(fd);
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

@@ -1,32 +1,5 @@
 #include "../../include/minishell.h"
 
-void	insert_or_update_env(char *word, t_data *data)
-{
-	char	*env_name;
-	char	*env_value;
-	t_env	*env;
-
-	env_name = strdup_n(word, count_to_front_of_c(word, '='));
-	if (env_name == NULL)
-		return ;
-	env = select_env(data->env_map, env_name);
-	if (env == NULL)
-		insert_env_to_env_map(data->env_map, ft_strdup(word));
-	else
-	{
-		while (*word != '\0' && *word != '=')
-			word++;
-		if (*word++ != '\0')
-		{
-			env_value = strdup_n(word, count_to_front_of_c(word, '\0'));
-			if (env_value != NULL)
-				update_env(data->env_map, env_name, env_value);
-			free_str(env_value);
-		}
-	}
-	free_str(env_name);
-}
-
 bool	is_in_plus_equal(const char *str)
 {
 	if (str == NULL)
@@ -131,11 +104,7 @@ void	export_have_arg_pattern(t_words *word_list, t_data *data)
 
 void	my_export(t_words *word_list, int fd, t_data *data)
 {
-	if (fd != STDOUT_FILENO)
-	{
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-	}
+	dup2_and_close_3(fd);
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

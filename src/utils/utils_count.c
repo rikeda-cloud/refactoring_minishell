@@ -89,3 +89,25 @@ size_t	count_map_size(t_env **map)
 		size += count_hash_list_size(map[idx++]);
 	return (size);
 }
+
+size_t	count_cmd_size(t_tree_node *node)
+{
+	size_t	size;
+
+	node = get_leftmost_node(node);
+	if (node->prev == NULL)
+		return (1);
+	else if (node->prev->prev == NULL)
+		return (2);
+	else
+	{
+		node = node->prev->prev->right;
+		size = 3;
+		while (node->prev->prev && node->prev->prev->right)
+		{
+			size++;
+			node = node->prev->prev->right;
+		}
+	}
+	return (size);
+}

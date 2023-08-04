@@ -22,21 +22,24 @@ char	*new_new_original(const char *name, const char *value)
 bool	update_env(t_env **map, const char *name, const char *new_value)
 {
 	t_env	*target_env;
+	char	*tmp_new_original;
+	char	*tmp_new_value;
 
 	if (map == NULL)
 		return (false);
 	target_env = select_env(map, name);
 	if (target_env == NULL)
 		return (true);
-	target_env->original = free_str(target_env->original);
-	target_env->value = free_str(target_env->value);
-	target_env->original = new_new_original(name, new_value);
-	target_env->value = ft_strdup(new_value);
-	if (target_env->original == NULL || target_env->value == NULL)
+	tmp_new_original = new_new_original(name, new_value);
+	tmp_new_value = ft_strdup(new_value);
+	if (tmp_new_original == NULL || new_value == NULL)
 	{
-		write(1, "delete faild\n", 13);
-		delete_env(map, name);
+		free_double_str(tmp_new_original, tmp_new_value);
 		return (false);
 	}
+	target_env->original = free_str(target_env->original);
+	target_env->value = free_str(target_env->value);
+	target_env->original = tmp_new_original;
+	target_env->value = tmp_new_value;
 	return (true);
 }

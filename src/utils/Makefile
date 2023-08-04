@@ -9,7 +9,7 @@ SRCS		=	hash.c \
 				reverse_flag.c \
 				get_env_position.c \
 				utils_count.c \
-				utils_free_char_list.c \
+				utils_free_char_array.c \
 				utils_free_hash_map.c \
 				utils_free_tree.c \
 				utils_free_word_list.c \
