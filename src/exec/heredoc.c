@@ -11,9 +11,9 @@ static int	heredoc(const char *delimiter, t_token_type type, t_data *data)
 		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
 			break ;
-		else if (is_same_to_newline(line, delimiter))
+		if (is_same_to_newline(line, delimiter) || g_sig_mode == HEREDOC_C_MODE)
 		{
-			free(line);
+			free_str(line);
 			break ;
 		}
 		if (type != DELIMITER_QUOTE)
@@ -24,7 +24,7 @@ static int	heredoc(const char *delimiter, t_token_type type, t_data *data)
 			break;
 		}
 		ft_putendl_fd(line, pipefd[1]);
-		free(line);
+		free_str(line);
 	}
 	close(pipefd[1]);
     return (pipefd[0]);
@@ -43,7 +43,7 @@ static int    heredoc_check(t_words *head, t_data *data)
 				close(get_fd);
 			g_sig_mode = HEREDOC_MODE;
             get_fd = heredoc(head->next->word, head->next->token_type, data);
-			if (g_sig_mode == ENTER_CTRL_C_MODE)
+			if (g_sig_mode == HEREDOC_C_MODE)
 				data->err_flag = true;
             head = head->next->next;
         }
@@ -53,20 +53,20 @@ static int    heredoc_check(t_words *head, t_data *data)
 	return(get_fd);
 }
 
-int	*heredoc_loop(t_tree_node *root, t_data *data)
+t_table	*heredoc_loop(t_tree_node *root, t_data *data)
 {
-    int			*table_fd;
-	int			*table_fd_top_ptr;
+    t_table		*table;
+	size_t		idx;
 	t_tree_node *first_command;
 
 	first_command = root;
-	table_fd = ft_calloc(sizeof(int), count_cmd_size(root));
-	if (table_fd == NULL)
+	table = ft_calloc(sizeof(t_table), count_number_of_cmd(root));
+	if (table == NULL)
 		data->err_flag = true;
-	table_fd_top_ptr = table_fd;
+	idx = 0;
 	while(data->err_flag == false)
     {
-        *table_fd++ = heredoc_check(root->word_list, data);
+        table[idx++].fd = heredoc_check(root->word_list, data);
 		if (is_last_cmd(root))
             break ;
 		else if (root == first_command)
@@ -75,6 +75,6 @@ int	*heredoc_loop(t_tree_node *root, t_data *data)
 			root = root->prev->prev->right;
     }
 	if (data->err_flag)
-		return (free_int_array(table_fd_top_ptr));
-	return (table_fd_top_ptr);
+		return (free_table(table));
+	return (table);
 }

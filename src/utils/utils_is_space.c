@@ -15,6 +15,8 @@ bool	is_space(const int c)
 
 bool	is_only_space(const char *str)
 {
+	if (str == NULL)
+		return (false);
 	while (*str != '\0')
 	{
 		if (is_space(*str++) == false)

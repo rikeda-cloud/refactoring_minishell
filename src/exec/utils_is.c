@@ -2,6 +2,8 @@
 
 bool	is_builtin_cmd(const char *cmd)
 {
+	if (cmd == NULL)
+		return (false);
 	if (ft_strcmp(cmd, "cd") == 0)
 		return (true);
 	else if (ft_strcmp(cmd, "echo") == 0)

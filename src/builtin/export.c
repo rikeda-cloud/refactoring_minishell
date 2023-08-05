@@ -17,6 +17,8 @@ size_t	count_to_front_of_plus_equal(const char *str)
 	size_t	size;
 
 	size = 0;
+	if (str == NULL)
+		return (0);
 	while (str[size] != '\0' && str[size + 1] != '\0')
 	{
 		if (ft_strncmp(&str[size], "+=", 2) == 0)
@@ -28,6 +30,8 @@ size_t	count_to_front_of_plus_equal(const char *str)
 
 char	*skip_plus_equal(char *str)
 {
+	if (str == NULL)
+		return (NULL);
 	while (str[0] != '\0' && str[1] != '\0')
 	{
 		if (ft_strncmp(str, "+=", 2) == 0)
@@ -104,7 +108,7 @@ void	export_have_arg_pattern(t_words *word_list, t_data *data)
 
 void	my_export(t_words *word_list, int fd, t_data *data)
 {
-	dup2_and_close_3(fd);
+	dup2_and_close_stdout_fileno(fd);
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

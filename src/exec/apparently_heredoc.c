@@ -49,7 +49,7 @@ bool	apparently_heredoc(t_tree_node *node)
 {
 	node = get_leftmost_node(node);
 	if (node->prev == NULL)
-		return empty_heredoc(node->word_list, NULL);
+		return (empty_heredoc(node->word_list, NULL));
 	if (empty_heredoc(node->word_list, node->prev->word_list))
 		return (true);
 	node = node->prev->right;

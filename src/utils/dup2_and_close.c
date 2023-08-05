@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	dup2_and_close_1(int fd)
+void	dup2_and_close_stdin_fileno(int fd)
 {
 	if (fd != STDIN_FILENO)
 	{
@@ -9,14 +9,14 @@ void	dup2_and_close_1(int fd)
 	}
 }
 
-void	dup2_and_close_2(int *pipefd)
+void	dup2_and_close_pipefd(int *pipefd)
 {
 	close(pipefd[0]);
 	dup2(pipefd[1], STDOUT_FILENO);
 	close(pipefd[1]);
 }
 
-void	dup2_and_close_3(int fd)
+void	dup2_and_close_stdout_fileno(int fd)
 {
 	if (fd != STDOUT_FILENO)
 	{

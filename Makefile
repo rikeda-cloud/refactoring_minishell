@@ -44,8 +44,6 @@ SRCS			=	main.c \
 					$(EXPANTION_DIR)replace.c \
 					$(EXPANTION_DIR)is_assignment_pattern.c \
 					$(EXPANTION_DIR)is_do_not_word_split_pattern.c \
-					$(GNL_DIR)get_next_line.c \
-					$(GNL_DIR)get_next_line_utils.c \
 					$(LIBFT_DIR)ft_atoi.c \
 					$(LIBFT_DIR)ft_calloc.c \
 					$(LIBFT_DIR)ft_isalnum.c \
@@ -81,11 +79,10 @@ SRCS			=	main.c \
 					$(UTILS_DIR)reverse_flag.c \
 					$(UTILS_DIR)get_env_position.c \
 					$(UTILS_DIR)utils_count.c \
-					$(UTILS_DIR)utils_free_list.c \
 					$(UTILS_DIR)utils_free_hash_map.c \
 					$(UTILS_DIR)utils_free_tree.c \
 					$(UTILS_DIR)utils_free_word_list.c \
-					$(UTILS_DIR)utils_free_all_data.c \
+					$(UTILS_DIR)utils_free_data.c \
 					$(UTILS_DIR)utils_get.c \
 					$(UTILS_DIR)utils_is_only.c \
 					$(UTILS_DIR)utils_is_other.c \

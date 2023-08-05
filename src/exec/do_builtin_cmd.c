@@ -26,7 +26,6 @@ void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 {
 	int		tmp_err_code;
 
-	apparently_heredoc(root);
 	redirect_check(root->word_list, data);
 	root->word_list = delete_redirect_node(root->word_list);
 	if (ft_strcmp(root->word_list->word, "exit") == 0)
@@ -34,7 +33,6 @@ void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 	if (do_builtin_cmd(root->word_list, data))
 	{
 		tmp_err_code = data->err_code;
-		free_all_data(data);
 		exit(tmp_err_code);
 	}
 }

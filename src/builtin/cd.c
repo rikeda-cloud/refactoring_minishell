@@ -78,7 +78,7 @@ static void	cd_home_dir(t_data *data)
 
 void	my_cd(t_words *word_list, int fd, t_data *data)
 {
-	dup2_and_close_3(fd);
+	dup2_and_close_stdout_fileno(fd);
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

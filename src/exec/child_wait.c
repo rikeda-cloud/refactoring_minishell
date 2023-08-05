@@ -8,24 +8,27 @@ static int change_wstatus_to_err_code(int wstatus)
 		return (128 + WTERMSIG(wstatus));
 }
 
-void    child_wait(t_tree_node *root, t_tree_node *first_cmd, t_data *data)
+void    child_wait(t_tree_node *first_cmd, t_table *table, t_data *data)
 {
 	int	wstatus;
+	t_tree_node	*cmd;
+	size_t	idx;
 
-    root = first_cmd;
+	cmd = first_cmd;
+	idx = 0;
     while(true)
     {
-		if (root->prev == NULL || (root->prev->prev == NULL && root != root->prev->left))
+		if (is_last_cmd(cmd))
         {
-			waitpid(root->word_list->command_pid, &wstatus, 0);
+			waitpid(table[idx++].pid, &wstatus, 0);
 			data->err_code = change_wstatus_to_err_code(wstatus);
 			break ;
         }
 		else
-			waitpid(root->word_list->command_pid, NULL, 0); 
-		if (root == first_cmd)
-            root = root->prev->right;
+			waitpid(table[idx++].pid, NULL, 0); 
+		if (cmd == first_cmd)
+            cmd = cmd->prev->right;
 		else
-            root = root->prev->prev->right;
+            cmd = cmd->prev->prev->right;
     }
 }

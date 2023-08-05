@@ -13,9 +13,13 @@ bool	is_only_null_char_node(t_words *word_list)
 
 bool	is_only_under_env(const char *str)
 {
+	if (str == NULL)
+		return (false);
 	if (ft_strncmp(str, "_=", 2) == 0)
 		return (true);
 	else if (ft_strcmp(str, "_") == 0)
+		return (true);
+	if (ft_strncmp(str, "_+=", 3) == 0)
 		return (true);
 	else
 		return (false);

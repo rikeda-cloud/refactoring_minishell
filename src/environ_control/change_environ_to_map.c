@@ -5,6 +5,8 @@ t_env	**change_environ_to_map(const char **environ)
 	t_env	**map;
 	size_t	idx;
 
+	if (environ == NULL)
+		return (NULL);
 	map = (t_env **)ft_calloc(sizeof(t_env *), HASH_MAP_SIZE);
 	if (map == NULL)
 		return (NULL);

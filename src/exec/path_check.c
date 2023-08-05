@@ -2,13 +2,12 @@
 
 char	*do_file_access(char *file, t_data *data)
 {
+	(void)data;
 	if (access(file, X_OK) == 0)
 		return (file);
 	else
 	{
 		perror("file");
-		(void)data;
-		/* free_all_data(data); */
 		exit(127);
 	}
 }
@@ -49,8 +48,6 @@ static char	*check_access(char *flag, char *separgv, t_data *data)
 	}
 	err_no_file(separgv, &data->err_code);
 	free_char_array(sepflag);
-	(void)data;
-	/* free_all_data(data); */
 	exit (127);
 }
 

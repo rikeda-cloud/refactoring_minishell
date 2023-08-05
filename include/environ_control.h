@@ -4,7 +4,7 @@
 #include "define.h"
 
 t_env	**change_environ_to_map(const char **environ);
-char	**change_map_to_environ(t_env **map);
+char	**change_map_to_environ(t_env **map, bool *err_flag);
 
 t_env	*select_env(t_env **map, const char *env_name);
 bool	update_env(t_env **map, const char *name, const char *new_value);

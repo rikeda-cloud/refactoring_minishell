@@ -38,17 +38,16 @@
 # include <limits.h>
 # include <stdint.h>
 
-enum e_size
+enum e_hash_map_size
 {
 	HASH_MAP_SIZE = 27,
-	BUFFER_SIZE = 100,
 };
 
 enum e_cd
 {
-	CD_SUCCESS = 0,
-	CD_FAILD = -1,
 	CD_MALLOC_ERR = -2,
+	CD_FAILD = -1,
+	CD_SUCCESS = 0,
 };
 
 enum e_quote_mode
@@ -58,21 +57,15 @@ enum e_quote_mode
 	DOUBLE_Q_MODE,
 };
 
-typedef enum e_sig_mode
+enum e_sig_mode
 {
-	NORMAL = 0,
+	NORMAL_MODE = 0,
 	READLINE_MODE,
-	ENTER_CTRL_C_MODE,
+	READLINE_C_MODE,
 	HEREDOC_MODE,
+	HEREDOC_C_MODE,
 	EXEC_MODE,
-}	t_sig_mode;
-
-typedef enum e_exec_type
-{
-	STANDARD = 0,
-	BUILTIN_WITHOUT_ENV,
-	NONE,
-}	t_exec_type;
+};
 
 typedef enum e_token_type
 {
@@ -95,12 +88,17 @@ typedef enum e_node_type
 	PIPE,
 }	t_node_type;
 
+typedef struct s_table
+{
+	int		fd;
+	pid_t	pid;
+}	t_table;
+
 typedef struct s_words
 {
 	struct s_words	*next;
 	t_token_type	token_type;
 	char			*word;
-	pid_t			command_pid;
 }	t_words;
 
 typedef struct s_tree_node
@@ -111,7 +109,6 @@ typedef struct s_tree_node
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;
-
 
 typedef struct	s_env
 {
@@ -127,8 +124,6 @@ typedef struct s_data
 	bool		err_flag;
 	t_env		**env_map;
 	char		*crr_dir;
-	char		*line;
-	t_tree_node	*root;
 }	t_data;
 
 extern volatile	sig_atomic_t	g_sig_mode;

@@ -8,9 +8,6 @@ static bool	is_deal_target(const char *str)
 		return (true);
 	else
 		return (false);
-	/* else if (str[1] == '_' && str[1] != '\0' && str[2] == '_') */
-		/* return (true); */
-	/* return (false); */
 }
 
 static const char	*skip_to_next_quote_or_dallor_prev_char(const char *str)
