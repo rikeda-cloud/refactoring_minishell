@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   trim_quote_and_cat.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:39 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:40:31 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*cat_word_str(t_words *words, bool *err_flag)
@@ -9,7 +21,7 @@ static char	*cat_word_str(t_words *words, bool *err_flag)
 	while (words != NULL)
 	{
 		if (words->token_type == TMP_IFS)
-			break;
+			break ;
 		else if (is_quote_node(words) == false)
 		{
 			tmp = new_str;
@@ -27,9 +39,9 @@ static char	*cat_word_str(t_words *words, bool *err_flag)
 	return (new_str);
 }
 
-static t_words *cat_word_list(t_words *words, bool *err_flag)
+static t_words	*cat_word_list(t_words *words, bool *err_flag)
 {
-	t_words *new_words;
+	t_words	*new_words;
 	char	*new_str;
 
 	new_str = cat_word_str(words, err_flag);

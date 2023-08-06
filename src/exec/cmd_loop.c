@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_loop.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:58:22 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:59:25 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-void    cmd_loop(t_tree_node *root, t_data *data)
+void	cmd_loop(t_tree_node *root, t_data *data)
 {
-    int		prevfd;
+	int		prevfd;
 	t_table	*table;
 
-    prevfd = 0;
-    root = get_leftmost_node(root);
-    table = heredoc_loop(root, data);
+	prevfd = 0;
+	root = get_leftmost_node(root);
+	table = heredoc_loop(root, data);
 	if (table == NULL)
 	{
 		if (g_sig_mode == HEREDOC_C_MODE)

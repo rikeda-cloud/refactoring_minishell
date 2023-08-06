@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:57:18 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:31:01 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	put_words_fd(t_words *word_list, int fd)
@@ -19,7 +31,7 @@ void	my_echo(t_words *word_list, int fd, t_data *data, bool exit_flag)
 	if (data->err_flag)
 	{
 		data->err_code = 1;
-		return;
+		return ;
 	}
 	if (word_list == NULL)
 		ft_putchar_fd('\n', STDOUT_FILENO);

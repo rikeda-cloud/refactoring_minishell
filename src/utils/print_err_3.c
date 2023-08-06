@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   print_err_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 15:00:32 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/06 15:00:33 by rikeda           ###   ########.fr       */
+/*   Created: 2023/08/06 15:55:03 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:55:04 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_strdup(const char *s1)
+bool	err_many_arg(const char *command, int *err_code)
 {
-	char				*ptr;
-	char				*tmp_ptr;
+	print_err3(ERR_MANY_ARG, command, ERR_MANY_ARG_CLOSE);
+	*err_code = 1;
+	return (true);
+}
 
-	if (s1 == NULL)
-		return (NULL);
-	ptr = (char *)ft_calloc(sizeof(char), ft_strlen(s1) + 1);
-	if (ptr == NULL)
-		return (NULL);
-	tmp_ptr = ptr;
-	while (*s1 != '\0')
-		*ptr++ = *s1++;
-	*ptr = '\0';
-	return (tmp_ptr);
+bool	err_exit(const char *str, int *err_code)
+{
+	print_err3(ERR_EXIT, str, ERR_EXIT_CLOSE);
+	*err_code = 2;
+	return (true);
+}
+
+bool	err_export_valid(const char *str, int *err_code)
+{
+	print_err3(ERR_EXPORT_VALID, str, ERR_EXPORT_VALID_CLOSE);
+	*err_code = 1;
+	return (true);
 }

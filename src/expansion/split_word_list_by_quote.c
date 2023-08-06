@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_word_list_by_quote.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:36 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:41:14 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-static bool	set_quote_char(int *quote_char, int	c)
+static bool	set_quote_char(int *quote_char, int c)
 {
 	if (*quote_char == '\0')
 		*quote_char = c;
@@ -57,7 +69,7 @@ t_words	*split_str_by_quote(char *str)
 {
 	int		q_char;
 	char	*save;
-	t_words *new_word;
+	t_words	*new_word;
 
 	init_vars(&q_char, &save, &str, &new_word);
 	while (*str != '\0')

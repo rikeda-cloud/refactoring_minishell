@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion_node.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:17 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:42:32 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 t_words	*do_all_expansion(char *str, t_data *data)
@@ -33,7 +45,7 @@ t_words	*do_expansion_not_word_split(char *str, t_data *data)
 
 t_words	*expansion_node(t_tree_node *node, bool assign_flag, t_data *data)
 {
-	t_words *word_list;
+	t_words	*word_list;
 
 	if (is_redirect(node->word_list->token_type))
 	{
@@ -51,10 +63,10 @@ t_words	*expansion_node(t_tree_node *node, bool assign_flag, t_data *data)
 		return (do_all_expansion(node->word_list->word, data));
 }
 
-t_words *expansion_heredoc_node(t_tree_node *node, bool *err_flag)
+t_words	*expansion_heredoc_node(t_tree_node *node, bool *err_flag)
 {
-	t_words *heredoc;
-	t_words *delimiter;
+	t_words	*heredoc;
+	t_words	*delimiter;
 
 	heredoc = new_redirect_node(node->word_list->token_type);
 	if (heredoc == NULL)

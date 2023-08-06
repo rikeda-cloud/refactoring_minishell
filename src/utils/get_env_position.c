@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_env_position.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:01:19 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:49:41 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static bool	is_deal_target(const char *str)
@@ -16,7 +28,7 @@ static const char	*skip_to_next_quote_or_dallor_prev_char(const char *str)
 	while (*str != '\0')
 	{
 		if (is_quotation(*str) || *str == '$')
-			break;
+			break ;
 		str++;
 	}
 	str--;
@@ -39,9 +51,9 @@ const char	*get_env_position(const char *str)
 		else if (*str == '$')
 		{
 			if (double_quote_flag == true && is_deal_target(str))
-				break;
+				break ;
 			if (single_quote_flag == false && is_deal_target(str))
-				break;
+				break ;
 			str = skip_to_next_quote_or_dallor_prev_char(str);
 		}
 		str++;

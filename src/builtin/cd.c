@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:57:15 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:29:10 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	change_pwd_oldpwd_crrdir(t_data *data, bool null_char_flag)
@@ -36,7 +48,7 @@ static void	cd_normal(t_data *data, char *str)
 		err_no_permission(str, &data->err_code);
 	else if (cd_mode == CD_NO_FILE && *str == '\0')
 		change_pwd_oldpwd_crrdir(data, true);
-	else if (cd_mode== CD_NO_FILE)
+	else if (cd_mode == CD_NO_FILE)
 		err_no_cd_file(str, &data->err_code);
 }
 

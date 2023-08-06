@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_is_other.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:02:41 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:43:41 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 bool	is_special_char(const int c)
@@ -37,7 +49,7 @@ bool	is_not_a_valid_identifier(const char *str)
 		if (ft_isalnum(*str) || *str == '_')
 			str++;
 		else
-		return (true);
+			return (true);
 	}
 	if (str[0] == '+' && str[1] != '=')
 		return (true);

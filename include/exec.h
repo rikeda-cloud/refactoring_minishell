@@ -1,13 +1,25 @@
-#ifndef EXEC_H
-#define EXEC_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:56:48 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 17:13:07 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "define.h"
+#ifndef EXEC_H
+# define EXEC_H
+
+# include "define.h"
 
 void	cmd_loop(t_tree_node *root, t_data *data);
 
 void	child_wait(t_tree_node *root, t_table *table, t_data *data);
 
-void	do_normal_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data);
+void	do_normal_cmd(t_tree_node *root, int pre, t_table *table, t_data *data);
 int		do_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data);
 void	do_lst_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data);
 
@@ -31,18 +43,17 @@ void	exec_normal_cmd_child_proc(t_words *word_list, t_data *data);
 void	exec_builtin_cmd_child_proc(t_words *word_list, t_data *data);
 
 bool	redirect_check(t_words *word_list, bool can_exit_flag);
-void    redirect_read(t_words *fname, bool exit_flag, bool *err_flag);
-void    redirect_write(t_words *fname, bool exit_flag, bool *err_flag);
-void    redirect_append(t_words *fname, bool exit_flag, bool *err_flag);
+void	redirect_read(t_words *fname, bool exit_flag, bool *err_flag);
+void	redirect_write(t_words *fname, bool exit_flag, bool *err_flag);
+void	redirect_append(t_words *fname, bool exit_flag, bool *err_flag);
 
 int		do_open_read(char *filename, bool exit_flag, bool *err_flag);
 int		do_open_write(char *filename, bool exit_flag, bool *err_flag);
 int		do_open_append(char *filename, bool exit_flag, bool *err_flag);
-void    do_dup2(int old_fd, int new_fd, bool exit_flag, bool *err_flag);
-void    do_close(int close_fd, bool exit_flag, bool *err_flag);
-void    do_pipe(int *pipefd);
-pid_t   do_fork(void);
-void    do_execve(char *path, char **separgv, char **my_environ);
-void	do_waitpid(pid_t pid, int *wstatus, int mode);
+void	do_dup2(int old_fd, int new_fd, bool exit_flag, bool *err_flag);
+void	do_close(int close_fd, bool exit_flag, bool *err_flag);
+void	do_pipe(int *pipefd);
+pid_t	do_fork(void);
+void	do_execve(char *path, char **separgv, char **my_environ);
 
 #endif

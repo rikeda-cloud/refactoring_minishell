@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   change_str_to_word_list.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:00:55 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 16:34:22 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static const char	*skip_space_char(const char *str)
@@ -7,7 +19,7 @@ static const char	*skip_space_char(const char *str)
 	return (str);
 }
 
-t_words *change_str_to_word_list(const char *str, t_data *data)
+t_words	*change_str_to_word_list(const char *str, t_data *data)
 {
 	t_words	*word_list;
 
@@ -16,7 +28,7 @@ t_words *change_str_to_word_list(const char *str, t_data *data)
 	{
 		str = skip_space_char(str);
 		if (*str == '\0')
-			break;
+			break ;
 		word_list = append_str_to_word_list(word_list, str);
 		if (word_list == NULL)
 			return (reverse_flag(&data->err_flag));

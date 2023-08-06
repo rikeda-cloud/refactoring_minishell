@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_count.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:01:40 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:45:09 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static size_t	check_append_or_heredoc_pattern(const char *const str)
@@ -61,34 +73,8 @@ size_t	count_env_size(const char *str)
 		if (ft_isalnum(str[size]) || str[size] == '_')
 			size++;
 		else
-			break;
+			break ;
 	}
-	return (size);
-}
-
-static size_t	count_hash_list_size(t_env *hash_list)
-{
-	size_t	size;
-
-	size = 0;
-	while (hash_list != NULL)
-	{
-		if (hash_list->value != NULL)
-			size++;
-		hash_list = hash_list->next;
-	}
-	return (size);
-}
-
-size_t	count_map_size(t_env **map)
-{
-	size_t	idx;
-	size_t	size;
-
-	idx = 0;
-	size = 0;
-	while (idx < HASH_MAP_SIZE)
-		size += count_hash_list_size(map[idx++]);
 	return (size);
 }
 

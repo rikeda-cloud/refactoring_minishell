@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_get.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:02:26 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:44:07 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-t_tree_node		*get_leftmost_node(t_tree_node *node)
+t_tree_node	*get_leftmost_node(t_tree_node *node)
 {
 	if (node == NULL)
 		return (NULL);
@@ -27,7 +39,7 @@ t_token_type	get_delimiter_type(const char *str)
 	return (DELIMITER);
 }
 
-t_words		*get_next_start_word(t_words *words)
+t_words	*get_next_start_word(t_words *words)
 {
 	while (words != NULL && words->token_type != TMP_IFS)
 		words = words->next;

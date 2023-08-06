@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   insert_or_update_env.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:58:03 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:37:07 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	insert_or_update_env(char *word, t_data *data)
@@ -26,4 +38,3 @@ void	insert_or_update_env(char *word, t_data *data)
 	}
 	free_str(env_name);
 }
-

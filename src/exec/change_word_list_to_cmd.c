@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   change_word_list_to_cmd.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:58:16 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:56:09 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static size_t	count_cmd_seqargv_size(t_words *word_list)
@@ -37,4 +49,3 @@ char	**change_word_list_to_cmd(t_words *word_list)
 	join_word_to_cmd(cmd, word_list);
 	return (cmd);
 }
-

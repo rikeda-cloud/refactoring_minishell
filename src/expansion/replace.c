@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:30 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:42:49 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*new_new_word(char *str, char *target, const char *new_word)
@@ -5,7 +17,7 @@ static char	*new_new_word(char *str, char *target, const char *new_word)
 	size_t		new_str_size;
 	char		*new_str;
 	const char	*env_position;
-	
+
 	new_str_size = ft_strlen(str) + ft_strlen(new_word) - ft_strlen(target);
 	new_str = (char *)ft_calloc(sizeof(char), (new_str_size));
 	if (new_str == NULL)
