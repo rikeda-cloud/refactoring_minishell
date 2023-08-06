@@ -24,6 +24,7 @@ SRCS			=	main.c \
 					$(BUILTIN_DIR)fmt.c \
 					$(BUILTIN_DIR)print_env.c \
 					$(BUILTIN_DIR)utils_option.c \
+					$(BUILTIN_DIR)try_chdir.c \
 					$(ENV_CTRL_DIR)change_environ_to_map.c \
 					$(ENV_CTRL_DIR)change_map_to_environ.c \
 					$(ENV_CTRL_DIR)delete_env.c \
@@ -93,6 +94,7 @@ SRCS			=	main.c \
 					$(UTILS_DIR)utils_append.c \
 					$(UTILS_DIR)utils_strdup.c \
 					$(UTILS_DIR)dup2_and_close.c \
+					$(UTILS_DIR)strjoin_path.c \
 					$(EXEC_DIR)apparently_heredoc.c \
 					$(EXEC_DIR)change_word_list_to_cmd.c \
 					$(EXEC_DIR)cmd_loop.c \
@@ -100,10 +102,14 @@ SRCS			=	main.c \
 					$(EXEC_DIR)do_builtin_cmd.c \
 					$(EXEC_DIR)do_cmd.c \
 					$(EXEC_DIR)exec_cmd.c \
+					$(EXEC_DIR)child_wait.c \
 					$(EXEC_DIR)heredoc.c \
 					$(EXEC_DIR)path_check.c \
 					$(EXEC_DIR)redirect.c \
-					$(EXEC_DIR)child_wait.c \
+					$(EXEC_DIR)redirect_write.c \
+					$(EXEC_DIR)redirect_read.c \
+					$(EXEC_DIR)redirect_append.c \
+					$(EXEC_DIR)function_error.c \
 					$(EXEC_DIR)utils_is.c
 OBJS			= 	$(SRCS:%.c=%.o)
 

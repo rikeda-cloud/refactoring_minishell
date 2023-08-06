@@ -11,11 +11,16 @@ void	put_words_fd(t_words *word_list, int fd)
 	}
 }
 
-void	my_echo(t_words *word_list, int fd, t_data *data)
+void	my_echo(t_words *word_list, int fd, t_data *data, bool exit_flag)
 {
 	bool	option_flag;
 
-	dup2_and_close_stdout_fileno(fd);
+	dup2_and_close_stdout(fd, exit_flag, &data->err_flag);
+	if (data->err_flag)
+	{
+		data->err_code = 1;
+		return;
+	}
 	if (word_list == NULL)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	else

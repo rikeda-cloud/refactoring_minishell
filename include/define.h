@@ -22,10 +22,13 @@
 # define ERR_CRR_DIR_NOT_EXIST	"Error: Current dir info does not exist"
 # define ERR_EXPORT_VALID "minishell: export: `"
 # define ERR_EXPORT_VALID_CLOSE	"': not a valid identifier"
+# define ERR_NO_PERMISSION "minishell: cd: "
+# define ERR_NO_PERMISSION_CLOSE ": Permission denied"
 
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -38,17 +41,18 @@
 # include <limits.h>
 # include <stdint.h>
 
-enum e_hash_map_size
+enum
 {
 	HASH_MAP_SIZE = 27,
 };
 
-enum e_cd
+typedef enum e_cd
 {
-	CD_MALLOC_ERR = -2,
-	CD_FAILD = -1,
+	CD_MALLOC_ERR = -3,
+	CD_NO_PERMISSION = -2,
+	CD_NO_FILE = -1,
 	CD_SUCCESS = 0,
-};
+}	t_cd;
 
 enum e_quote_mode
 {

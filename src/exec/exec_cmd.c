@@ -2,7 +2,7 @@
 
 void	exec_builtin_cmd_child_proc(t_words *word_list, t_data *data)
 {
-	do_builtin_cmd(word_list, data);
+	do_builtin_cmd(word_list, data, true);
 	exit(data->err_code);
 }
 
@@ -23,9 +23,5 @@ void	exec_normal_cmd_child_proc(t_words *word_list, t_data *data)
 	my_environ = change_map_to_environ(data->env_map, &data->err_flag);
 	if (data->err_flag)
 		exit(1);
-	if (execve(path, separgv, my_environ) == -1)
-	{
-		perror(separgv[0]);
-		exit(126);
-	}
+	do_execve(path, separgv, my_environ);
 }

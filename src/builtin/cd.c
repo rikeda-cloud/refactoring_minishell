@@ -17,50 +17,27 @@ static void	change_pwd_oldpwd_crrdir(t_data *data, bool null_char_flag)
 	data->err_code = 0;
 }
 
-int	chdir_with_cdpath(t_env **map, const char *str)
-{
-	t_env	*env_cdpath;
-	char	**cdpath;
-	size_t	idx;
-
-	env_cdpath = select_env(map, "CDPATH");
-	if (env_cdpath == NULL)
-		return (chdir(str));
-	cdpath = ft_split(env_cdpath->value, ':');
-	if (cdpath == NULL)
-		return (CD_MALLOC_ERR);
-	idx = 0;
-	while (cdpath[idx] != NULL)
-	{
-		if (chdir(ft_strjoin(cdpath[idx++], str)) == CD_SUCCESS)
-		{
-			ft_putendl_fd(getcwd(NULL, 0), STDOUT_FILENO);
-			free_char_array(cdpath);
-			return (CD_SUCCESS);
-		}
-	}
-	free_char_array(cdpath);
-	return (chdir(str));
-}
-
 static void	cd_normal(t_data *data, char *str)
 {
-	int	return_number;
+	t_cd	cd_mode;
 
+	cd_mode = CD_NO_FILE;
 	if (ft_strncmp(str, "/", 1) == 0 || ft_strncmp(str, "./", 2) == 0)
-		return_number = chdir(str);
-	else if (ft_strncmp(str, "../", 3) == 0)
-		return_number = chdir(str);
+		cd_mode = try_chdir(str, &cd_mode);
+	else if (ft_strcmp(str, "..") == 0 || ft_strncmp(str, "../", 3) == 0)
+		cd_mode = try_chdir(str, &cd_mode);
 	else
-		return_number = chdir_with_cdpath(data->env_map, str);
-	if (return_number == CD_SUCCESS)
+		cd_mode = try_chdir_with_cdpath(data->env_map, str);
+	if (cd_mode == CD_SUCCESS)
 		change_pwd_oldpwd_crrdir(data, false);
-	else if (return_number == CD_FAILD && *str == '\0')
+	else if (cd_mode == CD_MALLOC_ERR)
+		data->err_code = 1;
+	else if (cd_mode == CD_NO_PERMISSION)
+		err_no_permission(str, &data->err_code);
+	else if (cd_mode == CD_NO_FILE && *str == '\0')
 		change_pwd_oldpwd_crrdir(data, true);
-	else if (return_number == CD_FAILD)
+	else if (cd_mode== CD_NO_FILE)
 		err_no_cd_file(str, &data->err_code);
-	else if (return_number == CD_MALLOC_ERR)
-		data->err_code = 0;
 }
 
 static void	cd_home_dir(t_data *data)
@@ -70,15 +47,18 @@ static void	cd_home_dir(t_data *data)
 	env_home = select_env(data->env_map, "HOME");
 	if (env_home == NULL || env_home->value == NULL)
 		err_no_home(&data->err_code);
-	else if (*env_home->value == '\0')
-		change_pwd_oldpwd_crrdir(data, true);
 	else
 		cd_normal(data, env_home->value);
 }
 
-void	my_cd(t_words *word_list, int fd, t_data *data)
+void	my_cd(t_words *word_list, int fd, t_data *data, bool exit_flag)
 {
-	dup2_and_close_stdout_fileno(fd);
+	dup2_and_close_stdout(fd, exit_flag, &data->err_flag);
+	if (data->err_flag)
+	{
+		data->err_code = 1;
+		return ;
+	}
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

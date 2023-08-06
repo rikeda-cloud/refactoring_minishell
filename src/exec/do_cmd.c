@@ -1,19 +1,18 @@
 #include "../../include/minishell.h"
 
-static int parents(t_table *table, pid_t pid, int prevfd, int *pipefd)
+static int parent(int prevfd, int *pipefd, t_data *data)
 {
-	table->pid = pid;
 	if (prevfd != 0)
-		close(prevfd);
-    close(pipefd[1]);
+		do_close(prevfd, false, &data->err_flag);
+    do_close(pipefd[1], false, &data->err_flag);
     return(pipefd[0]);
 }
 
-static void    last_parents(t_table *table, pid_t pid, int prevfd)
+static void    last_parent(t_table *table, pid_t pid, int prevfd, t_data *data)
 {
 	table->pid = pid;
 	if (prevfd != 0)
-		close(prevfd);
+		do_close(prevfd, false, &data->err_flag);
 }
 
 int do_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)
@@ -21,14 +20,14 @@ int do_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)
     pid_t   pid;
     int     pipefd[2];
 
-    pipe(pipefd);
-    pid = fork();
+    do_pipe(pipefd);
+    pid = do_fork();
     if (pid == 0)
     {
-		dup2_and_close_stdin_fileno(prevfd);
-		dup2_and_close_pipefd(pipefd);
-		dup2_and_close_stdin_fileno(table->fd);
-        redirect_check(root->word_list, data);
+		dup2_and_close_stdin(prevfd, true, NULL);
+		dup2_and_close_pipefd(pipefd, true, NULL);
+		dup2_and_close_stdin(table->fd, true, NULL);
+        redirect_check(root->word_list, true);
         root->word_list = delete_redirect_node(root->word_list);
 		if (root->word_list == NULL)
 			exit(0);
@@ -37,19 +36,20 @@ int do_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)
 		else
 			exec_normal_cmd_child_proc(root->word_list, data);
     }
-    return (parents(table, pid, prevfd, pipefd));
+	table->pid = pid;
+    return (parent(prevfd, pipefd, data));
 }
 
 void    do_lst_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)
 {
     pid_t   pid;
 
-    pid = fork();
+    pid = do_fork();
     if (pid == 0)
     {
-		dup2_and_close_stdin_fileno(prevfd);
-		dup2_and_close_stdin_fileno(table->fd);
-        redirect_check(root->word_list, data);
+		dup2_and_close_stdin(prevfd, true, NULL);
+		dup2_and_close_stdin(table->fd, true, NULL);
+        redirect_check(root->word_list, true);
         root->word_list = delete_redirect_node(root->word_list);
 		if (root->word_list == NULL)
 			exit(0);
@@ -59,7 +59,7 @@ void    do_lst_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)
 			exec_normal_cmd_child_proc(root->word_list, data);
     }
     else
-        last_parents(table, pid, prevfd);
+        last_parent(table, pid, prevfd, data);
 }
 
 void	do_normal_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)

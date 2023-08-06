@@ -20,12 +20,12 @@ void    child_wait(t_tree_node *first_cmd, t_table *table, t_data *data)
     {
 		if (is_last_cmd(cmd))
         {
-			waitpid(table[idx++].pid, &wstatus, 0);
+			do_waitpid(table[idx++].pid, &wstatus, 0);
 			data->err_code = change_wstatus_to_err_code(wstatus);
 			break ;
         }
 		else
-			waitpid(table[idx++].pid, NULL, 0); 
+			do_waitpid(table[idx++].pid, NULL, 0); 
 		if (cmd == first_cmd)
             cmd = cmd->prev->right;
 		else

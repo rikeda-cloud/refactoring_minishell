@@ -106,9 +106,14 @@ void	export_have_arg_pattern(t_words *word_list, t_data *data)
 	}
 }
 
-void	my_export(t_words *word_list, int fd, t_data *data)
+void	my_export(t_words *word_list, int fd, t_data *data, bool exit_flag)
 {
-	dup2_and_close_stdout_fileno(fd);
+	dup2_and_close_stdout(fd, exit_flag, &data->err_flag);
+	if (data->err_flag)
+	{
+		data->err_code = 1;
+		return ;
+	}
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

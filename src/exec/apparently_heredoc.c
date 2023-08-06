@@ -1,12 +1,11 @@
 #include "../../include/minishell.h"
 
-void	heredoc_not_save_data(const char *delimiter)
+static void	heredoc_not_save_data(const char *delimiter)
 {
 	char	*line;
 
 	while (true)
 	{
-		/* line = get_next_line(STDIN_FILENO); */
 		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
 			break ;

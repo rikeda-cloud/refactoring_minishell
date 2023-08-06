@@ -2,60 +2,6 @@
 
 volatile sig_atomic_t	g_sig_mode;
 
-/* /1* ------------------------------------------------------------------------ *1/ */
-/* char	*type_to_char(int token_type) */
-/* { */
-/* 	if (token_type == WORD) */
-/* 		return ("WORD"); */
-/* 	else if (token_type == PIPE) */
-/* 		return ("PIPE"); */
-/* 	else if (token_type == WRITE) */
-/* 		return ("WRITE"); */
-/* 	else if (token_type == READ) */
-/* 		return ("READ"); */
-/* 	else if (token_type == APPEND) */
-/* 		return ("APPEND"); */
-/* 	else if (token_type == HEREDOC) */
-/* 		return ("HEREDOC"); */
-/* 	else if (token_type == COMMAND) */
-/* 		return ("COMMAND"); */
-/* 	else if (token_type == DELIMITER) */
-/* 		return ("DELIMITER"); */
-/* 	else if (token_type == DELIMITER_QUOTE) */
-/* 		return ("DELIMITER_QUOTE"); */
-/* 	else */
-/* 		return ("Error"); */
-/* } */
-
-/* size_t	print_words(t_words *words) */
-/* { */
-/* 	size_t	size; */
-	
-/* 	size = 0; */
-/* 	while (words != NULL) */
-/* 	{ */
-/* 		printf("[[%s]:%s]", type_to_char(words->token_type), words->word); */
-/* 		if (words->next != NULL) */
-/* 			printf(" -> "); */
-/* 		words = words->next; */
-/* 		size++; */
-/* 	} */
-/* 	printf("\n"); */
-/* 	return (size); */
-/* } */
-
-/* void	print_tree(t_tree_node *node) */
-/* { */
-/* 	if (node != NULL && node->word_list != NULL) */
-/* 	{ */
-/* 		print_tree(node->left); */
-/* 		printf("%12s : ", type_to_char(node->node_type)); */
-/* 		print_words(node->word_list); */
-/* 		print_tree(node->right); */
-/* 	} */
-/* } */
-/* /1* ------------------------------------------------------------------------ *1/ */
-
 void	exec_command_line(const char *line, t_data *data)
 {
 	t_tree_node	*root;

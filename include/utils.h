@@ -68,6 +68,7 @@ t_words	*append_with_flag(t_words *list, t_words *word_node, bool err_flag);
 t_words	*append_str_to_word_list(t_words *word_list, const char *str);
 
 /* print_err */
+void    perror_exit(char *filename, int exit_status);
 bool	print_err1(const char *arg1);
 bool	print_err2(const char *arg1, const char *arg2);
 bool	print_err3(const char *arg1, const char *arg2, const char *arg3);
@@ -78,11 +79,12 @@ bool	err_no_home(int *err_code);
 bool	err_many_arg(const char *command, int *err_code);
 bool	err_exit(const char *str, int *err_code);
 bool	err_export_valid(const char *str, int *err_code);
+bool	err_no_permission(const char *no_permission, int *err_code);
 
 /* dup2 and close */
-void		dup2_and_close_stdin_fileno(int fd);
-void		dup2_and_close_pipefd(int *pipefd);
-void		dup2_and_close_stdout_fileno(int fd);
+void		dup2_and_close_stdin(int fd, bool exit_flag, bool *err_flag);
+void		dup2_and_close_pipefd(int *pipefd, bool exit_flag, bool *err_flag);
+void		dup2_and_close_stdout(int fd, bool exit_flag, bool *err_flag);
 
 /* signal */
 void	minishell_handler(int signal);
@@ -90,5 +92,6 @@ int		heredoc_handler(void);
 
 /* other */
 void	*reverse_flag(bool *flag);
+char	*strjoin_path(char *sepflag, char *separgv);
 
 #endif

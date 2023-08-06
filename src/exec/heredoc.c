@@ -5,8 +5,8 @@ static int	heredoc(const char *delimiter, t_token_type type, t_data *data)
 	int		pipefd[2];
 	char	*line;
 
-	pipe(pipefd);
-	while (true)
+	do_pipe(pipefd);
+	while (data->err_flag == false)
 	{
 		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
@@ -26,7 +26,7 @@ static int	heredoc(const char *delimiter, t_token_type type, t_data *data)
 		ft_putendl_fd(line, pipefd[1]);
 		free_str(line);
 	}
-	close(pipefd[1]);
+	do_close(pipefd[1], false, &data->err_flag);
     return (pipefd[0]);
 }
 
@@ -40,7 +40,9 @@ static int    heredoc_check(t_words *head, t_data *data)
         if (head->token_type == HEREDOC)
         {
 			if(get_fd != 0)
-				close(get_fd);
+				do_close(get_fd, false, &data->err_flag);
+			if (data->err_flag)
+				break;
 			g_sig_mode = HEREDOC_MODE;
             get_fd = heredoc(head->next->word, head->next->token_type, data);
 			if (g_sig_mode == HEREDOC_C_MODE)
