@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   variable_expansion.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:45 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:39:28 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
@@ -30,7 +42,7 @@ char	*replace_all_env(char *str, t_data *data)
 {
 	char	*target;
 
-	target= strdup_env(str, &data->err_flag);
+	target = strdup_env(str, &data->err_flag);
 	while (target != NULL && data->err_flag == false)
 	{
 		str = replace_dallor_str_to_env(str, target, data);

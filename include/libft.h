@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:56:57 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:15:47 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include "define.h"
+# include "define.h"
 
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
@@ -24,6 +36,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strcat(char *dst, const char *src);
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
-int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_word_list_by_ifs.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:33 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:41:48 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 t_words	*new_ifs_and_second_node(char *second_word)
@@ -24,11 +36,11 @@ t_words	*new_ifs_and_second_node(char *second_word)
 	return (ifs_and_second);
 }
 
-t_words *split_word_by_ifs(t_words *word, t_data *data)
+t_words	*split_word_by_ifs(t_words *word, t_data *data)
 {
 	size_t	idx;
 	char	*str;
-	t_words *ifs_and_second;
+	t_words	*ifs_and_second;
 
 	idx = strlen_ifs(word->word, data);
 	str = strdup_n(&word->word[idx], strlen_to_ifs(&word->word[idx], data));

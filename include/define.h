@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   define.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:56:43 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:12:19 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEFINE_H
-#define DEFINE_H
+# define DEFINE_H
 
 # define PROMPT "minishell >> "
 # define HEREDOC_PROMPT "> "
@@ -25,8 +37,6 @@
 # define ERR_NO_PERMISSION "minishell: cd: "
 # define ERR_NO_PERMISSION_CLOSE ": Permission denied"
 
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -40,6 +50,8 @@
 # include <string.h>
 # include <limits.h>
 # include <stdint.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 enum
 {
@@ -114,7 +126,7 @@ typedef struct s_tree_node
 	struct s_tree_node	*right;
 }	t_tree_node;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*original;
 	char			*name;
@@ -130,6 +142,6 @@ typedef struct s_data
 	char		*crr_dir;
 }	t_data;
 
-extern volatile	sig_atomic_t	g_sig_mode;
+extern volatile sig_atomic_t	g_sig_mode;
 
 #endif

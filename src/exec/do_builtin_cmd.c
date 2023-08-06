@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   do_builtin_cmd.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:58:28 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:59:53 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-bool    do_builtin_cmd(t_words *cmd, t_data *data, bool exit_flag)
+bool	do_builtin_cmd(t_words *cmd, t_data *data, bool exit_flag)
 {
 	bool	can_exit_flag;
 

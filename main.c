@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:56:29 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 17:49:25 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/minishell.h"
 
 volatile sig_atomic_t	g_sig_mode;
@@ -44,7 +56,7 @@ void	exec_shell_loop(t_data *data)
 	}
 }
 
-int	main (int argc, char **argv, const char **envp)
+int	main(int argc, char **argv, const char **envp)
 {
 	t_data	data;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_is.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:59:01 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 16:29:22 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 bool	is_builtin_cmd(const char *cmd)
@@ -49,7 +61,7 @@ bool	is_last_cmd(t_tree_node *root)
 {
 	if (root->prev == NULL)
 		return (true);
-	else  if (root->prev->prev == NULL && root != root->prev->left)
+	else if (root->prev->prev == NULL && root != root->prev->left)
 		return (true);
 	else
 		return (false);

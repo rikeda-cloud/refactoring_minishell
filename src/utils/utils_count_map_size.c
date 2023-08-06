@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   utils_count_map_size.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 15:00:32 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/06 15:00:33 by rikeda           ###   ########.fr       */
+/*   Created: 2023/08/06 15:47:09 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:47:33 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_strdup(const char *s1)
+static size_t	count_hash_list_size(t_env *hash_list)
 {
-	char				*ptr;
-	char				*tmp_ptr;
+	size_t	size;
 
-	if (s1 == NULL)
-		return (NULL);
-	ptr = (char *)ft_calloc(sizeof(char), ft_strlen(s1) + 1);
-	if (ptr == NULL)
-		return (NULL);
-	tmp_ptr = ptr;
-	while (*s1 != '\0')
-		*ptr++ = *s1++;
-	*ptr = '\0';
-	return (tmp_ptr);
+	size = 0;
+	while (hash_list != NULL)
+	{
+		if (hash_list->value != NULL)
+			size++;
+		hash_list = hash_list->next;
+	}
+	return (size);
+}
+
+size_t	count_map_size(t_env **map)
+{
+	size_t	idx;
+	size_t	size;
+
+	idx = 0;
+	size = 0;
+	while (idx < HASH_MAP_SIZE)
+		size += count_hash_list_size(map[idx++]);
+	return (size);
 }

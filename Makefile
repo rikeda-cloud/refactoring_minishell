@@ -1,8 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/08/06 15:03:09 by rikeda            #+#    #+#              #
+#    Updated: 2023/08/06 17:14:15 by rikeda           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME			=	minishell
 CC				=	cc
 RM				=	rm -f
 CFLAGS			=	-Wall -Wextra -Werror -g
-READLINE		=	-lreadline
+READLINE_INFO	=	$(shell brew --prefix readline)
+READLINE_INC	=	-I $(READLINE_INFO)/include
+READLINE_LIB	=	-L $(READLINE_INFO)/lib -lreadline
 SRC_DIR			=	src
 BUILTIN_DIR		=	$(SRC_DIR)/builtin/
 ENV_CTRL_DIR	=	$(SRC_DIR)/environ_control/
@@ -25,8 +39,9 @@ SRCS			=	main.c \
 					$(BUILTIN_DIR)print_env.c \
 					$(BUILTIN_DIR)utils_option.c \
 					$(BUILTIN_DIR)try_chdir.c \
-					$(ENV_CTRL_DIR)change_environ_to_map.c \
+					$(BUILTIN_DIR)change_plus_equal_to_word.c \
 					$(ENV_CTRL_DIR)change_map_to_environ.c \
+					$(ENV_CTRL_DIR)change_environ_to_map.c \
 					$(ENV_CTRL_DIR)delete_env.c \
 					$(ENV_CTRL_DIR)insert_env_to_map.c \
 					$(ENV_CTRL_DIR)select_env.c \
@@ -76,10 +91,13 @@ SRCS			=	main.c \
 					$(PARSER_DIR)check_not_close_quotation.c \
 					$(UTILS_DIR)hash.c \
 					$(UTILS_DIR)signal.c \
-					$(UTILS_DIR)print_err.c \
+					$(UTILS_DIR)print_err_1.c \
+					$(UTILS_DIR)print_err_2.c \
+					$(UTILS_DIR)print_err_3.c \
 					$(UTILS_DIR)reverse_flag.c \
 					$(UTILS_DIR)get_env_position.c \
 					$(UTILS_DIR)utils_count.c \
+					$(UTILS_DIR)utils_count_map_size.c \
 					$(UTILS_DIR)utils_free_hash_map.c \
 					$(UTILS_DIR)utils_free_tree.c \
 					$(UTILS_DIR)utils_free_word_list.c \
@@ -114,10 +132,10 @@ SRCS			=	main.c \
 OBJS			= 	$(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ $(READLINE)
+	$(CC) $(CFLAGS) $(READLINE_LIB) $^ -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@ $(READLINE)
+	$(CC) $(CFLAGS) $(READLINE_INC) -c $^ -o $@ 
 
 all: $(NAME)
 

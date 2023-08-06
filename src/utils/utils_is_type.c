@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_is_type.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:02:50 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 17:11:12 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 bool	is_token_type_quotation(t_token_type type)
@@ -9,11 +21,11 @@ bool	is_token_type_quotation(t_token_type type)
 	return (false);
 }
 
-bool	is_type_in_word_list(t_words *word_list, t_token_type word_type)
+bool	is_type_in_word_list(t_words *word_list, t_token_type type)
 {
 	while (word_list != NULL)
 	{
-		if (word_list->token_type == word_type)
+		if (word_list->token_type == type)
 			return (true);
 		word_list = word_list->next;
 	}

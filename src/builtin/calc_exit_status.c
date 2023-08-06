@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calc_exit_status.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:57:12 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:28:50 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 bool	is_over_long_max(const char *str)
@@ -7,7 +19,7 @@ bool	is_over_long_max(const char *str)
 
 	long_max_div_10 = LONG_MAX / 10;
 	tmp = 0;
-	while (*str ==  ' ')
+	while (*str == ' ')
 		str++;
 	if (*str == '-')
 		return (false);
@@ -67,7 +79,7 @@ bool	is_not_number_str(const char *str)
 
 int	get_eight_bit(long int number)
 {
-	int	eight_bit;
+	int		eight_bit;
 	size_t	bit;
 
 	eight_bit = 0;

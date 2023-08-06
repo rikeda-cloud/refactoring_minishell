@@ -1,7 +1,19 @@
-#ifndef EXPANSION_H
-#define EXPANSION_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:56:54 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:15:21 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "define.h"
+#ifndef EXPANSION_H
+# define EXPANSION_H
+
+# include "define.h"
 
 t_words	*split_str_by_quote(char *str);
 void	variable_expansion(t_words *words, t_data *data);
@@ -12,7 +24,7 @@ void	expansion_tree(t_tree_node *node, t_data *data);
 t_words	*expansion_normal_pattern(t_tree_node *node, bool *err_flag);
 t_words	*expansion_assignment_pattern(t_tree_node *node, bool *err_flag);
 t_words	*expansion_node(t_tree_node *node, bool assign_flag, t_data *data);
-t_words *expansion_heredoc_node(t_tree_node *node, bool *err_flag);
+t_words	*expansion_heredoc_node(t_tree_node *node, bool *err_flag);
 t_words	*do_all_expansion(char *str, t_data *data);
 t_words	*do_expansion_not_word_split(char *str, t_data *data);
 

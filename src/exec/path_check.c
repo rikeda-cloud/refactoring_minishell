@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_check.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:58:42 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 16:21:52 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*do_file_access(char *file)
@@ -11,7 +23,7 @@ static char	*do_file_access(char *file)
 	}
 }
 
-static char	*check_access(char *flag, char *separgv, t_data *data)
+static char	*check_access(char *flag, char *separgv)
 {
 	char	**sepflag;
 	size_t	i;
@@ -23,7 +35,7 @@ static char	*check_access(char *flag, char *separgv, t_data *data)
 	{
 		path = strjoin_path(sepflag[i++], separgv);
 		if (path == NULL)
-			break;
+			break ;
 		if (access(path, X_OK) == 0)
 		{
 			free_char_array(sepflag);
@@ -31,7 +43,8 @@ static char	*check_access(char *flag, char *separgv, t_data *data)
 		}
 		free_str(path);
 	}
-	err_no_file(separgv, &data->err_code);
+	ft_putstr_fd(separgv, STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 	free_char_array(sepflag);
 	exit (127);
 }
@@ -48,5 +61,5 @@ char	*get_path(char *separgv, t_data *data)
 		err_no_file(separgv, &data->err_code);
 		exit (127);
 	}
-	return (check_access(env_path->value, separgv, data));
+	return (check_access(env_path->value, separgv));
 }

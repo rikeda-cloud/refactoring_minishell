@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_not_close_quotation.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:00:57 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 16:34:51 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static bool	is_not_close_quotation(const char *str)
@@ -14,7 +26,7 @@ static bool	is_not_close_quotation(const char *str)
 			quote_char = *str;
 		}
 		else if (quote_flag && quote_char == *str)
-				reverse_flag(&quote_flag);
+			reverse_flag(&quote_flag);
 		str++;
 	}
 	return (quote_flag);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_syntax_err_tree.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 15:01:00 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 16:35:03 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static bool	is_syntax_err(t_words *word_list, t_words *next_word, t_data *data)
@@ -8,7 +20,7 @@ static bool	is_syntax_err(t_words *word_list, t_words *next_word, t_data *data)
 	if (word_list == NULL)
 		return (false);
 	word_list = word_list->next;
-	while (word_list!= NULL)
+	while (word_list != NULL)
 	{
 		if (is_redirect(prev_word->token_type))
 		{

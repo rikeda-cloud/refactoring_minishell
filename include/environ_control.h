@@ -1,7 +1,19 @@
-#ifndef ENVIRON_CONTROL_H
-#define ENVIRON_CONTROL_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   environ_control.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/06 14:56:46 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/06 15:12:29 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "define.h"
+#ifndef ENVIRON_CONTROL_H
+# define ENVIRON_CONTROL_H
+
+# include "define.h"
 
 t_env	**change_environ_to_map(const char **environ);
 char	**change_map_to_environ(t_env **map, bool *err_flag);
