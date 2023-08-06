@@ -1,5 +1,11 @@
 #include "../../include/minishell.h"
 
+void    perror_exit(char *filename, int exit_status)
+{
+    perror(filename);
+    exit(exit_status);
+}
+
 bool	print_err1(const char *arg1)
 {
 	ft_putendl_fd(arg1, STDERR_FILENO);
@@ -38,6 +44,13 @@ bool	err_no_file(const char *not_exist_cmd, int *err_code)
 bool	err_no_cd_file(const char *not_exist_home, int *err_code)
 {
 	print_err3(ERR_NO_CD_FILE, not_exist_home, ERR_NO_FILE_CLOSE);
+	*err_code = 1;
+	return (true);
+}
+
+bool	err_no_permission(const char *no_permission, int *err_code)
+{
+	print_err3(ERR_NO_PERMISSION, no_permission, ERR_NO_PERMISSION_CLOSE);
 	*err_code = 1;
 	return (true);
 }

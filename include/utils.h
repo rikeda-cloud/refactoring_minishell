@@ -37,13 +37,13 @@ size_t	count_to_front_of_c(char *str, int c);
 size_t	count_env_size(const char *str);
 size_t	count_map_size(t_env **map);
 size_t	count_assignment_word(t_words *word_list);
-size_t	count_cmd_size(t_tree_node *node);
+size_t	count_number_of_cmd(t_tree_node *node);
 
 /* free */
 void	*free_str(char *str);
 void	*free_double_str(char *str1, char *str2);
 void	*free_char_array(char **char_array);
-void	*free_int_array(int *array);
+void	*free_table(t_table *table);
 void	*free_all_word_list(t_words *word_list);
 void	*free_all_tree_node(t_tree_node *root);
 void	*free_word_node(t_words *word_node);
@@ -68,6 +68,7 @@ t_words	*append_with_flag(t_words *list, t_words *word_node, bool err_flag);
 t_words	*append_str_to_word_list(t_words *word_list, const char *str);
 
 /* print_err */
+void    perror_exit(char *filename, int exit_status);
 bool	print_err1(const char *arg1);
 bool	print_err2(const char *arg1, const char *arg2);
 bool	print_err3(const char *arg1, const char *arg2, const char *arg3);
@@ -78,16 +79,19 @@ bool	err_no_home(int *err_code);
 bool	err_many_arg(const char *command, int *err_code);
 bool	err_exit(const char *str, int *err_code);
 bool	err_export_valid(const char *str, int *err_code);
+bool	err_no_permission(const char *no_permission, int *err_code);
 
 /* dup2 and close */
-void		dup2_and_close_1(int fd);
-void		dup2_and_close_2(int *pipefd);
-void		dup2_and_close_3(int fd);
+void		dup2_and_close_stdin(int fd, bool exit_flag, bool *err_flag);
+void		dup2_and_close_pipefd(int *pipefd, bool exit_flag, bool *err_flag);
+void		dup2_and_close_stdout(int fd, bool exit_flag, bool *err_flag);
 
 /* signal */
 void	minishell_handler(int signal);
+int		heredoc_handler(void);
 
 /* other */
 void	*reverse_flag(bool *flag);
+char	*strjoin_path(char *sepflag, char *separgv);
 
 #endif

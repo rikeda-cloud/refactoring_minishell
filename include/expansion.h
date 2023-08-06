@@ -14,7 +14,7 @@ t_words	*expansion_assignment_pattern(t_tree_node *node, bool *err_flag);
 t_words	*expansion_node(t_tree_node *node, bool assign_flag, t_data *data);
 t_words *expansion_heredoc_node(t_tree_node *node, bool *err_flag);
 t_words	*do_all_expansion(char *str, t_data *data);
-t_words	*do_not_word_split_expansion(char *str, t_data *data);
+t_words	*do_expansion_not_word_split(char *str, t_data *data);
 
 bool	is_in_ifs_char(const char *str, t_data *data);
 size_t	strlen_ifs(const char *str, t_data *data);

@@ -17,7 +17,7 @@ t_words	*do_all_expansion(char *str, t_data *data)
 	return (word_list);
 }
 
-t_words	*do_not_word_split_expansion(char *str, t_data *data)
+t_words	*do_expansion_not_word_split(char *str, t_data *data)
 {
 	t_words	*word_list;
 
@@ -46,7 +46,7 @@ t_words	*expansion_node(t_tree_node *node, bool assign_flag, t_data *data)
 		return (word_list);
 	}
 	else if (is_do_not_word_split_pattern(assign_flag, node->word_list->word))
-		return (do_not_word_split_expansion(node->word_list->word, data));
+		return (do_expansion_not_word_split(node->word_list->word, data));
 	else
 		return (do_all_expansion(node->word_list->word, data));
 }

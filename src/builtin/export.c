@@ -17,6 +17,8 @@ size_t	count_to_front_of_plus_equal(const char *str)
 	size_t	size;
 
 	size = 0;
+	if (str == NULL)
+		return (0);
 	while (str[size] != '\0' && str[size + 1] != '\0')
 	{
 		if (ft_strncmp(&str[size], "+=", 2) == 0)
@@ -28,6 +30,8 @@ size_t	count_to_front_of_plus_equal(const char *str)
 
 char	*skip_plus_equal(char *str)
 {
+	if (str == NULL)
+		return (NULL);
 	while (str[0] != '\0' && str[1] != '\0')
 	{
 		if (ft_strncmp(str, "+=", 2) == 0)
@@ -68,13 +72,13 @@ char	*change_plus_equal_to_word(char *str, t_data *data)
 	size = ft_strlen(str) - 1;
 	key = strdup_n(str, count_to_front_of_plus_equal(str));
 	if (key == NULL)
-		return (NULL);
+		return (free_str(str));
 	env = select_env(data->env_map, key);
 	if (env != NULL && env->value != NULL)
 		size += ft_strlen(env->value);
 	new_str = ft_calloc(sizeof(char), (size + 1));
 	if (new_str == NULL)
-		return (free_str(key));
+		return (free_double_str(key, str));
 	if (env != NULL && env->value != NULL)
 		fill_new_word(new_str, str, key, env->value);
 	else
@@ -102,9 +106,14 @@ void	export_have_arg_pattern(t_words *word_list, t_data *data)
 	}
 }
 
-void	my_export(t_words *word_list, int fd, t_data *data)
+void	my_export(t_words *word_list, int fd, t_data *data, bool exit_flag)
 {
-	dup2_and_close_3(fd);
+	dup2_and_close_stdout(fd, exit_flag, &data->err_flag);
+	if (data->err_flag)
+	{
+		data->err_code = 1;
+		return ;
+	}
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

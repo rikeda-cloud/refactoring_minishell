@@ -50,6 +50,8 @@ size_t	count_env_size(const char *str)
 {
 	size_t	size;
 
+	if (str == NULL)
+		return (0);
 	size = 0;
 	str++;
 	if (*str == '?' || *str == '\0')
@@ -90,7 +92,7 @@ size_t	count_map_size(t_env **map)
 	return (size);
 }
 
-size_t	count_cmd_size(t_tree_node *node)
+size_t	count_number_of_cmd(t_tree_node *node)
 {
 	size_t	size;
 

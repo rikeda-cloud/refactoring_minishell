@@ -40,6 +40,8 @@ t_words	*free_word_node_get_next_node(t_words *word_node)
 {
 	t_words	*next_node;
 
+	if (word_node == NULL)
+		return (NULL);
 	next_node = word_node->next;
 	free_word_node(word_node);
 	return (next_node);

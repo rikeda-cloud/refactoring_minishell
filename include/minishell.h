@@ -3,7 +3,6 @@
 
 #include "define.h"
 #include "libft.h"
-#include "get_next_line.h"
 #include "utils.h"
 #include "environ_control.h"
 #include "parser.h"

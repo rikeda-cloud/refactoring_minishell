@@ -1,10 +1,15 @@
 #include "../../include/minishell.h"
 
-bool	my_exit(t_words *word_list, int fd, t_data *data)
+bool	my_exit(t_words *word_list, int fd, t_data *data, bool exit_flag)
 {
 	bool	can_exit_flag;
 
-	dup2_and_close_3(fd);
+	dup2_and_close_stdout(fd, exit_flag, &data->err_flag);
+	if (data->err_flag)
+	{
+		data->err_code = 1;
+		return (true);
+	}
 	if (word_list != NULL && ft_strcmp(word_list->word, "--") == 0)
 		word_list = word_list->next;
 	if (word_list == NULL)

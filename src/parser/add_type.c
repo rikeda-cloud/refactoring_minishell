@@ -2,7 +2,9 @@
 
 static void	identify_word_type(t_words *const words)
 {
-	if (ft_strncmp(words->word, "|", 2) == 0)
+	if (words->word == NULL)
+		words->token_type = WORD;
+	else if (ft_strncmp(words->word, "|", 2) == 0)
 		words->token_type = PIPE_CHAR;
 	else if (ft_strncmp(words->word, "<<", 3) == 0)
 		words->token_type = HEREDOC;
