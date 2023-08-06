@@ -9,7 +9,7 @@ static void	heredoc_not_save_data(const char *delimiter)
 		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
 			break ;
-		else if (is_same_to_newline(line, delimiter))
+		if (is_same_to_newline(line, delimiter) || g_sig_mode == HEREDOC_C_MODE)
 		{
 			free(line);
 			break ;
@@ -25,7 +25,7 @@ static bool	empty_heredoc(t_words *word_list, t_words *ctrl_operator)
 	prev_word = word_list;
 	if (word_list != NULL)
 		word_list = word_list->next;
-	while (word_list!= NULL)
+	while (word_list != NULL && g_sig_mode != HEREDOC_C_MODE)
 	{
 		if (is_redirect(prev_word->token_type))
 		{
@@ -46,17 +46,20 @@ static bool	empty_heredoc(t_words *word_list, t_words *ctrl_operator)
 
 bool	apparently_heredoc(t_tree_node *node)
 {
+	g_sig_mode = HEREDOC_MODE;
 	node = get_leftmost_node(node);
 	if (node->prev == NULL)
 		return (empty_heredoc(node->word_list, NULL));
 	if (empty_heredoc(node->word_list, node->prev->word_list))
 		return (true);
 	node = node->prev->right;
-	while (node->prev->prev != NULL)
+	while (node->prev->prev != NULL && g_sig_mode != HEREDOC_C_MODE)
 	{
 		if (empty_heredoc(node->word_list, node->prev->word_list))
 			return (true);
 		node = node->prev->prev->right;
 	}
-	return (empty_heredoc(node->word_list, NULL));
+	if (g_sig_mode != HEREDOC_C_MODE)
+		return (empty_heredoc(node->word_list, NULL));
+	return (true);
 }

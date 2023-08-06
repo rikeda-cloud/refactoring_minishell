@@ -72,13 +72,13 @@ char	*change_plus_equal_to_word(char *str, t_data *data)
 	size = ft_strlen(str) - 1;
 	key = strdup_n(str, count_to_front_of_plus_equal(str));
 	if (key == NULL)
-		return (NULL);
+		return (free_str(str));
 	env = select_env(data->env_map, key);
 	if (env != NULL && env->value != NULL)
 		size += ft_strlen(env->value);
 	new_str = ft_calloc(sizeof(char), (size + 1));
 	if (new_str == NULL)
-		return (free_str(key));
+		return (free_double_str(key, str));
 	if (env != NULL && env->value != NULL)
 		fill_new_word(new_str, str, key, env->value);
 	else

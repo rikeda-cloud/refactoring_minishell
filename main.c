@@ -10,11 +10,7 @@ void	exec_command_line(const char *line, t_data *data)
 	data->err_flag = false;
 	root = parser(line, data);
 	if (root == NULL)
-	{
-		if (data->err_flag)
-			data->err_code = 1;
 		return ;
-	}
 	expansion_tree(root, data);
 	if (data->err_flag)
 	{
