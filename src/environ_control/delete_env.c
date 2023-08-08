@@ -12,20 +12,9 @@
 
 #include "../../include/minishell.h"
 
-static t_env	*del_env_node(t_env *env)
-{
-	t_env	*next_node;
-
-	if (env == NULL)
-		return (NULL);
-	next_node = env->next;
-	free_env(env);
-	return (next_node);
-}
-
 static t_env	*del_top_env(t_env *env_list)
 {
-	return (del_env_node(env_list));
+	return (free_env_node_and_get_next_node(env_list));
 }
 
 static void	del_middle_env(t_env *env_list, const char *env_name)
@@ -38,7 +27,7 @@ static void	del_middle_env(t_env *env_list, const char *env_name)
 	{
 		if (ft_strcmp(env_list->name, env_name) == 0)
 		{
-			prev_env->next = del_env_node(env_list);
+			prev_env->next = free_env_node_and_get_next_node(env_list);
 			break ;
 		}
 		prev_env = env_list;

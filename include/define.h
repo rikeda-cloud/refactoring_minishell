@@ -36,6 +36,10 @@
 # define ERR_EXPORT_VALID_CLOSE	"': not a valid identifier"
 # define ERR_NO_PERMISSION "minishell: cd: "
 # define ERR_NO_PERMISSION_CLOSE ": Permission denied"
+# define ERR_RETRIEVING "cd: error retrieving current directory"
+# define ERR_GETCWD ": getcwd: cannot access parent directories"
+# define WARN_HEREDOC "warning: heredoc delimited by end-of-file (wanted `"
+# define WARN_HEREDOC_CLOSE "')"
 
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -93,6 +97,7 @@ typedef enum e_token_type
 	HEREDOC,
 	DELIMITER,
 	DELIMITER_QUOTE,
+	TMP_DALLOR_WORD,
 	TMP_SINGLE_QUOTE,
 	TMP_DOUBLE_QUOTE,
 	TMP_IFS,

@@ -16,13 +16,12 @@
 # include "define.h"
 
 t_words		*lexer(const char *str, t_data *data);
+t_tree_node	*parser(const char *str, t_data *data);
 
 t_words		*change_str_to_word_list(const char *str, t_data *data);
 void		add_words_type(t_words *words);
 bool		check_not_close_quotation(const t_words *word_list);
-bool		check_syntax_err_words(const t_words *word_list, t_data *data);
-
-t_tree_node	*parser(const char *str, t_data *data);
+bool		check_syntax_err_word_list(const t_words *word_list, t_data *data);
 
 t_tree_node	*create_tree(t_words *words, t_data *data);
 void		add_node_type(t_tree_node *const node);

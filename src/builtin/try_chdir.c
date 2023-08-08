@@ -38,7 +38,7 @@ t_cd	try_chdir(const char *path, t_cd *crr_mode)
 	}
 }
 
-t_cd	try_chdir_cdpath(char **cdpath, char *str)
+static t_cd	try_chdir_cdpath(char **cdpath, char *str)
 {
 	size_t	idx;
 	t_cd	cd_mode;
@@ -71,7 +71,7 @@ t_cd	try_chdir_with_cdpath(t_env **map, char *str)
 
 	cd_mode = CD_NO_FILE;
 	env_cdpath = select_env(map, "CDPATH");
-	if (env_cdpath == NULL)
+	if (env_cdpath == NULL || env_cdpath->value == NULL)
 		return (try_chdir(str, &cd_mode));
 	cdpath = ft_split(env_cdpath->value, ':');
 	if (cdpath == NULL)

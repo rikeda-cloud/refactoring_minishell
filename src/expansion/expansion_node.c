@@ -12,29 +12,23 @@
 
 #include "../../include/minishell.h"
 
-t_words	*do_all_expansion(char *str, t_data *data)
+static t_words	*expansion_word(char *word, t_data *data, bool split_flag)
 {
 	t_words	*word_list;
 
-	word_list = split_str_by_quote(str);
-	variable_expansion(word_list, data);
-	if (data->err_flag)
-		return (free_all_word_list(word_list));
-	split_word_list_by_ifs(word_list, data);
-	if (data->err_flag)
-		return (free_all_word_list(word_list));
-	word_list = trim_quote_and_cat(word_list, &data->err_flag);
+	word_list = split_str_by_quote(word);
+	if (word_list == NULL)
+		return (reverse_flag(&data->err_flag));
+	word_list = split_word_list_by_dallor_str(word_list, data);
 	if (data->err_flag)
 		return (NULL);
-	return (word_list);
-}
-
-t_words	*do_expansion_not_word_split(char *str, t_data *data)
-{
-	t_words	*word_list;
-
-	word_list = split_str_by_quote(str);
+	delete_last_dallor(word_list, data);
+	if (data->err_flag)
+		return (free_all_word_list(word_list));
 	variable_expansion(word_list, data);
+	if (data->err_flag)
+		return (free_all_word_list(word_list));
+	word_split(word_list, data, split_flag);
 	if (data->err_flag)
 		return (free_all_word_list(word_list));
 	word_list = trim_quote_and_cat(word_list, &data->err_flag);
@@ -57,10 +51,10 @@ t_words	*expansion_node(t_tree_node *node, bool assign_flag, t_data *data)
 		}
 		return (word_list);
 	}
-	else if (is_do_not_word_split_pattern(assign_flag, node->word_list->word))
-		return (do_expansion_not_word_split(node->word_list->word, data));
+	else if (is_do_word_split_pattern(assign_flag, node->word_list->word))
+		return (expansion_word(node->word_list->word, data, true));
 	else
-		return (do_all_expansion(node->word_list->word, data));
+		return (expansion_word(node->word_list->word, data, false));
 }
 
 t_words	*expansion_heredoc_node(t_tree_node *node, bool *err_flag)

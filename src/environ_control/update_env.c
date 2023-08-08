@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*new_new_original(const char *name, const char *value)
+static char	*new_new_original(const char *name, const char *value)
 {
 	size_t	size;
 	size_t	idx;

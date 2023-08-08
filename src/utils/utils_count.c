@@ -66,7 +66,9 @@ size_t	count_env_size(const char *str)
 		return (0);
 	size = 0;
 	str++;
-	if (*str == '?' || *str == '\0')
+	if (*str == '\0')
+		return (0);
+	if (*str == '?')
 		return (1);
 	while (str[size] != '\0')
 	{

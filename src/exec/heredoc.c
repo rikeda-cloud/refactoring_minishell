@@ -12,16 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static char	*wrap_replace_all_env(char *line, t_token_type type, t_data *data)
-{
-	if (type == DELIMITER_QUOTE)
-		return (line);
-	line = replace_all_env(line, data);
-	if (line == NULL)
-		data->err_flag = true;
-	return (line);
-}
-
 static int	heredoc(const char *delimiter, t_token_type type, t_data *data)
 {
 	int		pipefd[2];
@@ -32,13 +22,15 @@ static int	heredoc(const char *delimiter, t_token_type type, t_data *data)
 	{
 		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
+			print_err3(WARN_HEREDOC, delimiter, WARN_HEREDOC_CLOSE);
+		if (line == NULL)
 			break ;
 		if (is_same_to_newline(line, delimiter) || g_sig_mode == HEREDOC_C_MODE)
 		{
 			free_str(line);
 			break ;
 		}
-		line = wrap_replace_all_env(line, type, data);
+		line = replace_all_env(line, type, data);
 		if (line == NULL)
 			break ;
 		ft_putendl_fd(line, pipefd[1]);

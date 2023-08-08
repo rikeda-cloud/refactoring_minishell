@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
+static char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
 {
 	t_env	*env;
 	char	*str_err_code;
@@ -38,19 +38,21 @@ char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
 	return (new_str);
 }
 
-char	*replace_all_env(char *str, t_data *data)
+char	*replace_all_env(char *line, t_token_type type, t_data *data)
 {
 	char	*target;
 
-	target = strdup_env(str, &data->err_flag);
+	if (type == DELIMITER_QUOTE)
+		return (line);
+	target = strdup_env(line, &data->err_flag);
 	while (target != NULL && data->err_flag == false)
 	{
-		str = replace_dallor_str_to_env(str, target, data);
-		target = strdup_env(str, &data->err_flag);
+		line = replace_dallor_str_to_env(line, target, data);
+		target = strdup_env(line, &data->err_flag);
 	}
 	if (data->err_flag)
-		return (free_str(str));
-	return (str);
+		return (free_str(line));
+	return (line);
 }
 
 void	variable_expansion(t_words *words, t_data *data)
@@ -59,9 +61,6 @@ void	variable_expansion(t_words *words, t_data *data)
 	char	*target;
 
 	quote_mode = NOT_Q_MODE;
-	delete_last_dallor(words, data);
-	if (words == NULL)
-		data->err_flag = true;
 	while (data->err_flag == false && words != NULL)
 	{
 		target = strdup_env(words->word, &data->err_flag);

@@ -47,9 +47,6 @@ void	redirect_read(t_words *fname, bool exit_flag, bool *err_flag);
 void	redirect_write(t_words *fname, bool exit_flag, bool *err_flag);
 void	redirect_append(t_words *fname, bool exit_flag, bool *err_flag);
 
-int		do_open_read(char *filename, bool exit_flag, bool *err_flag);
-int		do_open_write(char *filename, bool exit_flag, bool *err_flag);
-int		do_open_append(char *filename, bool exit_flag, bool *err_flag);
 void	do_dup2(int old_fd, int new_fd, bool exit_flag, bool *err_flag);
 void	do_close(int close_fd, bool exit_flag, bool *err_flag);
 void	do_pipe(int *pipefd);

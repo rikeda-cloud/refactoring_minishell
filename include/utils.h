@@ -56,6 +56,7 @@ void			*free_all_tree_node(t_tree_node *root);
 void			*free_word_node(t_words *word_node);
 t_words			*free_word_node_get_next_node(t_words *word_node);
 void			*free_env(t_env *env);
+t_env			*free_env_node_and_get_next_node(t_env *env);
 void			*free_hash_map(t_env **hash_map);
 void			*free_all_data(t_data *data);
 
@@ -89,8 +90,10 @@ void			dup2_and_close_stdout(int fd, bool exit_flag, bool *err_flag);
 void			minishell_handler(int signal);
 int				heredoc_handler(void);
 
-void			*reverse_flag(bool *flag);
 char			*strjoin_path(char *sepflag, char *separgv);
+char			*strjoin_path_auto_adjustment(char *sepflag, char *separgv);
+
+void			*reverse_flag(bool *flag);
 int				hash(int c);
 
 #endif

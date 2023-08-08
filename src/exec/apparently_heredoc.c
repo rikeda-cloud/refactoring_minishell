@@ -20,7 +20,10 @@ static void	heredoc_not_save_data(const char *delimiter)
 	{
 		line = readline(HEREDOC_PROMPT);
 		if (line == NULL)
+		{
+			print_err3(WARN_HEREDOC, delimiter, WARN_HEREDOC_CLOSE);
 			break ;
+		}
 		if (is_same_to_newline(line, delimiter) || g_sig_mode == HEREDOC_C_MODE)
 		{
 			free(line);

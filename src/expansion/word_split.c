@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-t_words	*new_ifs_and_second_node(char *second_word)
+static t_words	*new_ifs_and_second_node(char *second_word)
 {
 	t_words	*ifs_and_second;
 
@@ -33,24 +33,56 @@ t_words	*new_ifs_and_second_node(char *second_word)
 		return (free_str(second_word));
 	}
 	ifs_and_second->next->word = second_word;
+	ifs_and_second->next->token_type = TMP_DALLOR_WORD;
 	return (ifs_and_second);
 }
 
-t_words	*split_word_by_ifs(t_words *word, t_data *data)
+static t_words	*new_ifs_node_to_top(t_words *word_node, t_data *data)
+{
+	t_words	*new_word_list;
+	char	*new_str;
+
+	new_str = ft_strdup(&word_node->word[strlen_ifs(word_node->word, data)]);
+	if (new_str == NULL)
+	{
+		data->err_flag = true;
+		return (free_all_word_list(word_node));
+	}
+	new_word_list = ft_calloc(sizeof(t_words), 1);
+	if (new_word_list == NULL)
+	{
+		data->err_flag = true;
+		free_str(new_str);
+		return (free_all_word_list(word_node));
+	}
+	word_node->token_type = TMP_IFS;
+	word_node->word = free_str(word_node->word);
+	new_word_list->token_type = TMP_DALLOR_WORD;
+	new_word_list->word = new_str;
+	new_word_list->next = word_node->next;
+	word_node->next = new_word_list;
+	return (word_node);
+}
+
+static t_words	*split_word_list_by_ifs(t_words *word, t_data *data)
 {
 	size_t	idx;
 	char	*str;
 	t_words	*ifs_and_second;
 
-	idx = strlen_ifs(word->word, data);
-	str = strdup_n(&word->word[idx], strlen_to_ifs(&word->word[idx], data));
+	if (strlen_ifs(word->word, data) != 0)
+		return (new_ifs_node_to_top(word, data));
+	str = strdup_n(word->word, strlen_to_ifs(word->word, data));
 	if (str == NULL)
-		return (NULL);
-	idx += strlen_to_ifs(&word->word[idx], data);
+		return (free_all_word_list(word));
+	idx = strlen_to_ifs(word->word, data);
 	idx += strlen_ifs(&word->word[idx], data);
 	ifs_and_second = new_ifs_and_second_node(ft_strdup(&word->word[idx]));
 	if (ifs_and_second == NULL)
+	{
+		free_all_word_list(word);
 		return (free_str(str));
+	}
 	ifs_and_second = append_word_node(ifs_and_second, word->next);
 	free_str(word->word);
 	word->word = str;
@@ -58,9 +90,9 @@ t_words	*split_word_by_ifs(t_words *word, t_data *data)
 	return (word);
 }
 
-void	split_word_list_by_ifs(t_words *word_list, t_data *data)
+static void	word_split_by_ifs(t_words *word_list, t_data *data, bool flag)
 {
-	int	q_mode;
+	int		q_mode;
 
 	q_mode = NOT_Q_MODE;
 	while (word_list != NULL)
@@ -69,7 +101,8 @@ void	split_word_list_by_ifs(t_words *word_list, t_data *data)
 			change_quote_mode(&q_mode, word_list->token_type);
 		else if (q_mode == NOT_Q_MODE && is_in_ifs_char(word_list->word, data))
 		{
-			word_list = split_word_by_ifs(word_list, data);
+			if (word_list->token_type == TMP_DALLOR_WORD && flag)
+				word_list = split_word_list_by_ifs(word_list, data);
 			if (word_list == NULL)
 			{
 				data->err_flag = true;
@@ -78,4 +111,17 @@ void	split_word_list_by_ifs(t_words *word_list, t_data *data)
 		}
 		word_list = word_list->next;
 	}
+}
+
+void	word_split(t_words *word_list, t_data *data, bool flag)
+{
+	t_env	*env_ifs;
+
+	env_ifs = select_env(data->env_map, "IFS");
+	if (env_ifs == NULL || env_ifs->value == NULL)
+		word_split_by_ifs(word_list, data, flag);
+	else if (env_ifs->value[0] == '\0')
+		return ;
+	else
+		word_split_by_ifs(word_list, data, flag);
 }

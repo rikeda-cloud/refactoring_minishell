@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-bool	is_over_long_max(const char *str)
+static bool	is_over_long_max(const char *str)
 {
 	long int	tmp;
 	long int	long_max_div_10;
@@ -37,7 +37,7 @@ bool	is_over_long_max(const char *str)
 	return (false);
 }
 
-bool	is_under_long_min(const char *str)
+static bool	is_under_long_min(const char *str)
 {
 	long int	tmp;
 	long int	long_min_div_10;
@@ -61,7 +61,7 @@ bool	is_under_long_min(const char *str)
 	return (false);
 }
 
-bool	is_not_number_str(const char *str)
+static bool	is_not_number_str(const char *str)
 {
 	while (*str == ' ')
 		str++;
@@ -77,7 +77,7 @@ bool	is_not_number_str(const char *str)
 		return (true);
 }
 
-int	get_eight_bit(long int number)
+static int	get_eight_bit(long int number)
 {
 	int		eight_bit;
 	size_t	bit;

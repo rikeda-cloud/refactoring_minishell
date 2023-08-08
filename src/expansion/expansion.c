@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-t_words	*do_expansion(t_tree_node *node, bool assign_flag, t_data *data)
+static t_words	*do_expansion(t_tree_node *node, bool flag, t_data *data)
 {
 	t_words	*word_list_head;
 	t_words	*word_list;
@@ -29,7 +29,7 @@ t_words	*do_expansion(t_tree_node *node, bool assign_flag, t_data *data)
 				node->word_list = node->word_list->next;
 		}
 		else
-			word_list = expansion_node(node, assign_flag, data);
+			word_list = expansion_node(node, flag, data);
 		new_list = append_with_flag(new_list, word_list, data->err_flag);
 		node->word_list = node->word_list->next;
 	}

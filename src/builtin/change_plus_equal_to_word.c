@@ -12,18 +12,6 @@
 
 #include "../../include/minishell.h"
 
-bool	is_in_plus_equal(const char *str)
-{
-	if (str == NULL)
-		return (false);
-	while (str[0] != '\0' && str[1] != '\0')
-	{
-		if (ft_strncmp(str++, "+=", 2) == 0)
-			return (true);
-	}
-	return (false);
-}
-
 static size_t	count_to_front_of_plus_equal(const char *str)
 {
 	size_t	size;
@@ -38,19 +26,6 @@ static size_t	count_to_front_of_plus_equal(const char *str)
 		size++;
 	}
 	return (size);
-}
-
-char	*skip_plus_equal(char *str)
-{
-	if (str == NULL)
-		return (NULL);
-	while (str[0] != '\0' && str[1] != '\0')
-	{
-		if (ft_strncmp(str, "+=", 2) == 0)
-			break ;
-		str++;
-	}
-	return (&str[2]);
 }
 
 static void	fill_new_word(char *new_str, char *str, char *key, char *value)
@@ -72,6 +47,31 @@ static void	fill_new_word(char *new_str, char *str, char *key, char *value)
 	}
 	while (*str != '\0')
 		new_str[idx++] = *str++;
+}
+
+bool	is_in_plus_equal(const char *str)
+{
+	if (str == NULL)
+		return (false);
+	while (str[0] != '\0' && str[1] != '\0')
+	{
+		if (ft_strncmp(str++, "+=", 2) == 0)
+			return (true);
+	}
+	return (false);
+}
+
+char	*skip_plus_equal(char *str)
+{
+	if (str == NULL)
+		return (NULL);
+	while (str[0] != '\0' && str[1] != '\0')
+	{
+		if (ft_strncmp(str, "+=", 2) == 0)
+			break ;
+		str++;
+	}
+	return (&str[2]);
 }
 
 char	*change_plus_equal_to_word(char *str, t_data *data)

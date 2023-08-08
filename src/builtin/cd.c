@@ -12,21 +12,28 @@
 
 #include "../../include/minishell.h"
 
-static void	change_pwd_oldpwd_crrdir(t_data *data, bool null_char_flag)
+static void	change_pwd_oldpwd_crrdir(t_data *data, char *str)
 {
-	if (null_char_flag)
-	{
-		update_env(data->env_map, "OLDPWD", data->crr_dir);
-		update_env(data->env_map, "PWD", data->crr_dir);
-	}
+	char	*new_crr_dir;
+
+	data->err_code = 0;
+	new_crr_dir = getcwd(NULL, 0);
+	if (new_crr_dir == NULL && str[0] == '\0')
+		err_no_cd_file("", &data->err_code);
 	else
 	{
 		update_env(data->env_map, "OLDPWD", data->crr_dir);
+		if (new_crr_dir == NULL)
+		{
+			print_err3(ERR_RETRIEVING, ERR_GETCWD, ERR_NO_FILE_CLOSE);
+			new_crr_dir = strjoin_path_auto_adjustment(data->crr_dir, str);
+		}
+		if (new_crr_dir == NULL)
+			data->err_code = 1;
 		data->crr_dir = free_str(data->crr_dir);
-		data->crr_dir = getcwd(NULL, 0);
-		update_env(data->env_map, "PWD", data->crr_dir);
+		data->crr_dir = new_crr_dir;
 	}
-	data->err_code = 0;
+	update_env(data->env_map, "PWD", data->crr_dir);
 }
 
 static void	cd_normal(t_data *data, char *str)
@@ -41,13 +48,13 @@ static void	cd_normal(t_data *data, char *str)
 	else
 		cd_mode = try_chdir_with_cdpath(data->env_map, str);
 	if (cd_mode == CD_SUCCESS)
-		change_pwd_oldpwd_crrdir(data, false);
+		change_pwd_oldpwd_crrdir(data, str);
 	else if (cd_mode == CD_MALLOC_ERR)
 		data->err_code = 1;
 	else if (cd_mode == CD_NO_PERMISSION)
 		err_no_permission(str, &data->err_code);
 	else if (cd_mode == CD_NO_FILE && *str == '\0')
-		change_pwd_oldpwd_crrdir(data, true);
+		change_pwd_oldpwd_crrdir(data, "");
 	else if (cd_mode == CD_NO_FILE)
 		err_no_cd_file(str, &data->err_code);
 }
