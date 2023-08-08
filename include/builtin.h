@@ -35,7 +35,6 @@ void	fmt_export(char *key, char *value, int fd);
 void	fmt_env(char *key, char *value, int fd);
 
 t_cd	try_chdir(const char *path, t_cd *crr_mode);
-t_cd	try_chdir_cdpath(char **cdpath, char *str);
 t_cd	try_chdir_with_cdpath(t_env **map, char *str);
 
 #endif

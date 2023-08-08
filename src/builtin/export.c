@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	export_have_arg_pattern(t_words *word_list, t_data *data)
+static void	export_have_arg_pattern(t_words *word_list, t_data *data)
 {
 	while (word_list != NULL)
 	{

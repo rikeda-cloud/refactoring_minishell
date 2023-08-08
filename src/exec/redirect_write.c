@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	do_open_write(char *filename, bool exit_flag, bool *err_flag)
+static int	do_open_write(char *filename, bool exit_flag, bool *err_flag)
 {
 	int	fd;
 

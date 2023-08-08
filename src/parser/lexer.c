@@ -29,7 +29,7 @@ t_words	*lexer(const char *str, t_data *data)
 		data->err_code = 1;
 		word_list = free_all_word_list(word_list);
 	}
-	else if (check_syntax_err_words(word_list, data))
+	else if (check_syntax_err_word_list(word_list, data))
 	{
 		data->err_code = 1;
 		word_list = free_all_word_list(word_list);

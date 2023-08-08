@@ -50,8 +50,9 @@ SRCS			=	main.c \
 					$(EXPANTION_DIR)change_quote_mode.c \
 					$(EXPANTION_DIR)expansion.c \
 					$(EXPANTION_DIR)expansion_node.c \
-					$(EXPANTION_DIR)split_word_list_by_ifs.c \
-					$(EXPANTION_DIR)split_word_list_by_quote.c \
+					$(EXPANTION_DIR)split_str_by_quote.c \
+					$(EXPANTION_DIR)word_split.c \
+					$(EXPANTION_DIR)split_word_list_by_dallor_str.c \
 					$(EXPANTION_DIR)trim_quote_and_cat.c \
 					$(EXPANTION_DIR)variable_expansion.c \
 					$(EXPANTION_DIR)utils_ifs.c \
@@ -87,7 +88,7 @@ SRCS			=	main.c \
 					$(PARSER_DIR)create_tree.c \
 					$(PARSER_DIR)add_type.c \
 					$(PARSER_DIR)check_syntax_err_tree.c \
-					$(PARSER_DIR)check_syntax_err_words.c \
+					$(PARSER_DIR)check_syntax_err_word_list.c \
 					$(PARSER_DIR)check_not_close_quotation.c \
 					$(UTILS_DIR)hash.c \
 					$(UTILS_DIR)signal.c \
@@ -119,7 +120,8 @@ SRCS			=	main.c \
 					$(EXEC_DIR)delete_redirect_node.c \
 					$(EXEC_DIR)do_builtin_cmd.c \
 					$(EXEC_DIR)do_cmd.c \
-					$(EXEC_DIR)exec_cmd.c \
+					$(EXEC_DIR)do_normal_cmd.c \
+					$(EXEC_DIR)exec_cmd_child_proc.c \
 					$(EXEC_DIR)child_wait.c \
 					$(EXEC_DIR)heredoc.c \
 					$(EXEC_DIR)path_check.c \
@@ -135,7 +137,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(READLINE_LIB) $^ -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(READLINE_INC) -c $^ -o $@ 
+	$(CC) $(CFLAGS) $(READLINE_INC) -c $^ -o $@
 
 all: $(NAME)
 

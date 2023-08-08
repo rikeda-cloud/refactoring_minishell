@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax_err_words.c                           :+:      :+:    :+:   */
+/*   check_syntax_err_word_list.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-bool	check_syntax_err_words(const t_words *word_list, t_data *data)
+bool	check_syntax_err_word_list(const t_words *word_list, t_data *data)
 {
 	const t_words	*prev_word;
 

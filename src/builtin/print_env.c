@@ -12,12 +12,12 @@
 
 #include "../../include/minishell.h"
 
-void	print_env(void (*fmt)(char *, char *, int), t_env *env, int fd)
+static void	print_env(void (*fmt)(char *, char *, int), t_env *env, int fd)
 {
 	fmt(env->name, env->value, fd);
 }
 
-void	print_hash_upper(t_env *env, void (*fmt)(char *, char *, int), int fd)
+static void	print_upper(t_env *env, void (*fmt)(char *, char *, int), int fd)
 {
 	while (env != NULL)
 	{
@@ -28,7 +28,7 @@ void	print_hash_upper(t_env *env, void (*fmt)(char *, char *, int), int fd)
 	}
 }
 
-void	print_hash_lower(t_env *env, void (*fmt)(char *, char *, int), int fd)
+static void	print_lower(t_env *env, void (*fmt)(char *, char *, int), int fd)
 {
 	while (env != NULL)
 	{
@@ -46,8 +46,8 @@ void	print_all_env(void (*fmt)(char *, char *, int), int fd, t_data *data)
 		return ;
 	hash_number = 1;
 	while (hash_number < HASH_MAP_SIZE)
-		print_hash_upper(data->env_map[hash_number++], fmt, fd);
+		print_upper(data->env_map[hash_number++], fmt, fd);
 	hash_number = 0;
 	while (hash_number < HASH_MAP_SIZE)
-		print_hash_lower(data->env_map[hash_number++], fmt, fd);
+		print_lower(data->env_map[hash_number++], fmt, fd);
 }

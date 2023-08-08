@@ -23,6 +23,17 @@ void	*free_env(t_env *env)
 	return (NULL);
 }
 
+t_env	*free_env_node_and_get_next_node(t_env *env)
+{
+	t_env	*next_node;
+
+	if (env == NULL)
+		return (NULL);
+	next_node = env->next;
+	free_env(env);
+	return (next_node);
+}
+
 static void	*free_hash_list(t_env *hash_list)
 {
 	t_env	*tmp;

@@ -44,6 +44,8 @@ static t_words	*cat_word_list(t_words *words, bool *err_flag)
 	t_words	*new_words;
 	char	*new_str;
 
+	while (words != NULL && words->token_type == TMP_IFS)
+		words = words->next;
 	new_str = cat_word_str(words, err_flag);
 	if (*err_flag)
 		return (NULL);

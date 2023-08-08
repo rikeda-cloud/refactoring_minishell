@@ -22,14 +22,14 @@ static bool	is_in_dallor_front_of_equal(const char *str)
 	return (false);
 }
 
-bool	is_do_not_word_split_pattern(bool flag, const char *str)
+bool	is_do_word_split_pattern(bool flag, const char *str)
 {
 	if (flag == false)
-		return (false);
-	else if (is_in_equal(str) == false)
-		return (false);
-	else if (is_in_dallor_front_of_equal(str))
-		return (false);
-	else
 		return (true);
+	else if (is_in_equal(str) == false)
+		return (true);
+	else if (is_in_dallor_front_of_equal(str))
+		return (true);
+	else
+		return (false);
 }

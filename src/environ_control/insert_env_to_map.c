@@ -35,7 +35,7 @@ static void	insert_new_env(t_env **map, t_env *new_env, int hash_value)
 	}
 }
 
-t_env	*new_new_env(char *original)
+static t_env	*new_new_env(char *original)
 {
 	t_env	*new_env;
 

@@ -41,11 +41,12 @@ t_token_type	get_delimiter_type(const char *str)
 
 t_words	*get_next_start_word(t_words *words)
 {
+	while (words != NULL && words->token_type == TMP_IFS)
+		words = words->next;
 	while (words != NULL && words->token_type != TMP_IFS)
 		words = words->next;
 	if (words == NULL)
 		return (NULL);
 	else
-		words = words->next;
-	return (words);
+		return (words->next);
 }
