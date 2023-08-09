@@ -66,8 +66,8 @@ int	main(int argc, char **argv, const char **envp)
 	signal(SIGINT, minishell_handler);
 	signal(SIGQUIT, SIG_IGN);
 	rl_event_hook = heredoc_handler;
-	data.env_map = change_environ_to_map(envp);
 	data.crr_dir = getcwd(NULL, 0);
+	data.env_map = change_environ_to_map(envp, data.crr_dir);
 	data.err_code = 0;
 	data.err_flag = false;
 	exec_shell_loop(&data);
