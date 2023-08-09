@@ -19,7 +19,7 @@ static char	*do_file_access(char *file)
 	else
 	{
 		perror("file");
-		exit(127);
+		exit(126);
 	}
 }
 
