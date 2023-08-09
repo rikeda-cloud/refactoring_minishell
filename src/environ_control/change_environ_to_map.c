@@ -12,38 +12,46 @@
 
 #include "../../include/minishell.h"
 
-static void	curd_oldpwd(t_env **map)
+static bool	curd_oldpwd(t_env **map)
 {
 	t_env	*env_pwd;
+	char	*oldpwd;
 
 	env_pwd = select_env(map, "OLDPWD");
 	if (env_pwd == NULL)
-		insert_env_to_env_map(map, ft_strdup("OLDPWD"));
+	{
+		oldpwd = ft_strdup("OLDPWD");
+		if (oldpwd == NULL)
+			return (true);
+		else if (insert_env_to_env_map(map, oldpwd) == NULL)
+			return (true);
+	}
 	else if (env_pwd->value == NULL)
 		;
 	else if (access(env_pwd->value, X_OK) != 0)
 		env_pwd->value = free_str(env_pwd->value);
-	else
-		return ;
+	return (false);
 }
 
-static void	curd_pwd(t_env **map, char *crr_dir)
+static bool	curd_pwd(t_env **map, char *crr_dir)
 {
 	t_env	*env_pwd;
 	char	*original_pwd;
 
 	if (crr_dir == NULL)
-		return ;
+		return (true);
 	env_pwd = select_env(map, "PWD");
 	if (env_pwd == NULL)
 	{
 		original_pwd = ft_strjoin("PWD=", crr_dir);
 		if (original_pwd == NULL)
-			return ;
-		insert_env_to_env_map(map, original_pwd);
+			return (true);
+		else if (insert_env_to_env_map(map, original_pwd))
+			return (true);
 	}
 	else
 		update_env(map, "PWD", crr_dir);
+	return (false);
 }
 
 t_env	**change_environ_to_map(const char **environ, char *crr_dir)
@@ -62,7 +70,7 @@ t_env	**change_environ_to_map(const char **environ, char *crr_dir)
 		if (insert_env_to_env_map(map, ft_strdup(environ[idx++])) == NULL)
 			return (free_hash_map(map));
 	}
-	curd_oldpwd(map);
-	curd_pwd(map, crr_dir);
+	if (curd_oldpwd(map) || curd_pwd(map, crr_dir))
+		return (free_hash_map(map));
 	return (map);
 }
