@@ -12,6 +12,16 @@
 
 #include "../../include/minishell.h"
 
+static int	do_dup(int fd)
+{
+	int	new_fd;
+
+	new_fd = dup(fd);
+	if (new_fd < 0)
+		perror_exit("dup", 1);
+	return (new_fd);
+}
+
 bool	do_builtin_cmd(t_words *cmd, t_data *data, bool exit_flag)
 {
 	bool	can_exit_flag;
@@ -36,13 +46,18 @@ bool	do_builtin_cmd(t_words *cmd, t_data *data, bool exit_flag)
 
 void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 {
-	int		tmp_err_code;
+	int	tmp_err_code;
+	int	keep_fd[2];
 
+	keep_fd[0] = do_dup(STDIN_FILENO);
+	keep_fd[1] = do_dup(STDOUT_FILENO);
 	if (redirect_check(root->word_list, false))
 	{
 		data->err_code = 1;
 		return ;
 	}
+	do_dup2(keep_fd[0], STDIN_FILENO, true, &data->err_flag);
+	do_close(keep_fd[0], true, &data->err_flag);
 	root->word_list = delete_redirect_node(root->word_list);
 	if (ft_strcmp(root->word_list->word, "exit") == 0)
 		ft_putendl_fd("exit", STDERR_FILENO);
@@ -51,4 +66,6 @@ void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 		tmp_err_code = data->err_code;
 		exit(tmp_err_code);
 	}
+	do_dup2(keep_fd[1], STDOUT_FILENO, true, &data->err_flag);
+	do_close(keep_fd[1], true, &data->err_flag);
 }
