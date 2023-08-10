@@ -22,8 +22,10 @@ static int	change_wstatus_to_err_code(int wstatus)
 {
 	if (WIFEXITED(wstatus))
 		return (WEXITSTATUS(wstatus));
-	else
+	else if (WIFSIGNALED(wstatus))
 		return (128 + WTERMSIG(wstatus));
+	else
+		return (WEXITSTATUS(wstatus));
 }
 
 void	child_wait(t_tree_node *first_cmd, t_table *table, t_data *data)
@@ -40,6 +42,8 @@ void	child_wait(t_tree_node *first_cmd, t_table *table, t_data *data)
 		{
 			do_waitpid(table[idx++].pid, &wstatus, 0);
 			data->err_code = change_wstatus_to_err_code(wstatus);
+			if (g_sig_mode == EXEC_C_MODE && WIFSIGNALED(wstatus))
+				print_core_dumped(wstatus);
 			break ;
 		}
 		else

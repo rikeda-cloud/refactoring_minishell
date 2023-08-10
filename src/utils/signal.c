@@ -12,11 +12,10 @@
 
 #include "../../include/minishell.h"
 
-void	minishell_handler(int signal)
+void	sig_int_handler(int signal)
 {
-	if (signal != SIGINT)
-		return ;
-	else if (g_sig_mode == HEREDOC_MODE || g_sig_mode == HEREDOC_C_MODE)
+	(void)signal;
+	if (g_sig_mode == HEREDOC_MODE || g_sig_mode == HEREDOC_C_MODE)
 		g_sig_mode = HEREDOC_C_MODE;
 	else if (g_sig_mode == EXEC_MODE)
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -28,6 +27,19 @@ void	minishell_handler(int signal)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+}
+
+void	print_core_dumped(int wstatus)
+{
+	if (WCOREDUMP(wstatus))
+		ft_putendl_fd(ERR_CORE_DUMPED, STDERR_FILENO);
+}
+
+void	sig_quit_handler(int signal)
+{
+	(void)signal;
+	if (g_sig_mode == EXEC_MODE)
+		g_sig_mode = EXEC_C_MODE;
 }
 
 int	heredoc_handler(void)

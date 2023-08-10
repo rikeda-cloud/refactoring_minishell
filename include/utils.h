@@ -87,7 +87,9 @@ void			dup2_and_close_stdin(int fd, bool exit_flag, bool *err_flag);
 void			dup2_and_close_pipefd(int *fd, bool exit_flag, bool *err_flag);
 void			dup2_and_close_stdout(int fd, bool exit_flag, bool *err_flag);
 
-void			minishell_handler(int signal);
+void			print_core_dumped(int wstatus);
+void			sig_int_handler(int signal);
+void			sig_quit_handler(int signal);
 int				heredoc_handler(void);
 
 char			*strjoin_path(char *sepflag, char *separgv);

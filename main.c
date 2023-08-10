@@ -63,7 +63,7 @@ int	main(int argc, char **argv, const char **envp)
 	(void)argc;
 	(void)argv;
 	g_sig_mode = NORMAL_MODE;
-	signal(SIGINT, minishell_handler);
+	signal(SIGINT, sig_int_handler);
 	signal(SIGQUIT, SIG_IGN);
 	rl_event_hook = heredoc_handler;
 	data.err_code = 0;
