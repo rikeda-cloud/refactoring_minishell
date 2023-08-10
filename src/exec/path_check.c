@@ -61,5 +61,10 @@ char	*get_path(char *separgv, t_data *data)
 		err_no_file(separgv, &data->err_code);
 		exit (127);
 	}
+	else if (env_path->value[0] == '\0')
+	{
+		err_no_file(separgv, &data->err_code);
+		exit (127);
+	}
 	return (check_access(env_path->value, separgv));
 }

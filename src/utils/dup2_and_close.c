@@ -34,5 +34,5 @@ void	dup2_and_close_stdout(int fd, bool exit_flag, bool *err_flag)
 	{
 		do_dup2(fd, STDOUT_FILENO, exit_flag, err_flag);
 		do_close(fd, exit_flag, err_flag);
-}
 	}
+}

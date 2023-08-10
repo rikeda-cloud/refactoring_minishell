@@ -12,6 +12,23 @@
 
 #include "../../include/minishell.h"
 
+static void	update_oldpwd(t_env **map)
+{
+	t_env	*env_pwd;
+	t_env	*env_oldpwd;
+
+	if (map == NULL)
+		return ;
+	env_pwd = select_env(map, "PWD");
+	env_oldpwd = select_env(map, "OLDPWD");
+	if (env_oldpwd == NULL)
+		return ;
+	else if (env_pwd == NULL || env_pwd->value == NULL)
+		env_oldpwd->value = free_str(env_oldpwd->value);
+	else
+		update_env(map, "OLDPWD", env_pwd->value);
+}
+
 static void	change_pwd_oldpwd_crrdir(t_data *data, char *str)
 {
 	char	*new_crr_dir;
@@ -22,6 +39,7 @@ static void	change_pwd_oldpwd_crrdir(t_data *data, char *str)
 		err_no_cd_file("", &data->err_code);
 	else
 	{
+		update_oldpwd(data->env_map);
 		update_env(data->env_map, "OLDPWD", data->crr_dir);
 		if (new_crr_dir == NULL)
 		{

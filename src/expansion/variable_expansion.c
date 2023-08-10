@@ -75,6 +75,9 @@ void	variable_expansion(t_words *words, t_data *data)
 			words = words->next;
 		}
 		else
+		{
 			words->word = replace_dallor_str_to_env(words->word, target, data);
+			words = words->next;
+		}
 	}
 }
