@@ -38,23 +38,6 @@ static char	*replace_dallor_str_to_env(char *word, char *target, t_data *data)
 	return (new_str);
 }
 
-char	*replace_all_env(char *line, t_token_type type, t_data *data)
-{
-	char	*target;
-
-	if (type == DELIMITER_QUOTE)
-		return (line);
-	target = strdup_env(line, &data->err_flag);
-	while (target != NULL && data->err_flag == false)
-	{
-		line = replace_dallor_str_to_env(line, target, data);
-		target = strdup_env(line, &data->err_flag);
-	}
-	if (data->err_flag)
-		return (free_str(line));
-	return (line);
-}
-
 void	variable_expansion(t_words *words, t_data *data)
 {
 	int		quote_mode;

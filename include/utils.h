@@ -32,6 +32,7 @@ bool			is_c_in_str(const char *str, int c);
 
 char			*strdup_n(const char *src, size_t n);
 char			*strdup_env(const char *str, bool *err_flag);
+char			*strdup_env_ignore_quote(const char *str, bool *err_flag);
 
 t_words			*new_word_node(const char *str);
 t_words			*new_word_node_n(const char *str, size_t n, bool flag);
@@ -65,6 +66,7 @@ t_token_type	get_quote_type(int c);
 t_token_type	get_delimiter_type(const char *str);
 t_words			*get_next_start_word(t_words *words);
 const char		*get_env_position(const char *str);
+const char		*get_env_position_ignore_quote(const char *str);
 
 t_words			*append_word_node(t_words *list, t_words *word_node);
 t_words			*append_with_flag(t_words *list, t_words *node, bool err_flag);
