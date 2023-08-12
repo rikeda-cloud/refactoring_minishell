@@ -48,14 +48,14 @@ static t_cd	try_chdir_cdpath(char **cdpath, char *str)
 	idx = 0;
 	while (cdpath[idx] != NULL)
 	{
-		printf("path = %s\n", cdpath[idx]);
-		joined_path = strjoin_path(cdpath[idx++], str);
+		joined_path = strjoin_path_auto_adjustment(cdpath[idx++], str);
 		if (joined_path == NULL)
 			return (CD_MALLOC_ERR);
 		cd_mode = try_chdir(joined_path, &cd_mode);
 		if (cd_mode == CD_SUCCESS)
 		{
-			ft_putendl_fd(joined_path, STDOUT_FILENO);
+			if (ft_strcmp(cdpath[idx - 1], ".") != 0)
+				ft_putendl_fd(joined_path, STDOUT_FILENO);
 			free_str(joined_path);
 			return (CD_SUCCESS);
 		}

@@ -16,6 +16,8 @@ static int	do_open_read(char *filename, bool exit_flag, bool *err_flag)
 {
 	int	fd;
 
+	if (filename == NULL)
+		return (err_ambiguous(exit_flag, err_flag));
 	fd = open(filename, O_RDONLY);
 	if (fd < 0 && exit_flag == true)
 		perror_exit(filename, 1);

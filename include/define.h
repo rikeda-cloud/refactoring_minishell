@@ -41,6 +41,7 @@
 # define WARN_HEREDOC "warning: heredoc delimited by end-of-file (wanted `"
 # define WARN_HEREDOC_CLOSE "')"
 # define ERR_CORE_DUMPED "Quit (core dumped)"
+# define ERR_AMBIGUOUS "minishell: ambiguous redirect"
 
 # include <sys/wait.h>
 # include <sys/stat.h>

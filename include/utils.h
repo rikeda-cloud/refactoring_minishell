@@ -84,6 +84,7 @@ bool			err_many_arg(const char *command, int *err_code);
 bool			err_exit(const char *str, int *err_code);
 bool			err_export_valid(const char *str, int *err_code);
 bool			err_no_permission(const char *no_permission, int *err_code);
+int				err_ambiguous(bool exit_flag, bool *err_flag);
 
 void			dup2_and_close_stdin(int fd, bool exit_flag, bool *err_flag);
 void			dup2_and_close_pipefd(int *fd, bool exit_flag, bool *err_flag);

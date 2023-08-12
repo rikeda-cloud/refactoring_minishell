@@ -38,3 +38,13 @@ bool	print_err3(const char *ar1, const char *ar2, const char *ar3)
 	ft_putendl_fd(ar3, STDERR_FILENO);
 	return (true);
 }
+
+int	err_ambiguous(bool exit_flag, bool *err_flag)
+{
+	print_err1(ERR_AMBIGUOUS);
+	if (exit_flag)
+		exit(1);
+	else
+		*err_flag = true;
+	return (-42);
+}
