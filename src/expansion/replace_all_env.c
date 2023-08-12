@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace_all_env.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 12:49:24 by rikeda            #+#    #+#             */
+/*   Updated: 2023/08/12 12:52:05 by rikeda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*new_new_word_ignore(char *str, char *target, const char *new_word)
@@ -70,4 +82,3 @@ char	*replace_all_env(char *line, t_token_type type, t_data *data)
 		return (free_str(line));
 	return (line);
 }
-

@@ -6,7 +6,7 @@
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:58:36 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/06 16:31:29 by rikeda           ###   ########.fr       */
+/*   Updated: 2023/08/12 12:44:18 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	do_execve(char *path, char **separgv, char **my_environ)
 	check = execve(path, separgv, my_environ);
 	if (check < 0)
 	{
-		ft_putstr_fd(separgv[0], 2);
-		ft_putendl_fd(": command not found", 2);
+		ft_putstr_fd(separgv[0], STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
 		exit(127);
 	}
 }

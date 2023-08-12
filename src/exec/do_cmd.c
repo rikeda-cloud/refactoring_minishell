@@ -6,7 +6,7 @@
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:58:30 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/06 17:12:00 by rikeda           ###   ########.fr       */
+/*   Updated: 2023/08/12 12:41:45 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void	do_lst_cmd(t_tree_node *root, int prevfd, t_table *table, t_data *data)
 	else
 		last_parent(table, pid, prevfd, data);
 }
-
