@@ -40,6 +40,7 @@ SRCS			=	main.c \
 					$(BUILTIN_DIR)utils_option.c \
 					$(BUILTIN_DIR)try_chdir.c \
 					$(BUILTIN_DIR)change_plus_equal_to_word.c \
+					$(BUILTIN_DIR)split_consider_cdpath.c \
 					$(ENV_CTRL_DIR)change_map_to_environ.c \
 					$(ENV_CTRL_DIR)change_environ_to_map.c \
 					$(ENV_CTRL_DIR)delete_env.c \

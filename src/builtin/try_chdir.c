@@ -48,6 +48,7 @@ static t_cd	try_chdir_cdpath(char **cdpath, char *str)
 	idx = 0;
 	while (cdpath[idx] != NULL)
 	{
+		printf("path = %s\n", cdpath[idx]);
 		joined_path = strjoin_path(cdpath[idx++], str);
 		if (joined_path == NULL)
 			return (CD_MALLOC_ERR);
@@ -73,7 +74,7 @@ t_cd	try_chdir_with_cdpath(t_env **map, char *str)
 	env_cdpath = select_env(map, "CDPATH");
 	if (env_cdpath == NULL || env_cdpath->value == NULL)
 		return (try_chdir(str, &cd_mode));
-	cdpath = ft_split(env_cdpath->value, ':');
+	cdpath = split_consider_cdpath(env_cdpath->value);
 	if (cdpath == NULL)
 		return (CD_MALLOC_ERR);
 	cd_mode = try_chdir_cdpath(cdpath, str);
