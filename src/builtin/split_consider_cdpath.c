@@ -4,7 +4,7 @@ static bool	is_in_double_colon(const char *str)
 {
 	if (str == NULL)
 		return (false);
-	while (str[1] != '\0')
+	while (str[0] != '\0' && str[1] != '\0')
 	{
 		if (str[0] == ':' && str[1] == ':')
 			return (true);
