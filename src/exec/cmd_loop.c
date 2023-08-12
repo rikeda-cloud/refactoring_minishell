@@ -29,9 +29,11 @@ void	cmd_loop(t_tree_node *root, t_data *data)
 		return ;
 	}
 	g_sig_mode = EXEC_MODE;
+	signal(SIGQUIT, sig_quit_handler);
 	if (is_builtin_cmd_alone_without_env(root))
 		do_builtin_cmd_alone_without_env(root, data);
 	else
 		do_normal_cmd(root, prevfd, table, data);
 	free_table(table);
+	signal(SIGQUIT, SIG_IGN);
 }

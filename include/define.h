@@ -40,6 +40,7 @@
 # define ERR_GETCWD ": getcwd: cannot access parent directories"
 # define WARN_HEREDOC "warning: heredoc delimited by end-of-file (wanted `"
 # define WARN_HEREDOC_CLOSE "')"
+# define ERR_CORE_DUMPED "Quit (core dumped)"
 
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -85,6 +86,7 @@ enum e_sig_mode
 	HEREDOC_MODE,
 	HEREDOC_C_MODE,
 	EXEC_MODE,
+	EXEC_C_MODE,
 };
 
 typedef enum e_token_type

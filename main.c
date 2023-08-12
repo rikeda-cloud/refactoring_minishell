@@ -14,7 +14,7 @@
 
 volatile sig_atomic_t	g_sig_mode;
 
-void	exec_command_line(const char *line, t_data *data)
+static void	exec_command_line(const char *line, t_data *data)
 {
 	t_tree_node	*root;
 
@@ -35,7 +35,7 @@ void	exec_command_line(const char *line, t_data *data)
 	free_all_tree_node(root);
 }
 
-void	exec_shell_loop(t_data *data)
+static void	exec_shell_loop(t_data *data)
 {
 	char	*line;
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv, const char **envp)
 	(void)argc;
 	(void)argv;
 	g_sig_mode = NORMAL_MODE;
-	signal(SIGINT, minishell_handler);
+	signal(SIGINT, sig_int_handler);
 	signal(SIGQUIT, SIG_IGN);
 	rl_event_hook = heredoc_handler;
 	data.err_code = 0;

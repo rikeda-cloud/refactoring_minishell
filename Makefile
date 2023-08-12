@@ -13,7 +13,7 @@
 NAME			=	minishell
 CC				=	cc
 RM				=	rm -f
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror
 READLINE_INFO	=	$(shell brew --prefix readline)
 READLINE_INC	=	-I $(READLINE_INFO)/include
 READLINE_LIB	=	-L $(READLINE_INFO)/lib -lreadline
@@ -61,6 +61,7 @@ SRCS			=	main.c \
 					$(EXPANTION_DIR)replace.c \
 					$(EXPANTION_DIR)is_assignment_pattern.c \
 					$(EXPANTION_DIR)is_do_not_word_split_pattern.c \
+					$(EXPANTION_DIR)replace_all_env.c \
 					$(LIBFT_DIR)ft_atoi.c \
 					$(LIBFT_DIR)ft_calloc.c \
 					$(LIBFT_DIR)ft_isalnum.c \

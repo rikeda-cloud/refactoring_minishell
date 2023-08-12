@@ -35,6 +35,20 @@ static const char	*skip_to_next_quote_or_dallor_prev_char(const char *str)
 	return (str);
 }
 
+const char	*get_env_position_ignore_quote(const char *str)
+{
+	while (*str != '\0')
+	{
+		if (*str == '$')
+		{
+			if (is_deal_target(str))
+				break ;
+		}
+		str++;
+	}
+	return (str);
+}
+
 const char	*get_env_position(const char *str)
 {
 	bool	single_quote_flag;
