@@ -46,7 +46,7 @@ static bool	curd_pwd(t_env **map, char *crr_dir)
 		original_pwd = ft_strjoin("PWD=", crr_dir);
 		if (original_pwd == NULL)
 			return (true);
-		else if (insert_env_to_env_map(map, original_pwd))
+		else if (insert_env_to_env_map(map, original_pwd) == NULL)
 			return (true);
 	}
 	else
@@ -59,13 +59,11 @@ t_env	**change_environ_to_map(const char **environ, char *crr_dir)
 	t_env	**map;
 	size_t	idx;
 
-	if (environ == NULL)
-		return (NULL);
 	map = (t_env **)ft_calloc(sizeof(t_env *), HASH_MAP_SIZE);
 	if (map == NULL)
 		return (NULL);
 	idx = 0;
-	while (environ[idx] != NULL)
+	while (environ != NULL && environ[idx] != NULL)
 	{
 		if (insert_env_to_env_map(map, ft_strdup(environ[idx++])) == NULL)
 			return (free_hash_map(map));
