@@ -6,7 +6,7 @@
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:57:03 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/12 12:50:20 by rikeda           ###   ########.fr       */
+/*   Updated: 2023/08/13 14:15:35 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			dup2_and_close_stdin(int fd, bool exit_flag, bool *err_flag);
 void			dup2_and_close_pipefd(int *fd, bool exit_flag, bool *err_flag);
 void			dup2_and_close_stdout(int fd, bool exit_flag, bool *err_flag);
 
-void			print_core_dumped(int wstatus);
+void			print_core_dumped(int wstatus, int err_code);
 void			sig_int_handler(int signal);
 void			sig_quit_handler(int signal);
 int				heredoc_handler(void);

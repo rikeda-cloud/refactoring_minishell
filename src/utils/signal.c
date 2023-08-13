@@ -6,7 +6,7 @@
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:01:30 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/12 12:53:11 by rikeda           ###   ########.fr       */
+/*   Updated: 2023/08/13 14:18:01 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	sig_int_handler(int signal)
 	}
 }
 
-void	print_core_dumped(int wstatus)
+void	print_core_dumped(int wstatus, int err_code)
 {
 	if (WCOREDUMP(wstatus))
+		ft_putendl_fd(ERR_CORE_DUMPED, STDERR_FILENO);
+	else if (err_code == 131)
 		ft_putendl_fd(ERR_CORE_DUMPED, STDERR_FILENO);
 }
 
