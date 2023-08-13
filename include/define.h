@@ -6,7 +6,7 @@
 /*   By: rikeda <rikeda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:56:43 by rikeda            #+#    #+#             */
-/*   Updated: 2023/08/12 12:50:12 by rikeda           ###   ########.fr       */
+/*   Updated: 2023/08/13 14:33:27 by rikeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-enum
+enum e_size
 {
 	HASH_MAP_SIZE = 27,
 };
