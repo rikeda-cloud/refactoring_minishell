@@ -44,6 +44,14 @@ bool	do_builtin_cmd(t_words *cmd, t_data *data, bool exit_flag)
 	return (can_exit_flag);
 }
 
+static void	reset_fd_and_close(int *keep_fd, bool *err_flag)
+{
+	do_dup2(keep_fd[0], STDIN_FILENO, true, err_flag);
+	do_close(keep_fd[0], true, err_flag);
+	do_dup2(keep_fd[1], STDOUT_FILENO, true, err_flag);
+	do_close(keep_fd[1], true, err_flag);
+}
+
 void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 {
 	int	tmp_err_code;
@@ -53,6 +61,7 @@ void	do_builtin_cmd_alone_without_env(t_tree_node *root, t_data *data)
 	keep_fd[1] = do_dup(STDOUT_FILENO);
 	if (redirect_check(root->word_list, false))
 	{
+		reset_fd_and_close(keep_fd, &data->err_flag);
 		data->err_code = 1;
 		return ;
 	}
